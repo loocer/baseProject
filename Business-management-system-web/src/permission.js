@@ -1,0 +1,47 @@
+import router from './router'
+import store from './store'
+import NProgress from 'nprogress' // Progress 进度条
+import 'nprogress/nprogress.css'// Progress 进度条样式
+import { Message } from 'element-ui'
+import { getToken } from '@/utils/auth' // 验权
+
+const whiteList = ['/login'] // 不重定向白名单
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  if(to.path.indexOf('mobile')!=-1){
+    next()
+  } else {
+    if (getToken()) {
+      if (to.path === '/login') {
+        store.dispatch('SetImgToken')
+        next({ path: '/' })
+        NProgress.done() // if current page is dashboard will not trigger afterEach hook, so manually handle it
+      } else {
+        console.log(!store.getters.user)
+        if (!store.getters.user) {
+          store.dispatch('GetInfo').then(res => { // 拉取用户信息
+            store.dispatch('SetImgToken')
+            next()
+          }).catch((err) => {
+            store.dispatch('FedLogOut').then(() => {
+              Message.error(err || 'Verification failed, please login again')
+              next({ path: '/' })
+            })
+          })
+        } else {
+          next()
+        }
+      }
+    } else {
+      if (whiteList.indexOf(to.path) !== -1) {
+        next()
+      } else {
+        next(`/login?redirect=${to.path}`) // 否则全部重定向到登录页
+        NProgress.done()
+      }
+    }
+  }
+})
+router.afterEach(() => {
+  NProgress.done() // 结束Progress
+})

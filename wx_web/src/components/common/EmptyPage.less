@@ -1,0 +1,50 @@
+@color: #f2f2f2;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #FFF;
+  padding: 20px;
+  box-sizing: border-box;
+
+  & > div {
+    &:first-child {
+      display: flex;
+      
+      .circle {
+        width: 60px;
+        height: 60px;
+        background: @color;
+        border-radius: 60px;
+        overflow: hidden;
+      }
+
+      .line-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+        margin-left: 20px;
+
+        .line {
+          width: 61.8%;
+          background: @color;
+          height: 15px;
+
+          &:first-child {
+            margin-bottom: 15px;
+            width: 50%;
+          }
+        }
+      }
+    }
+
+    &:last-child {
+      margin-top: 20px;
+      flex: 1;
+      background-image: linear-gradient(to bottom, @color 0, @color 15px, #FFF 15px, #FFF 0);
+      background-size: 100% 30px;
+    }
+  }
+}

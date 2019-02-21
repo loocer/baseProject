@@ -1,0 +1,78 @@
+@import '../common/List.less';
+@import '../../theme.less';
+
+.images {
+  height: 143px;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+
+  figure {
+    background: #f7f7f7;
+    border-radius: 4px;
+    flex: 1;
+    height: 102px;
+    position: relative;
+
+    &:first-child {
+      margin: 0 7px 0 0;
+    }
+
+    &:last-child {
+      margin: 0 0 0 7px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      bottom: -30px;
+      font-size: 14px;
+      color: #000;
+    }
+  }
+}
+
+.step-info {
+  svg {
+    width: 86px;
+    height: 66px;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    zoom: 1;
+    z-index: 999;
+    opacity: .5;
+  }
+
+  footer {
+    text-align: center;
+    padding: 0 0 26px;
+    font-size: 16px;
+    color: #9b9b9b;
+
+    a {
+      color: @primary-color;
+    }
+  }
+
+  :global {
+    .am-list .am-list-body .am-list-item .am-list-line {
+      .am-list-content {
+        width: 75px;
+        flex: initial;
+      }
+
+      .am-list-extra {
+        flex: 1;
+      }
+    }
+  }
+}

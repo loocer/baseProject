@@ -1,0 +1,58 @@
+.overlayer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, .33);
+  z-index: 100;
+
+  .box {
+    padding: 34px 22px 22px 22px;
+    border-radius: 8px;
+    text-align: center;
+    background: #FFF;
+    position: relative;
+
+    .close {
+      position: absolute;
+      right: 12px;
+      top: 0;
+      width: 27px;
+      cursor: pointer;
+    }
+
+    .coupon {
+      width: 141px;
+    }
+
+    .info{
+      text-align: center;
+
+      & > div:first-child {
+        font-size: 13px;
+        padding: 6px;
+      }
+
+      & > div:last-child {
+        font-size: 14px;
+        color: #5D6574;
+      }
+    }
+
+    .button {
+      background: #F87767;
+      border-radius: 4px;
+      color: #FFF;
+      width: 196px;
+      margin-top: 22px;
+      font-size: 13px;
+      height: 39px;
+      line-height: 39px;
+      display: block;
+    }
+  }
+}

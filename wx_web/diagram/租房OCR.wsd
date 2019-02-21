@@ -1,0 +1,36 @@
+@startuml 租房OCR
+skinparam handwritten true;
+skinparam backgroundColor #FFFFFF;
+skinparam activityBackgroundColor #FFFFFF;
+start
+:身份证照片上传完成点击下一步;
+:OCR验卡;
+if (是否验卡成功) then(true)
+  :调用人脸识别接口;
+  if (redirect.url不为空) then(true)
+    if (app?)
+      :调用app端人脸识别接口;
+    else
+      :跳转至redirect.url进行人脸识别;
+    endif
+      :跳转至下一页;
+  else (false)
+    :跳转至下一页;
+  endif
+  if (是否是驳回修改) then(true)
+    if (驳回原因有银行卡) then(true)
+      :跳转至绑卡页;
+    else (false)
+      :跳转至合同详情页确认合同信息;
+    endif
+  else (false)
+    if (已有银行卡) then(true)
+      :跳转至绑卡页进行银行卡绑卡;
+    else (false)
+      :跳转至用户合同信息页确认合同信息;
+    endif
+  endif
+else (false)
+endif
+end
+@enduml

@@ -1,0 +1,41 @@
+@import "../../theme.less";
+
+.radio {
+  overflow: hidden;
+  background: #FFF;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  border: 1px solid @primary-color;
+  position: relative;
+
+  input {
+    position: fixed;
+    left:  -10000px;
+
+    &:checked ~ svg {
+      &:first-child {
+        display: none;
+      }
+
+      &:last-child {
+        display: block;
+      }
+    }
+  }
+
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    display: block;
+    overflow: initial !important;
+
+    &:last-child {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,164 @@
+
+@import '../../../node_modules/antd-mobile/lib/style/index.less';
+@import '../common/button.less';
+@import '../../theme.less';
+
+.bind-card {
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  content {
+    flex: 1;
+  }
+
+  footer.btn-container {
+    padding: 0;
+    margin: 0;
+  }
+
+  .image {
+    background: #FFF;
+    padding: 15px 0;
+    margin: 0;
+    position: relative;
+    top: -2px;
+
+    :global {
+      .am-flexbox .am-flexbox-item:first-child {
+        line-height: 0;
+      }
+    }
+    
+    & > div > * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .disabled {
+    input {
+      color: @disabled-color !important;
+    }
+    :global{
+      .am-list-extra{
+        color: @disabled-color !important;
+        span {
+          color: @disabled-color !important;
+        }
+      }
+    } 
+  }
+
+  :global {
+    .preview-title {
+      display: none;
+    }
+
+    .picker-placeholder {
+      .am-list-extra {
+        color: @color-text-placeholder !important;
+      }
+      .am-list-item-error {
+        .am-list-line {
+          .am-list-extra {
+            color: #f50 !important;
+          }
+        }
+      }
+    }
+
+    .no-border {
+      text-align: center;
+    }
+
+    .am-list {
+      margin-top: 8px;
+
+      .am-list-header {
+        background: #FFF;
+        padding: 8px;
+        font-size: 15px;
+        color: #000;
+      }
+
+      .am-list-body {
+        border-bottom: none;
+
+        .am-list-item {
+          border-bottom: .5px solid #F2F2F2;
+          border-image: none;
+
+          .am-list-line {
+            .am-list-content {
+              font-size: 14px;
+            }
+
+            .am-list-extra {
+              font-size: 14px;
+              color: @color-text-base;
+              min-width: 110px;
+            }
+          }
+
+          .am-input-label {
+            font-size: 15px;
+            color: #4C4C4C;
+          }
+
+          .am-input-control {
+            input {
+              font-size: 15px;
+              text-align: right;
+
+              &:disabled {
+                color:  @disabled-color !important;
+              }
+            }
+
+            ::placeholder {
+              font-size: 15px !important;
+            }
+          }
+        }
+
+        .am-checkbox-agree {
+          .am-checkbox-agree-label {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .captcha {
+    color: @primary-color;
+  }
+  .tips{
+    padding: 0 15px;
+    h5{
+      font-weight: normal;
+      margin: 21px 0 12px;
+      font-size: 15px!important;
+      color: #4C4C4C;
+      line-height: 15px;
+    }
+    section{
+      line-height: 18px;
+      font-size: 13px;
+      color: #999999;
+    }
+  }
+}
+
+.bankPhoto {
+
+  color:red;
+  :global {
+    .am-list-line .am-input-control input::placeholder{
+      font-size: 15px !important;
+      color: #B7C0C9 !important;
+    }
+  }
+}

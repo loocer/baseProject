@@ -1,0 +1,438 @@
+@import '../../theme.less';
+
+.wrap {
+  position: relative;
+  padding-bottom: 49px;
+
+  :global {
+    .slider {
+      img {
+        height: 206px;
+      }
+    }
+  }
+
+  .gotop{
+    height: 40px;
+    width: 40px;
+    background-image: url("../../assets/trip/ico_置顶.png");
+    background-image: image-set(
+      url("../../assets/trip/ico_置顶@xhdpi.png") 1x,
+      url("../../assets/trip/ico_置顶@2x.png") 2x,
+      url("../../assets/trip/ico_置顶@3x.png") 3x
+    );
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: fixed;
+    bottom: 64px;
+    right: 15px;
+  }
+
+  .dots {
+    position: absolute;
+    right: 5px;
+    top: 176px;
+    height: 22px;
+    line-height: 22px;
+    background: rgba(0, 0, 0, .6);
+    border-radius: 2px;
+    padding: 0 8px;
+    font-size: 14px;
+    color: #FFF;
+
+    i {
+      display: inline-block;
+      width: 13px;
+      height: 11px;
+      background-image: url("../../assets/trip/ico_图片数量.png");
+      background-image: image-set(
+        url("../../assets/trip/ico_图片数量@xhdpi.png") 1x,
+        url("../../assets/trip/ico_图片数量@2x.png") 2x,
+        url("../../assets/trip/ico_图片数量@3x.png") 3x
+      );
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      margin-right: 6px;
+    }
+  }
+
+  header {
+    padding: 7px 10px 7px 12px;
+    background: #FFF;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 10px 0;
+
+    h3 {
+      padding: 0;
+      margin: 3px 0 0 0;
+      font-size: 17px;
+      color: #333;
+      line-height: 24px;
+    }
+
+    & > div {
+      display: flex;
+      margin: 9px 0 0 0;
+      font-size: 13px;
+      line-height: 24px;
+
+      div {
+        flex: 1;
+        color: #9b9b9b;
+
+        .price {
+          color: #f57023;
+          display: inline-block;
+
+          strong {
+            font-size: 24px;
+            font-weight: normal;
+          }
+        }
+      }
+
+      a {
+        height: 23px;
+        line-height: 23px;
+        padding: 0 8px;
+        color: #f57023;
+        border: .5px solid #f57023;
+        border-radius: 2px;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  .desc {
+    padding: 14px 10px 15px 12px;
+    font-size: 15px;
+    line-height: 21px;
+    color: #333;
+    margin: 0 0 10px;
+    display: flex;
+    background: #FFF;
+
+    strong {
+      flex: 1;
+      text-align: right;
+      color: #FB625A;
+      font-weight: normal;
+    }
+  }
+
+  .tabs {
+    background: #FFF;
+    padding: 0 0 14px;
+    margin: 0 0 10px 0;
+
+    .tabs-header {
+      display: flex;
+      height: 40px;
+      line-height: 40px;
+      border-bottom: 0.5px solid #e6e6e6;
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      padding: 0 12px;
+
+      &.tabs-header-stick {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        background: #FFF;
+        z-index: 999;
+      }
+
+      .placeholder {
+        display: block;
+        height: 40px;
+      }
+
+      a {
+        flex: 1;
+        font-size: 15px;
+        color: #333;
+        text-align: center;
+        position: relative;
+
+        &.tabs-active {
+          color: #FB625A;
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%);
+            height: 2px;
+            background: #FB625A;
+            width: 67px;
+          }
+        }
+      }
+    }
+
+    .tabs-content {
+      padding: 0 12px;
+
+      p {
+        font-size: 15px;
+        color: #333;
+        line-height: 21px;
+        margin: 0 0 5px;
+        padding: 0;
+
+        li{
+          list-style: none;
+          margin-top: 5px;
+        }
+
+        img {
+          width: 30%;
+          height: 75px;
+          margin-right: 8px;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+
+  .trip {
+    background: #FFF;
+    padding: 0 18px;
+    margin: 0 0 10px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+
+    a {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translate(-50%);
+      display: block;
+      background: @primary-color;
+      padding: 0 8px;
+      height: 23px;
+      line-height: 23px;
+      border-radius:  0 0 2px 2px;
+      font-size: 14px;
+      color: #FFF;
+    }
+
+    h3 {
+      padding: 49px 0 26px;
+      font-size: 20px;
+      color: #333;
+      border-bottom: .5px solid #e7e7e7;
+      text-align: center;
+      margin: 0 0 0.036rem 0;
+    }
+
+    & > div {
+      display: flex;
+      padding-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+
+      &:last-child i::after {
+        display: none;
+      }
+
+      i {
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-size: 100% 100%;
+        border-radius: 100%;
+        margin-right: 15px;
+        margin-top: 1.5px;
+
+        & + div {
+          h3 {
+            font-size: 15px !important;
+            color: #000;
+            padding: 0;
+            margin: 0;
+            border: none;
+            line-height: 21px;
+            font-weight: normal;
+            text-align: left;
+
+            &::after{
+              display: none;
+            }
+          }
+
+          p {
+            font-size: 14px;
+            color: #868686;
+            line-height: 22px;
+          }
+
+          img {
+            width: 100%;
+            height: 167px;
+          }
+        }
+
+        &.icon-food {
+          background-image: url("../../assets/trip/ico_早餐.png");
+          background-image: image-set(
+            url("../../assets/trip/ico_早餐@xhdpi.png") 1x,
+            url("../../assets/trip/ico_早餐@2x.png") 2x,
+            url("../../assets/trip/ico_早餐@3x.png") 3x
+          );
+        }
+
+        &.icon-hotel {
+          background-image: url("../../assets/trip/ico_住宿.png");
+          background-image: image-set(
+            url("../../assets/trip/ico_住宿@xhdpi.png") 1x,
+            url("../../assets/trip/ico_住宿@2x.png") 2x,
+            url("../../assets/trip/ico_住宿@3x.png") 3x
+          );
+        }
+
+        &.icon-traffic {
+          background-image: url("../../assets/trip/ico_交通.png");
+          background-image: image-set(
+            url("../../assets/trip/ico_交通@xhdpi.png") 1x,
+            url("../../assets/trip/ico_交通@2x.png") 2x,
+            url("../../assets/trip/ico_交通@3x.png") 3x
+          );
+        }
+
+        &.icon-flight {
+          background-image: url("../../assets/trip/ico_参考航班.png");
+          background-image: image-set(
+            url("../../assets/trip/ico_参考航班@xhdpi.png") 1x,
+            url("../../assets/trip/ico_参考航班@2x.png") 2x,
+            url("../../assets/trip/ico_参考航班@3x.png") 3x
+          );
+        }
+
+        &.icon-notice {
+          background-image: url("../../assets/trip/ico_行程介绍.png");
+          background-image: image-set(
+            url("../../assets/trip/ico_行程介绍@xhdpi.png") 1x,
+            url("../../assets/trip/ico_行程介绍@2x.png") 2x,
+            url("../../assets/trip/ico_行程介绍@3x.png") 3x
+          );
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 9.5px;
+            top: 19px;
+            bottom: 0;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, @primary-color, @primary-color 3px, transparent 3px, transparent);
+            background-size: 100% 6px;
+          }
+        }
+
+        &.icon-spot {
+          background-image: url("../../assets/trip/ico_景点.png");
+          background-image: image-set(
+            url("../../assets/trip/ico_景点@xhdpi.png") 1x,
+            url("../../assets/trip/ico_景点@2x.png") 2x,
+            url("../../assets/trip/ico_景点@3x.png") 3x
+          );
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 9.5px;
+            top: 19px;
+            bottom: 0;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, @primary-color, @primary-color 3px, transparent 3px, transparent);
+            background-size: 100% 6px;
+          }
+        }
+      }
+
+      div {
+        flex: 1;
+        font-size: 15px;
+        color: #333;
+        line-height: 25px;
+
+        strong {
+          color: #151515;
+        }
+      }
+    }
+  }
+
+  .notice {
+    width: 100%;
+    padding: 0 0 18px;
+    margin: 0 0 10px;
+    background: #FFF;
+    word-break: break-all;
+
+    h3 {
+      padding: 8px 25px;
+      position: relative;
+      color: @primary-color;
+      line-height: 21px;
+      border-bottom: 0.5px solid #e6e6e6;
+      font-weight: normal;
+      font-size: 15px!important;
+      margin: 0 0 0.036rem 0;
+
+      & + div {
+        h4{
+          padding:  0 0 15px 0 !important;
+        }
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        left: 17px;
+        top: 12px;
+        width: 2px;
+        height: 14px;
+        background: @primary-color;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+
+    & > div {
+      padding: 0 18px;
+      font-size: 14px;
+      color: #868686;
+      line-height: 22px;
+
+      h4 {
+        font-size: 15px;
+        color: #000;
+        padding: 15px 0;
+        margin: 0;
+
+      }
+    }
+  }
+
+  a.tel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 49px;
+    line-height: 49px;
+    background: #FB625a;
+    font-size: 16px;
+    color: #FFF;
+    text-align: center;
+  }
+}

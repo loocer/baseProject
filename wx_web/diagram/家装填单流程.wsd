@@ -1,0 +1,44 @@
+@startuml 家装填单流程
+skinparam handwritten true;
+skinparam backgroundColor #FFFFFF;
+skinparam activityBackgroundColor #FFFFFF;
+start
+:进入合同详情页确认合同信息;
+:进入用户授权协议页面，查看用户授权协议;
+:进入用户基本信息页填写信息;
+if (借款额 > 200000?) then(true)
+  :借款人必须为已婚;
+endif
+if (职业为学生或自由职业?) then(true)
+  :不填写单位相关信息;
+else (false)
+  :填写单位相关信息;
+endif
+:填写共借人及紧急联系人信息;
+if (借款额 > 200000?) then(true)
+  :共借人必须为夫妻，并且必须填写共借人信息及共借人的详细信息,包括手机号码验证;
+else (false)
+endif
+:填写紧急联系人信息，紧急联系人的关系不能包含夫妻;
+:上传个人身份证相关照片及银行卡照片;
+if (调用接口确认是否进行人脸识别?) then(true)
+  :调用接口进行人脸识别;
+endif
+if (有共借人?) then(true)
+  :上传共借人身份证相关照片;
+  if (借款额 > 200000?) then(true)
+    :上传共借人银行卡照片;
+  endif
+  if (已婚状态?) then(true)
+    :上传结婚证书信息页及封皮页照片;
+  endif
+endif
+if (产权证明是购房合同?) then(true)
+  :上传购房合同相关照片;
+else (false)
+  :上传房产证相关照片;
+endif
+:上传增信照片,该信息为可选;
+:提交表单;
+end
+@enduml

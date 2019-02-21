@@ -1,0 +1,9 @@
+.tree {
+    max-height: 300px;
+    overflow: auto;
+    margin-top: -6px;
+}
+
+.tree li {
+    line-height: 1rem !important;
+}

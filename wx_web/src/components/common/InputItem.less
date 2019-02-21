@@ -1,0 +1,49 @@
+.error {
+  :global {
+    .message {
+      color: red;
+      font-size: 14px;
+      text-align: right;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 9px;
+      border-bottom: 1PX solid #ddd;
+    }
+
+    .am-list-item {
+      border-bottom: none !important;
+      
+      &:after {
+        border-bottom: none !important;
+      }
+    }
+
+    .am-list-item .am-list-line .am-input-control input {
+      border: .5px solid red !important;
+    }
+  }
+}
+
+.suggest {
+  position: absolute;
+  z-index: 999;
+  background: #FFF;
+  left: 0;
+  text-align: right;
+  line-height: 0.4rem;
+  padding: 0 .2rem;
+  right: 0;
+  max-height: 2rem;
+  overflow: auto;
+  font-size: 13px;
+
+  div {
+    border-bottom: 1px solid #e5e5e5;
+  }
+}
+
+.placeholder {
+  ::placeholder {
+    font-size: 12px !important;
+  }
+}

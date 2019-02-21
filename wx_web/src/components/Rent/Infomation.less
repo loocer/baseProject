@@ -1,0 +1,130 @@
+@import '../common/List.less';
+@import '../../common.less';
+@import '../../theme.less';
+
+.step-info {
+  :global {
+    .am-list {
+      .am-list-header {
+        border: none;
+        padding: 15px ;
+      }
+    }
+  }
+
+  .picker {
+    :global {
+      .am-list-item .am-list-line .am-list-extra {
+        color: #5D6574 !important;
+      }
+    }
+  }
+
+  .btn-container {
+    & > * {
+      margin: 0 15px;
+      border-radius: 4px !important;
+    }
+  }
+}
+
+.areapicker{
+  :global {
+    .am-list-item .am-list-line .am-list-extra {
+      flex-basis: 70%;
+    }
+  }
+}
+
+.error {
+  padding: 10px 15px;
+  color: red;
+
+  & > * {
+    &:not(:first-child) {
+      margin-top: 8px;
+    }
+  }
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+
+  :global {
+    .message {
+      display: none;
+    }
+  }
+
+  &:last-child {
+    padding-bottom: 15px;
+  }
+
+  & > span {
+    flex: 1;
+    position: relative;
+
+    :global {
+      .am-list-item {
+        border:  none !important;
+        height: 32px !important;
+        line-height: 32px !important;
+      }
+    }
+
+    * {
+      overflow: visible !important;
+    }
+
+    input {
+      border: .5px solid @color-gray !important;
+      text-align: center !important;
+      height: 32px !important;
+      line-height: 32px !important;
+      vertical-align: middle;
+    }
+
+    ::-webkit-input-placeholder {
+      height: 32px;
+      line-height: 32px;
+    }
+
+    :global {
+      .message {
+        position: absolute;
+        left: 0;
+        bottom: -16px;
+        right: 0;
+        text-align: center;
+      }
+    }
+
+    &:first-child {
+      :global {
+        .am-list-item .am-list-line {
+          padding-right: 3px !important;
+        }
+      }
+    }
+
+    &:last-child {
+      :global {
+        .am-list-item {
+          padding-left: 3px !important;
+        }
+      }
+    }
+  }
+
+  & > div {
+    display: block;
+    width: 9px;
+    height: .5px;
+    background: @color-gray;
+  }
+}
+
+.required {
+  #required;
+}

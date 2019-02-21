@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>unselect</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="选择银行卡" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-331.000000, -89.000000)">
+        <path d="M341,109 C335.477153,109 331,104.522847 331,99 C331,93.4771525 335.477153,89 341,89 C346.522847,89 351,93.4771525 351,99 C351,104.522847 346.522847,109 341,109 Z M340.997925,108.498779 C346.24463,108.498779 350.497925,104.245484 350.497925,98.9987793 C350.497925,93.7520742 346.24463,89.4987793 340.997925,89.4987793 C335.75122,89.4987793 331.497925,93.7520742 331.497925,98.9987793 C331.497925,104.245484 335.75122,108.498779 340.997925,108.498779 Z" id="unselect" fill="#1B98F4"></path>
+    </g>
+</svg>

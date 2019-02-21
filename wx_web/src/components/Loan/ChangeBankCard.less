@@ -1,0 +1,67 @@
+@import '../common/List.less';
+
+.step-info {
+  padding-top: 10px;
+  box-sizing: border-box;
+
+  .image {
+    padding: 16.6px 15px 18.4px;
+
+    & > div {
+      & > * {
+        height: 210px;
+        margin: 0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+    }
+
+    :global {
+      .am-flexbox {
+        .am-flexbox-item {
+          &:first-child {
+            line-height: 14px !important;
+          }
+        }
+      }
+
+      .preview {
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .preview-title {
+        overflow: hidden;
+        display: flex;
+
+        span {
+          background: rgba(0, 0, 0, .4);
+          flex: 1;
+          text-align: center;
+          display: block;
+          color: #FFF;
+          font-size: 15px;
+          padding: 7px 0;
+        }
+      }
+    }
+  }
+
+  :global {
+    .am-list {
+      margin-top: 10px;
+
+      .am-list-body .am-list-item .am-list-line {
+        .am-list-content {
+          width: 80px;
+          flex: initial;
+        }
+
+        .am-list-extra {
+          flex: 1;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

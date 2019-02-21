@@ -1,0 +1,135 @@
+@import '../../../node_modules/antd-mobile/lib/style/index.less';
+@import '../../theme.less';
+
+.container {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+
+  header {
+    background: transparent;
+    padding: 25px 15px 19px 15px;
+    font-weight: 100;
+  }
+
+  .content {
+    background: #FFF;
+    position: relative;
+    padding-bottom: 47px;
+
+    & > h4 {
+      margin: 0;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: 300;
+      margin-top: 15px;
+      border-top: 1px solid #f2f2f2; 
+  
+      &:first-child {
+        margin-top: 0;
+        border-top: none;
+      }
+    }
+
+    & > div {
+      display: inline-block;
+    }
+  }
+
+  :global {
+    .am-steps {
+      text-align: center;
+
+      .am-steps-item {
+        text-align: center;
+        width: 25% !important;
+        margin: 0 !important;
+        cursor: pointer;
+
+        &:after {
+          content: "";
+          width: 90%;
+          display: block;
+          margin-left: 2.5%;
+          border: 2px solid @primary-color;
+          border-radius: 2px;
+        }
+
+        .am-steps-item-tail {
+          display: none;
+        }
+
+        .am-steps-item-icon {
+          display: none;
+        }
+
+        .am-steps-item-content {
+          width:  auto;
+          
+          .am-steps-item-title {
+            font-size: @font-content-size - 1;
+            line-height: 20px;
+            font-weight: normal;
+            color: #000;
+          }
+        }
+      }
+
+      .am-steps-item-wait {
+        &:after {
+          border-color: #b7c0c9;
+        }
+
+        .am-steps-step {
+          .am-steps-item-content {
+            .am-steps-item-title {
+              color: #9b9b9b;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.container-flex {
+  min-height: 100VH;
+
+  .scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    header {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+    }
+  
+    .content {
+      position: absolute;
+      top: 70px;
+      padding-bottom: 60px;
+      overflow-x: hidden;
+      width: 100%;
+    }
+  }
+
+  .btn-container-image {
+    position: fixed;
+  }
+}
+
+.btn-container-image {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+
+  a {
+    border-radius: 0 !important;
+    margin: 0;
+  }
+}

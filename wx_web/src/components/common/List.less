@@ -1,0 +1,230 @@
+@import '../../../node_modules/antd-mobile/lib/style/index.less';
+@import '../../theme.less';
+@import './button.less';
+@import '../../common.less';
+
+@extra-color: #5D6574;
+
+.step-info {
+  margin: 0;
+  padding: 0;
+
+  header {
+    background: transparent;
+    padding: 25px 0 19px 0;
+    font-weight: 100;
+  }
+
+  main {
+    padding-bottom: 60px;
+  }
+
+  footer {
+    #footer;
+  }
+
+  .multiple-line {
+    height: 74px !important;
+
+    :global {
+      .am-list-line {
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+
+        .am-input-label {
+          height: 37px;
+          line-height: 37px;
+          width: 100% !important;
+
+          span {
+            font-size: 13px;
+            line-height: 16px;
+          }
+        }
+
+        .am-input-control {
+          flex: initial;
+          height: 37px;
+          line-height: 20px;
+          
+          input {
+            text-align: left !important;
+          }
+        }
+      }
+    }
+  }
+
+  :global {
+    .fake-input-container {
+      .fake-input-placeholder {
+        font-size: @font-content-size + 1;
+      }
+    }
+
+    .am-list {
+      margin-top: 8px;
+      font-weight: 300;
+      display: flex;
+      flex-direction: column;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      .am-list-header {
+        background: #FFF;
+        padding: @font-title-size + 1;
+        font-size: @font-title-size + 1;
+        color: #000;
+        font-weight: 400;
+        border-bottom: 0.5px solid #F2F2F2;
+      }
+
+      .am-list-body {
+        border-bottom: none;
+        border-top: none !important;
+        
+        &::before {
+          border: none;
+          background: none;
+          display: none;
+        }
+
+        .am-list-item {
+          border-bottom: .5px solid #F2F2F2;
+          border-image: none;
+
+          .am-list-line {
+            border: none !important;
+            &::after {
+              border-bottom: none !important;
+              height: 0 !important;
+            }
+
+            .am-list-content {
+              font-size: @font-content-size + 1;
+              font-weight: 400;
+            }
+
+            .am-list-extra {
+              font-size: @font-content-size + 1;
+              color: @extra-color;
+              min-width: 110px;
+              font-weight: normal;
+            }
+          }
+        }
+
+        .am-input-item {
+          .am-input-label {
+            font-size: @font-content-size + 1;
+            font-weight: 400;
+          }
+
+          .am-input-label-7 {
+            width: 130px;
+          }
+
+          .am-input-control {
+            input {
+              font-size: @font-content-size + 1;
+              text-align: right;
+              color: @extra-color;
+
+              &::placeholder {
+                font-size: @font-content-size + 1 !important;
+              }
+            }
+          }
+
+          &::after {
+            border-bottom: none;
+          }
+        }
+
+        .am-checkbox-agree {
+          padding: 17.5px 0;
+
+          .am-checkbox-inner {
+            top: 18.5px;
+          }
+
+          .am-checkbox-agree-label {
+            width: 100%;
+            font-weight: 400;
+
+            a {
+              color: @primary-color;
+            }
+          }
+        }
+      }
+    }
+
+    .am-steps {
+      text-align: center;
+      display: block;
+
+      .am-steps-item {
+        text-align: center;
+        width: 25% !important;
+        margin: 0 !important;
+        cursor: pointer;
+
+        &:after {
+          content: "";
+          width: 90%;
+          display: block;
+          margin-left: 2.5%;
+          border: 2px solid @primary-color;
+          border-radius: 2px;
+        }
+
+        .am-steps-item-tail {
+          display: none;
+        }
+
+        .am-steps-item-icon {
+          display: none;
+        }
+
+        .am-steps-item-content {
+          width:  auto;
+          
+          .am-steps-item-title {
+            font-size: @font-content-size - 1;
+            line-height: 20px;
+            font-weight: normal;
+            color: #000;
+          }
+        }
+      }
+
+      .am-steps-item-wait {
+        &:after {
+          border-color: #b7c0c9;
+        }
+
+        .am-steps-step {
+          .am-steps-item-content {
+            .am-steps-item-title {
+              color: #9b9b9b;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.btn-container {
+  margin-bottom: 0;
+}
+
+.fr {
+  float: right;
+  padding-right: 15px;
+  font-weight: 400;
+}

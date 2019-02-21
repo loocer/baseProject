@@ -1,0 +1,102 @@
+@import '../common/button.less';
+@import '../../theme.less';
+
+.step-info {
+  .header {
+    :global {
+      .am-list-body {
+        .picker-placeholder { 
+          .am-list-extra{
+            color:#d6d6d6!important;
+          }
+        }
+        .am-list-item {
+          border-bottom: 1px solid #f0f0f0;
+
+          .am-input-label, .am-list-content, .am-list-extra {
+            font-size: @font-content-size;
+            color: #333;
+          }
+
+          .fake-input-placeholder{
+            color: #d6d6d6;
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+
+    :global {
+      .am-list-body {
+        .am-list-item {
+          border-bottom: 1px solid #f0f0f0;
+          
+          &:after {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+    .totalPayment {
+      :global {
+        .am-input-control {
+          input {
+            font-size: 18px;
+            color: #1B88EE;
+          }
+        }
+      }
+    }
+  }
+
+  :global {
+    .am-list-body {
+      .am-list-item {
+        height: 58px;
+        line-height: 58px;
+
+        &:after {
+          border: none;
+        }
+        
+        .am-list-line:after {
+          border: none;
+        }
+
+        .am-input-label, .am-list-content {
+          font-size: @font-content-size + 1;
+          color: #B7C0C9;
+        }
+        .am-input-control {
+          input {
+            text-align: right;
+
+            &::placeholder {
+             font-size: @font-content-size + 1 !important;
+            }
+          }
+        }
+      }
+    }
+
+    .fake-input-placeholder {
+      font-size: @font-content-size + 1 !important;
+      color: #bbb !important;
+    }
+  }
+
+  .btn-container {
+    margin-top: 20px;
+
+    :global {
+      .am-button-primary {
+        margin: 0 15px;
+        border-radius: 3px !important;
+      }
+    }
+  }
+}

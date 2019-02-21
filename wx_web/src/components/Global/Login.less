@@ -1,0 +1,149 @@
+@import '../../theme.less';
+
+.bg {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background: #FFF;
+}
+
+.login-form{
+  transform: translate(0, -20%);
+  padding: 15px;
+
+  :global {
+    .am-tabs {
+      .am-tabs-default-bar-top {
+        .am-tabs-default-bar-content {
+          .am-tabs-default-bar-tab {
+            border: none;
+            &::after {
+              display: none;
+            }
+          }
+
+          .am-tabs-default-bar-underline {
+            border: none !important;
+
+            &::after {
+              background: @primary-color;
+              position: absolute;
+              left: 50%;
+              bottom: 0;
+              transform: translate(-50%, 0);
+              width: 80px;
+              height: 1px;
+              content: " ";
+            }
+          }
+        }
+      }
+
+      .am-tabs-bar {
+        .am-tabs-tab {
+          color: #8e969d;
+        }
+
+        .am-tabs-tab-active {
+          color: #000;
+        }
+      }
+
+      .am-tabs-ink-bar {
+        max-width: 50%;
+      }
+
+      .am-tabs-content-wrap {
+        min-height: 230px;
+      }
+    }
+
+    .am-list {
+      .am-list-body {
+        padding-top: 50px;
+        border: none;
+
+        &::before {
+          display: none !important;
+        }
+
+        &:after {
+          border-bottom: none;
+          display: none;
+        }
+
+        .am-list-item {
+          padding: 0;
+          margin: 1px;
+          
+          .am-input-label{
+            color: #8e969d;
+            font-size: 15px;
+          }
+
+          .am-input-control {
+            input {
+              font-size: 15px;
+            }
+          }
+
+          .am-input-extra {
+            .check-code {
+              font-size: 12px;
+              color: #1b98f4;
+            }
+          }
+
+          .am-list-line {
+            padding: 0;
+            margin: 0;
+
+            .am-list-content {
+              font-size: 13px;
+
+              a {
+                color: #1b98f4;
+              }
+            }
+
+            .am-list-extra {
+              .forget-password {
+                font-size: 14px;
+                color: #b7c0c9;
+              }
+            }
+          }
+
+          &:after {
+            display: block;
+            position: absolute;
+            content: ' ';
+            left: 0;
+            bottom: 0;
+            right: auto;
+            top: auto;
+            width: 100%;
+            border-bottom: .5px solid #e5e5e5;
+          }
+
+          &:last-child {
+            &::after {
+              display: none;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+
+    .am-button-primary {
+      color: #FFF;
+      background-color: #1b98f4 !important;
+      font-size: 15px;
+      padding: 0;
+      border-radius: 50px !important;
+      height: auto;
+    }
+  }
+}

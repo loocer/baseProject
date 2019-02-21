@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>select</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="选择银行卡" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-331.000000, -207.000000)">
+        <g id="select" transform="translate(331.000000, 207.000000)">
+            <circle fill="#1B98F4" cx="10" cy="10" r="10"></circle>
+            <polygon id="Path" fill="#FFFFFF" points="8.9412041 14.3076864 8.23531407 15 4 10.846144 5.41178006 9.4615424 8.23528798 12.2307712 14.588246 6 16 7.3846016"></polygon>
+        </g>
+    </g>
+</svg>

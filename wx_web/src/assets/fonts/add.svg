@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>添加银行卡@xhdpi</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="选择银行卡" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-140.000000, -330.000000)">
+        <g id="添加银行卡" transform="translate(9.000000, 310.000000)" fill="#B7C0C9">
+            <g transform="translate(131.000000, 20.000000)" id="Combined-Shape">
+                <path d="M6.3,6.3 L6.3,0.694262177 C6.3,0.310831764 6.61070538,9.83666268e-15 7,9.81282525e-15 C7.38659932,9.78915287e-15 7.7,0.318713903 7.7,0.694262177 L7.7,6.3 L13.3057378,6.3 C13.6891682,6.3 14,6.61070538 14,7 C14,7.38659932 13.6812861,7.7 13.3057378,7.7 L7.7,7.7 L7.7,13.3057378 C7.7,13.6891682 7.38929462,14 7,14 C6.61340068,14 6.3,13.6812861 6.3,13.3057378 L6.3,7.7 L0.694262177,7.7 C0.310831764,7.7 0,7.38929462 0,7 C0,6.61340068 0.318713903,6.3 0.694262177,6.3 L6.3,6.3 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>
