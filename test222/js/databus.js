@@ -1,4 +1,4 @@
-import Pool from './base/pool'
+
 
 let instance
 
@@ -12,7 +12,6 @@ export default class DataBus {
 
     instance = this
 
-    this.pool = new Pool()
 
     this.reset()
   }
@@ -20,33 +19,12 @@ export default class DataBus {
   reset() {
     this.frame      = 0
     this.score      = 0
-    this.bullets    = []
-    this.enemys     = []
+    this.trans ={
+      x:0,
+      y:0
+    } 
     this.animations = []
-    this.gameOver   = false
-  }
-
-  /**
-   * 回收敌人，进入对象池
-   * 此后不进入帧循环
-   */
-  removeEnemey(enemy) {
-    let temp = this.enemys.shift()
-
-    temp.visible = false
-
-    this.pool.recover('enemy', enemy)
-  }
-
-  /**
-   * 回收子弹，进入对象池
-   * 此后不进入帧循环
-   */
-  removeBullets(bullet) {
-    let temp = this.bullets.shift()
-
-    temp.visible = false
-
-    this.pool.recover('bullet', bullet)
+    this.state = true//状态过度，避免一直弹窗
+    this.gameOverFlag   = false
   }
 }

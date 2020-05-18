@@ -1,9 +1,12 @@
 import Gan from './base/gan'
 import Ball from './base/ball'
+import Hand from './base/hand'
+import Physics from './physics/index.js'
+import DataBus from './databus'
 const screenHeight = window.innerHeight
 let ctx = canvas.getContext('2d')
-// let databus = new DataBus()
-
+let databus = new DataBus()
+databus.ctx = ctx
 /**
  * 游戏主函数
  */
@@ -11,36 +14,46 @@ export default class Main {
   constructor() {
     // 维护当前requestAnimationFrame的id
     this.aniId = 0
-    this.gan = new Gan()
-    this.ball = new Ball()
-    this.restart()
+    this.physics = new Physics()
   }
-  init(){
-    this.gan.init(320,20,30)
-    this.ball.init(100,100,100)
+  init() {
     this.bindLoop = this.loop.bind(this)
     this.aniId = window.requestAnimationFrame(
       this.bindLoop,
       canvas
     )
+    this.restart()
   }
   restart() {
-    // databus.reset()
-
+    databus.reset()
+    this.physics.reset()
 
   }
-  update(){
-
+  gameOver(){
+    let temp =this
+    if(databus.state&&databus.gameOverFlag){
+      databus.state = false
+      wx.showModal({
+        title: '提示',
+        content: '失败了！',
+        success (res) {
+          if (res.confirm) {
+            temp.restart()
+          } 
+        }
+      })
+    }
+  }
+  
+  update() {
+    this.physics.update()
+    this.gameOver()
   }
   render() {
-   
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(0, 0, 150, 75);
-    this.gan.drawToCanvas(ctx)
-    this.ball.drawToCanvas(ctx)
+    this.physics.render(ctx)
   }
   loop() {
+    this.update()
     this.render()
     this.aniId = window.requestAnimationFrame(
       this.bindLoop,

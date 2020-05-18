@@ -24,12 +24,16 @@ export default class Ball {
       return
     ctx.save()
     ctx.translate(this.x , this.y)
-    ctx.rotate(this.rotate )
-    ctx.drawImage(
-      atlas, -this.width / 2, -this.height / 2,
-      this.width,
-      this.height
-    )
+    ctx.beginPath();
+    ctx.fillStyle = "#fff";
+    ctx.arc(0, 0,  this.width/2 , 0, 2 * Math.PI);
+    ctx.fill();
+    // ctx.rotate(this.rotate )
+    // ctx.drawImage(
+    //   atlas, -this.width / 2, -this.height / 2,
+    //   this.width,
+    //   this.height
+    // )
     ctx.restore()
   }
   // 每一帧更新子弹位置

@@ -4,10 +4,13 @@ const screenWidth = window.innerWidth
 const screenHeight = window.innerHeight
 import Main from './js/main'
 
-const main = new Main()
+import DataBus from './js/databus'
+
 import * as Matter from './js/libs/matter'
 
 
+const databus = new DataBus()
+const main = new Main()
 let ctx = canvas.getContext('2d')
 let sysInfo = wx.getSystemInfoSync(),
   width = sysInfo.windowWidth,
@@ -17,7 +20,6 @@ canvas.style.width = width + "px";
 canvas.style.height = height + "px";
 canvas.height = height * window.devicePixelRatio;
 canvas.width = width * window.devicePixelRatio;
-console.log(window.devicePixelRatio,'----')
 // ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 let flag = false
 wx.getSystemInfo({
@@ -76,8 +78,11 @@ var catapult = Bodies.rectangle(screenWidth / 2, screenHeight - 50, 320, 20, {
     group: group
   }
 });
-let cicyl = Bodies.circle(screenWidth / 2, screenHeight - 200, 50, {
-  density: 0.005
+let cicyl = Bodies.circle(screenWidth / 2, screenHeight - 200, 20, {
+  density: 1
+})
+let rect = Bodies.rectangle(250, 555, 20, 50, {
+  isStatic: true
 })
 World.add(world, [
   // stack,
@@ -85,9 +90,7 @@ World.add(world, [
   // Bodies.rectangle(400, 600, 800, 50.5, {
   //   isStatic: true
   // }),
-  Bodies.rectangle(250, 555, 20, 50, {
-    isStatic: true
-  }),
+  rect,
   Bodies.rectangle(400, 535, 20, 80, {
     isStatic: true,
     collisionFilter: {
@@ -140,12 +143,12 @@ wx.onDeviceMotionChange(function (res) {
   // main.ball.updateAngle(Math.PI / 180 * (res.gamma*2))
   if (flag) {
     Body.setAngle(catapult, Math.PI / 180 * res.gamma);
-    main.gan.update(catapult)
-    main.ball.update(cicyl)
+    main.physics.gan.update(catapult)
+    main.physics.ball.update(cicyl)
   } else {
     Body.setAngle(catapult, -Math.PI / 180 * res.gamma);
-    main.gan.update(catapult)
-    main.ball.update(cicyl)
+    main.physics.gan.update(catapult)
+    main.physics.ball.update(cicyl)
   }
 
   // console.log(res)
@@ -153,7 +156,9 @@ wx.onDeviceMotionChange(function (res) {
 Events.on(engine, 'collisionActive', function () {
   //物理引擎和游戏引擎坐标同步
   // coordSync(engine, stage);
-  main.gan.update(catapult)
-  main.ball.update(cicyl)
+  main.physics.gan.update(catapult)
+  main.physics.ball.update(cicyl)
 });
+databus.engGan = catapult
+databus.engBall = cicyl
 main.init()
