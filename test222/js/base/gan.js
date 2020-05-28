@@ -15,13 +15,15 @@ export default class Gan {
 
     instance = this
     this.visible = true
-    this.x = 100
-    this.y = 300
+    this.width = 320
+    this.height = 10
+    this.rotate = 30
+
+    
   }
-  init(width,height,rotate) {
-    this.width = width
-    this.height = height
-    this.rotate = rotate
+  init(x,y) {
+    this.x = x
+    this.y = y
   }
 
   drawToCanvas(ctx) {
@@ -30,7 +32,7 @@ export default class Gan {
     ctx.save()
     ctx.translate(this.x , this.y)
     ctx.rotate(this.rotate )
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#00a1ff";
     ctx.fillRect(-this.width / 2,-this.height / 2,this.width, this.height);
     // ctx.drawImage(
     //   atlas, -this.width / 2, -this.height / 2,

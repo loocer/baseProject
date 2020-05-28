@@ -2,7 +2,6 @@ import '../libs/weapp-adapter'
 import '../libs/symbol'
 const screenHeight = window.innerHeight
 const screenWidth = window.innerWidth
-import Main from '../main'
 import DataBus from '../databus'
 import * as Matter from '../libs/matter'
 import Gan from '../base/gan'
@@ -25,11 +24,12 @@ export default class Physics {
     this.hand = new Hand()
     this.loos = new Loos()
   }
-  reset() {
-    this.gan.init(320, 20, 30)
-    this.ball.init(40, 40, 100)
+  reset(ctx) {
+    this.gan.init(screenWidth / 2, screenHeight - 50)
+    this.ball.init(screenWidth / 2,screenHeight - 200)
     this.hand.init(40, 40, 100)
     this.loos.init()
+    // ctx.translate(0, databus.trans.y)
     Body.setPosition(databus.engGan, {
       x: screenWidth / 2,
       y: screenHeight - 50
@@ -39,27 +39,45 @@ export default class Physics {
       y: screenHeight - 200
     })
   }
-  update(){
+  update() {
     this.hand.update()
     this.checkOver()
+    console.log(databus.trans.y,'=-==')
+    if(databus.trans.y>databus.maxTop*screenHeight){
+      databus.maxTop++
+      this.loos.reateLoop()
+    }
   }
-  checkOver(){
+  checkOver() {
     let by = this.ball.y
     let gy = this.gan.y
-    console.log(by)
-    if(by>gy+screenHeight/2){
+    if (by > gy + screenHeight / 2) {
+      databus.gameOverFlag = true
+    }
+    if(this.loos.checkOver(this.ball)){
       databus.gameOverFlag = true
     }
   }
   render(ctx) {
 
+    ctx.save();
+
+    // 重置渲染上下文并清空画布
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // 恢复先前渲染上下文所进行的变换
+    ctx.restore();
+    
     ctx.fillStyle = "#FF0000";
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0,-databus.trans.y, screenWidth,screenHeight);
     // ctx.fillRect(0, 0, 150, 75);
+    this.loos.drawToCanvas(ctx)
     this.gan.drawToCanvas(ctx)
     this.ball.drawToCanvas(ctx)
+    
+   
     this.hand.drawToCanvas(ctx)
-    this.loos.drawToCanvas(ctx)
   }
 }

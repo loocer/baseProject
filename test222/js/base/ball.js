@@ -10,13 +10,15 @@ atlas.src = 'images/bg.jpg'
 export default class Ball {
   constructor() {
     this.visible = true
-    this.x = 100
-    this.y = 300
+    this.width = 40
+    this.r = 10
+    this.height = 40
+    this.rotate = 100
+    
   }
-  init(width,height,rotate) {
-    this.width = width
-    this.height = height
-    this.rotate = rotate
+  init(x,y) {
+    this.x = x
+    this.y = y
   }
 
   drawToCanvas(ctx) {
@@ -25,8 +27,8 @@ export default class Ball {
     ctx.save()
     ctx.translate(this.x , this.y)
     ctx.beginPath();
-    ctx.fillStyle = "#fff";
-    ctx.arc(0, 0,  this.width/2 , 0, 2 * Math.PI);
+    ctx.fillStyle = "#00a1ff";
+    ctx.arc(0, 0,  this.r , 0, 2 * Math.PI);
     ctx.fill();
     // ctx.rotate(this.rotate )
     // ctx.drawImage(

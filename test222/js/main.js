@@ -25,21 +25,28 @@ export default class Main {
     this.restart()
   }
   restart() {
+    ctx.translate(0, -databus.trans.y)
+    // ctx.translate(0, databus.trans.y)
     databus.reset()
-    this.physics.reset()
+    this.physics.reset(ctx)
 
   }
   gameOver(){
     let temp =this
     if(databus.state&&databus.gameOverFlag){
+      console.log(databus.state,'-------------==================')
       databus.state = false
+      console.log(databus.state,'-----------')
       wx.showModal({
         title: '提示',
+        cancelText:'查看排行',
         content: '失败了！',
         success (res) {
           if (res.confirm) {
             temp.restart()
-          } 
+          }else{
+            temp.restart()
+          }
         }
       })
     }

@@ -30,12 +30,12 @@ export default class Hand {
     ctx.save()
     ctx.translate(0, -databus.trans.y)
     ctx.beginPath();
-    ctx.strokeStyle = "#FF0000";
+    ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-    ctx.stroke();
+    ctx.fill();
     ctx.beginPath();
     ctx.arc(this.x, this.y + 70, this.r, 0, 2 * Math.PI);
-    ctx.stroke();
+    ctx.fill();
     ctx.restore()
   }
   topDoingEvent() {
@@ -46,9 +46,11 @@ export default class Hand {
         x: px,
         y: py
       })
-      if (py < screenHeight / 2) {
+      if (py < screenHeight /2) {
+        databus.transed.y = databus.trans.y
         databus.trans.y = databus.trans.y + 2
-        databus.ctx.translate(0, 2)
+        databus.ctx.translate(0,-databus.transed.y)
+        databus.ctx.translate(0, databus.trans.y)
       }
 
     }
@@ -59,12 +61,15 @@ export default class Hand {
         x: px,
         y: py
       })
-      if (py < screenHeight / 2) {
+      if (py < screenHeight /2) {
+        databus.transed.y = databus.trans.y
         databus.trans.y = databus.trans.y - 2
-        databus.ctx.translate(0, -2)
+        databus.ctx.translate(0,-databus.transed.y)
+        databus.ctx.translate(0, databus.trans.y)
       }
 
     }
+   
 
   }
   event() {

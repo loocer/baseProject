@@ -17,9 +17,14 @@ export default class DataBus {
   }
 
   reset() {
+    this.maxTop = 0
     this.frame      = 0
     this.score      = 0
     this.trans ={
+      x:0,
+      y:0
+    } 
+    this.transed ={
       x:0,
       y:0
     } 

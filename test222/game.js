@@ -72,13 +72,13 @@ var stack = Composites.stack(250, 255, 1, 6, 0, 0, function (x, y) {
   return Bodies.rectangle(x, y, 30, 30);
 });
 console.log('00000--',screenWidth)
-var catapult = Bodies.rectangle(screenWidth / 2, screenHeight - 50, 320, 20, {
+var catapult = Bodies.rectangle(screenWidth / 2, screenHeight - 50, 320, 10, {
   isStatic: true,
   collisionFilter: {
     group: group
   }
 });
-let cicyl = Bodies.circle(screenWidth / 2, screenHeight - 200, 20, {
+let cicyl = Bodies.circle(screenWidth / 2, screenHeight - 200, 10, {
   density: 1
 })
 let rect = Bodies.rectangle(250, 555, 20, 50, {
