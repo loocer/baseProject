@@ -42,7 +42,6 @@ export default class Physics {
   update() {
     this.hand.update()
     this.checkOver()
-    console.log(databus.trans.y,'=-==')
     if(databus.trans.y>databus.maxTop*screenHeight){
       databus.maxTop++
       this.loos.reateLoop()
@@ -72,7 +71,9 @@ export default class Physics {
     ctx.fillStyle = "#FF0000";
     ctx.fillStyle = "#fff";
     ctx.fillRect(0,-databus.trans.y, screenWidth,screenHeight);
-    // ctx.fillRect(0, 0, 150, 75);
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(87, 177, 255, .3)';
+    ctx.fillRect(0,-databus.trans.y, screenWidth,screenHeight);
     this.loos.drawToCanvas(ctx)
     this.gan.drawToCanvas(ctx)
     this.ball.drawToCanvas(ctx)
