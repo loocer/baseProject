@@ -1,6 +1,7 @@
 import Gan from './base/gan'
 import Ball from './base/ball'
 import Hand from './base/hand'
+import * as page from './pages/index'
 import Physics from './physics/index.js'
 import DataBus from './databus'
 const screenHeight = window.innerHeight
@@ -34,9 +35,7 @@ export default class Main {
   gameOver(){
     let temp =this
     if(databus.state&&databus.gameOverFlag){
-      console.log(databus.state,'-------------==================')
       databus.state = false
-      console.log(databus.state,'-----------')
       wx.showModal({
         title: '提示',
         cancelText:'查看排行',
@@ -57,7 +56,7 @@ export default class Main {
     this.gameOver()
   }
   render() {
-    this.physics.render(ctx)
+    page.work(this).render(ctx)
   }
   loop() {
     this.update()

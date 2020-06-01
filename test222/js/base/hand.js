@@ -22,7 +22,6 @@ export default class Hand {
     this.width = width
     this.height = height
     this.rotate = rotate
-    this.event()
   }
 
   drawToCanvas(ctx) {
@@ -88,7 +87,7 @@ export default class Hand {
    
 
   }
-  event() {
+  addEventLinner() {
     databus.touchStartHandler = (e) => {
       for (let p of e.touches) {
         let x = p.clientX

@@ -29,7 +29,6 @@ export default class Physics {
     this.ball.init(screenWidth / 2,screenHeight - 200)
     this.hand.init(40, 40, 100)
     this.loos.init()
-    // ctx.translate(0, databus.trans.y)
     Body.setPosition(databus.engGan, {
       x: screenWidth / 2,
       y: screenHeight - 50
@@ -56,6 +55,10 @@ export default class Physics {
     if(this.loos.checkOver(this.ball)){
       databus.gameOverFlag = true
     }
+  }
+  addEventLinner(){
+    this.hand.addEventLinner()
+    // canvas.addEventListener('touchstart',databus.touchHandler)
   }
   render(ctx) {
 

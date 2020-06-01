@@ -17,6 +17,7 @@ export default class DataBus {
   }
 
   reset() {
+    this.pageIndex = 0
     this.actionIndex=null
     this.maxTop = 0
     this.frame      = 0
