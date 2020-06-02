@@ -19,6 +19,9 @@ export default class Physics {
       return instance
 
     instance = this
+    this.moveY = 0
+    this.moveYed = 0
+    this.startY =0 
     this.gan = new Gan()
     this.ball = new Ball()
     this.hand = new Hand()
@@ -30,12 +33,9 @@ export default class Physics {
   update() {
 
   }
-  addEventLinner() {
-    this.hand.addEventLinner()
-    // canvas.addEventListener('touchstart',databus.touchHandler)
-  }
+ 
   drawRow(ctx) {
-    let ys = 300
+    let ys = 300-this.moveY
     for (let i = 0; i < 10; i++) {
       let sx = 50
       let ex = (screenWidth - 100) + 50
@@ -56,7 +56,7 @@ export default class Physics {
     let mvu = 13
     let row = Math.ceil(mvu / 4)
     let index = 0
-
+    let yd = 305-this.moveY
     for (let i = 0; i < row; i++) {
       for (let t = 0; t < 4; t++) {
         index++
@@ -64,10 +64,10 @@ export default class Physics {
           return
         }
         ctx.fillStyle = "blue";
-        ctx.fillRect((screenWidth - 100) / 4 * t + 55, (screenWidth - 100) / 4 * i+305, (screenWidth - 100) / 4 -10 , (screenWidth - 100) / 4 -10);
+        ctx.fillRect((screenWidth - 100) / 4 * t + 55, (screenWidth - 100) / 4 * i+yd, (screenWidth - 100) / 4 -10 , (screenWidth - 100) / 4 -10);
         ctx.fillStyle = 'red';
         ctx.font = "20px Georgia";
-        ctx.fillText(index, (screenWidth - 100) / 4 * t + 50 + 20, (screenWidth - 100) / 4 * i + 350);
+        ctx.fillText(index, (screenWidth - 100) / 4 * t + 50 + 20, (screenWidth - 100) / 4 * i + yd+20);
       }
     }
   }
@@ -77,9 +77,48 @@ export default class Physics {
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, screenHeight - 80, screenWidth, screenHeight);
   }
-  addEventLinner() {}
+  addEventLinner() {
+    let that = this
+    wx.onTouchMove(e => {
+  
+      let touch = e.touches[0].clientY;
+      let moveY = that.moveY
+      let startY = this.startY
+      startY = !startY ? touch: startY
+      that.moveY = startY - touch + moveY
+      this.startY = touch
+      console.log('++++++++', that.moveY,this.startY)
+      
+      // // 触摸移动第一次触发的位置
+      // if (startY === undefined) {
+      //   startY = touch.clientY + moveY;
+      // }
+      // moveY = startY - touch.clientY;
+      // reDrawItem(moveY);
+    });
+    wx.onTouchEnd(e => {
+      
+      // if (moveY < 0) { // 到顶
+      //   moveY = 0;
+      // } else if (moveY > (list.length-2)*100) { // 到底
+      //   moveY = (list.length - 2) * 100;
+      // }
+    });
+    wx.onTouchStart(e => {
+      let touch = e.touches[0];
+      this.startY = touch.clientY
+      // startY = undefined;
+      // if (moveY < 0) { // 到顶
+      //   moveY = 0;
+      // } else if (moveY > itemCanvas.height - 590) { // 到底
+      //   moveY = itemCanvas.height - 590;
+      // }
+      // reDrawItem(moveY);
+    });
+
+  }
   drawCol(ctx) {
-    let ys = 300
+    let ys = 300-this.moveY
     let onex1 = 50
     let onex2 = (screenWidth - 100) / 4 + 50
     let onex3 = (screenWidth - 100) / 4 * 2 + 50
@@ -101,7 +140,11 @@ export default class Physics {
 
     // 重置渲染上下文并清空画布
 
+    
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
     // 恢复先前渲染上下文所进行的变换
@@ -110,6 +153,6 @@ export default class Physics {
     this.drawNo(ctx)
     this.drawPanel(ctx)
     this.drawBorder(ctx)
-
+    
   }
 }
