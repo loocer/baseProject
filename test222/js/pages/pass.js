@@ -11,8 +11,9 @@ import Loos from '../base/loos'
 const databus = new DataBus()
 
 const Body = Matter.Body
-
+let doIndex = 5
 let instance
+let allMakeLove = 30
 export default class Physics {
   constructor() {
     if (instance)
@@ -36,7 +37,8 @@ export default class Physics {
  
   drawRow(ctx) {
     let ys = 300-this.moveY
-    for (let i = 0; i < 10; i++) {
+    let aLLRow = Math.ceil(allMakeLove/4)+1
+    for (let i = 0; i < aLLRow; i++) {
       let sx = 50
       let ex = (screenWidth - 100) + 50
       let h = (screenWidth - 100) / 4
@@ -53,7 +55,7 @@ export default class Physics {
 
   }
   drawNo(ctx) {
-    let mvu = 13
+    let mvu = allMakeLove
     let row = Math.ceil(mvu / 4)
     let index = 0
     let yd = 305-this.moveY
@@ -63,11 +65,27 @@ export default class Physics {
         if(index>mvu){
           return
         }
-        ctx.fillStyle = "blue";
+        if(index<doIndex-1){
+          ctx.fillStyle = "rgba(0, 0, 0, 0.23)";
+        }
+        if(index==doIndex-1){
+          ctx.fillStyle = "rgba(0, 231, 255, 0.55)";
+        }
+        if(index>doIndex-1){
+          ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+        }
+        
         ctx.fillRect((screenWidth - 100) / 4 * t + 55, (screenWidth - 100) / 4 * i+yd, (screenWidth - 100) / 4 -10 , (screenWidth - 100) / 4 -10);
-        ctx.fillStyle = 'red';
-        ctx.font = "20px Georgia";
-        ctx.fillText(index, (screenWidth - 100) / 4 * t + 50 + 20, (screenWidth - 100) / 4 * i + yd+20);
+        ctx.fillStyle = '#fff';
+        ctx.font = '100px Arial';
+        let tx = (screenWidth - 100) / 4 * t + 50 + 20
+        let ty = (screenWidth - 100) / 4 * i + yd+20
+        ctx.save();
+        ctx.scale(.2, .2);
+        ctx.fillText(index, tx*5, ty*5);
+        
+        ctx.restore()
+        // ctx.fillText('关卡', (screenWidth - 100) / 4 * t + 50 + 20, (screenWidth - 100) / 4 * i + yd+50);
       }
     }
   }
@@ -97,12 +115,13 @@ export default class Physics {
       // reDrawItem(moveY);
     });
     wx.onTouchEnd(e => {
-      
-      // if (moveY < 0) { // 到顶
-      //   moveY = 0;
-      // } else if (moveY > (list.length-2)*100) { // 到底
-      //   moveY = (list.length - 2) * 100;
-      // }
+      let row = Math.ceil(allMakeLove / 4)
+      let h = (screenWidth - 100) / 4
+      if (this.moveY < 0) { // 到顶
+        this.moveY = 0;
+      } else if (this.moveY > (row-4)*h) { // 到底
+        this.moveY = (row - 4) * h;
+      }
     });
     wx.onTouchStart(e => {
       let touch = e.touches[0];
@@ -119,6 +138,8 @@ export default class Physics {
   }
   drawCol(ctx) {
     let ys = 300-this.moveY
+    let boxWidth = (screenWidth - 100) / 4
+    let allH =Math.ceil(allMakeLove / 4) *boxWidth +ys
     let onex1 = 50
     let onex2 = (screenWidth - 100) / 4 + 50
     let onex3 = (screenWidth - 100) / 4 * 2 + 50
@@ -129,14 +150,14 @@ export default class Physics {
       ctx.strokeStyle = "green";
       ctx.beginPath();
       ctx.moveTo(obj, ys);
-      ctx.lineTo(obj, 900);
+      ctx.lineTo(obj, allH);
       ctx.stroke();
     }
 
   }
   render(ctx) {
 
-    ctx.save();
+    
 
     // 重置渲染上下文并清空画布
 

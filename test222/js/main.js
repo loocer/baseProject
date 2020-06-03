@@ -52,8 +52,7 @@ export default class Main {
   }
   
   update() {
-    this.physics.update()
-    this.gameOver()
+    page.work(this).update()
   }
   render() {
     page.work(this).render(ctx)
