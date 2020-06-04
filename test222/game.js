@@ -24,7 +24,6 @@ canvas.width = width * window.devicePixelRatio;
 let flag = false
 wx.getSystemInfo({
   success(res) {
-    console.log(res,res.platform,res.platform == 'ios')
     if (res.platform == 'ios') {
       flag= true
     }
@@ -71,7 +70,6 @@ var group = Body.nextGroup(true);
 var stack = Composites.stack(250, 255, 1, 6, 0, 0, function (x, y) {
   return Bodies.rectangle(x, y, 30, 30);
 });
-console.log('00000--',screenWidth)
 var catapult = Bodies.rectangle(screenWidth / 2, screenHeight - 50, 320, 10, {
   isStatic: true,
   collisionFilter: {

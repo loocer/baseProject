@@ -53,6 +53,7 @@ export default class Main {
   
   update() {
     page.work(this).update()
+    this.gameOver()
   }
   render() {
     page.work(this).render(ctx)

@@ -20,9 +20,9 @@ export default class Physics {
       return instance
 
     instance = this
+    this.allPasition = []
     this.moveY = 0
-    this.moveYed = 0
-    this.startY =0 
+    this.startY = 0
     this.gan = new Gan()
     this.ball = new Ball()
     this.hand = new Hand()
@@ -34,10 +34,14 @@ export default class Physics {
   update() {
 
   }
- 
+  queryNo() {
+    let x = 400
+    let y = 500
+
+  }
   drawRow(ctx) {
-    let ys = 300-this.moveY
-    let aLLRow = Math.ceil(allMakeLove/4)+1
+    let ys = 300 - this.moveY
+    let aLLRow = Math.ceil(allMakeLove / 4) + 1
     for (let i = 0; i < aLLRow; i++) {
       let sx = 50
       let ex = (screenWidth - 100) + 50
@@ -54,40 +58,76 @@ export default class Physics {
     ctx.strokeRect(40, 290, screenWidth - 80, screenHeight - 350);
 
   }
+  navigate(index){
+    if(doIndex<index){
+      wx.showToast({
+        title: '请一步一步解锁关卡！',
+        icon: 'none',
+        duration: 2000
+      })
+    }else{
+      databus.pageIndex = 1
+    }
+    
+  }
+  checkPastion(x, y) {
+    let ps = this.allPasition
+    for (let p of ps) {
+      if (p.x1 < x &&
+        p.x2 + p.x1 > x &&
+        p.y1 < y &&
+        p.y2 + p.y1 > y) {
+        this.navigate(p.index)
+      }
+    }
+  }
   drawNo(ctx) {
     let mvu = allMakeLove
     let row = Math.ceil(mvu / 4)
-    let index = 0
-    let yd = 305-this.moveY
+    let index = 0,
+      list = []
+    let yd = 305 - this.moveY
     for (let i = 0; i < row; i++) {
       for (let t = 0; t < 4; t++) {
         index++
-        if(index>mvu){
+        if (index > mvu) {
+          this.allPasition = list
           return
         }
-        if(index<doIndex-1){
-          ctx.fillStyle = "rgba(0, 0, 0, 0.23)";
-        }
-        if(index==doIndex-1){
-          ctx.fillStyle = "rgba(0, 231, 255, 0.55)";
-        }
-        if(index>doIndex-1){
+        if (index < doIndex - 1) {
           ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
         }
-        
-        ctx.fillRect((screenWidth - 100) / 4 * t + 55, (screenWidth - 100) / 4 * i+yd, (screenWidth - 100) / 4 -10 , (screenWidth - 100) / 4 -10);
+        if (index == doIndex - 1) {
+          ctx.fillStyle = "rgba(0, 231, 255, 0.55)";
+        }
+        if (index > doIndex - 1) {
+          ctx.fillStyle = "rgba(0, 0, 0, 0.23)";
+        }
+        let x1 = (screenWidth - 100) / 4 * t + 55
+        let x2 = (screenWidth - 100) / 4 - 10
+        let y1 = (screenWidth - 100) / 4 * i + yd
+        let y2 = (screenWidth - 100) / 4 - 10
+        ctx.fillRect(x1, y1, x2, y2)
         ctx.fillStyle = '#fff';
         ctx.font = '100px Arial';
         let tx = (screenWidth - 100) / 4 * t + 50 + 20
-        let ty = (screenWidth - 100) / 4 * i + yd+20
+        let ty = (screenWidth - 100) / 4 * i + yd + 20
         ctx.save();
         ctx.scale(.2, .2);
-        ctx.fillText(index, tx*5, ty*5);
-        
+        ctx.fillText(index, tx * 5, ty * 5);
+        list.push({
+          x1,
+          y1,
+          x2,
+          y2,
+          index
+        })
         ctx.restore()
+
         // ctx.fillText('关卡', (screenWidth - 100) / 4 * t + 50 + 20, (screenWidth - 100) / 4 * i + yd+50);
       }
     }
+
   }
   drawPanel(ctx) {
     ctx.fillStyle = "#fff";
@@ -98,30 +138,26 @@ export default class Physics {
   addEventLinner() {
     let that = this
     wx.onTouchMove(e => {
-  
+
       let touch = e.touches[0].clientY;
       let moveY = that.moveY
       let startY = this.startY
-      startY = !startY ? touch: startY
+      startY = !startY ? touch : startY
       that.moveY = startY - touch + moveY
       this.startY = touch
-      console.log('++++++++', that.moveY,this.startY)
-      
-      // // 触摸移动第一次触发的位置
-      // if (startY === undefined) {
-      //   startY = touch.clientY + moveY;
-      // }
-      // moveY = startY - touch.clientY;
-      // reDrawItem(moveY);
     });
     wx.onTouchEnd(e => {
+      let touch = e.changedTouches[0];
+      let y = touch.clientY
+      let x = touch.clientX
       let row = Math.ceil(allMakeLove / 4)
       let h = (screenWidth - 100) / 4
       if (this.moveY < 0) { // 到顶
         this.moveY = 0;
-      } else if (this.moveY > (row-4)*h) { // 到底
+      } else if (this.moveY > (row - 4) * h) { // 到底
         this.moveY = (row - 4) * h;
       }
+      this.checkPastion(x, y)
     });
     wx.onTouchStart(e => {
       let touch = e.touches[0];
@@ -137,9 +173,9 @@ export default class Physics {
 
   }
   drawCol(ctx) {
-    let ys = 300-this.moveY
+    let ys = 300 - this.moveY
     let boxWidth = (screenWidth - 100) / 4
-    let allH =Math.ceil(allMakeLove / 4) *boxWidth +ys
+    let allH = Math.ceil(allMakeLove / 4) * boxWidth + ys
     let onex1 = 50
     let onex2 = (screenWidth - 100) / 4 + 50
     let onex3 = (screenWidth - 100) / 4 * 2 + 50
@@ -157,15 +193,15 @@ export default class Physics {
   }
   render(ctx) {
 
-    
+
 
     // 重置渲染上下文并清空画布
 
-    
+
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    
+
+
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
     // 恢复先前渲染上下文所进行的变换
@@ -174,6 +210,6 @@ export default class Physics {
     this.drawNo(ctx)
     this.drawPanel(ctx)
     this.drawBorder(ctx)
-    
+
   }
 }
