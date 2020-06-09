@@ -4,13 +4,18 @@ function rnd(start, end) {
 import DataBus from '../databus'
 const screenHeight = window.innerHeight
 const screenWidth = window.innerWidth
+import {
+  GAME_IMG
+} from '../utils/common'
 const databus = new DataBus()
+let IMG=null
 export default class Loos {
   constructor() {
     this.visible = true
 
   }
   init() {
+    IMG = GAME_IMG.get('bg')
     this.loop = []
     this.reateLoop()
   }
@@ -29,19 +34,18 @@ export default class Loos {
       let l = Math.sqrt((x - obj.x) * (x - obj.x) + (y - obj.y) * (y - obj.y))
       flag = R<l
     }
-   
-    if(this.loop.length==0){
-      return {x,y,r}
-    }
-    if(flag){
-      return {x,y,r}
-    }else{
-      this.creaLoop()
-    }
+    return {x,y,r}
+    // if(this.loop.length==0){
+    //   return {x,y,r}
+    // }
+    // if(flag){
+    //   return {x,y,r}
+    // }
   }
   reateLoop() {
     if (databus.maxTop == 0) {
-      let size = (databus.maxTop + 1) * 50
+      // let size = (databus.maxTop + 1) * 10
+      let size = 30
       for (let i = 0; i < size; i++) {
         let obj = this.creaLoop()
         
@@ -111,15 +115,58 @@ export default class Loos {
     if (!this.visible)
       return
     for (let obj of this.loop) {
+      let hindex = ~~((obj.y-screenHeight)/screenHeight)
       ctx.save()
-      ctx.translate(obj.x, obj.y)
       ctx.beginPath();
-      ctx.fillStyle = "#000";
-      ctx.arc(obj.x, obj.y, obj.r, 0, 2 * Math.PI);
-      ctx.fill();
+      ctx.arc(obj.x*2, obj.y*2, obj.r, 0, 2 * Math.PI);
+      ctx.clip()
+      ctx.drawImage(
+        IMG,
+        0,
+        (hindex)*screenHeight,
+        screenWidth,
+        screenHeight
+      )
       ctx.restore()
     }
-
+    
+    // ctx.drawImage(
+    //   IMG,
+    //   0,
+    //   0,
+    //   screenWidth,
+    //   screenHeight
+    // )
+    // let bgLength = databus.maxTop
+    // for(let i=1;i<bgLength+1;i++){
+    //   ctx.drawImage(
+    //     IMG,
+    //     0,
+    //     -screenHeight*i,
+    //     screenWidth,
+    //     screenHeight
+    //   )
+    // }
+    // ctx.restore()
+    // ctx.beginPath();
+    // ctx.arc(200, 200, 20, 0, 2 * Math.PI);
+    // ctx.clip()
+    // ctx.drawImage(
+    //   IMG,
+    //   0,
+    //   0,
+    //   screenWidth,
+    //   screenHeight
+    // )
+    
+    // ctx.drawImage(
+    //   IMG,
+    //   0,
+    //   0,
+    //   screenWidth,
+    //   screenHeight
+    // )
+   
   }
   lessKong() {
     let temp = []

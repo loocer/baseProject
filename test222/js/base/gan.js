@@ -1,29 +1,27 @@
 
 import {
-  getRoteImg
-} from '../utils/index'
-
+  GAME_IMG
+} from '../utils/common'
 let instance
 // const ENEMY_WIDTH = 20
 // const ENEMY_HEIGHT = 20
 let atlas = new Image()
 atlas.src = 'images/bg.jpg'
+let IMG = null
 export default class Gan {
   constructor() {
     if ( instance )
       return instance
-
     instance = this
     this.visible = true
     this.width = 320
     this.height = 10
     this.rotate = 30
-
-    
   }
   init(x,y) {
     this.x = x
     this.y = y
+    IMG = GAME_IMG.get('bg')
   }
 
   drawToCanvas(ctx) {
@@ -34,11 +32,11 @@ export default class Gan {
     ctx.rotate(this.rotate )
     ctx.fillStyle = "#00a1ff";
     ctx.fillRect(-this.width / 2,-this.height / 2,this.width, this.height);
-    // ctx.drawImage(
-    //   atlas, -this.width / 2, -this.height / 2,
-    //   this.width,
-    //   this.height
-    // )
+    ctx.drawImage(
+      IMG,
+      
+      -this.width / 2,-this.height / 2,this.width, this.height
+    )
     ctx.restore()
     // ctx.fillStyle = "#FF0000";
     // ctx.fillRect(this.x, this.y, 150, 75);

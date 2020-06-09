@@ -3,6 +3,9 @@ import './js/libs/symbol'
 const screenWidth = window.innerWidth
 const screenHeight = window.innerHeight
 import Main from './js/main'
+import {
+  loadingImage
+} from './js/utils/common'
 
 import DataBus from './js/databus'
 
@@ -25,15 +28,13 @@ let flag = false
 wx.getSystemInfo({
   success(res) {
     if (res.platform == 'ios') {
-      flag= true
+      flag = true
     }
   }
 })
 var Engine = Matter.Engine,
   Render = Matter.Render,
   Runner = Matter.Runner,
-  Composites = Matter.Composites,
-  Constraint = Matter.Constraint,
   MouseConstraint = Matter.MouseConstraint,
   Mouse = Matter.Mouse,
   World = Matter.World,
@@ -44,20 +45,27 @@ var Engine = Matter.Engine,
 // create engine
 var engine = Engine.create(),
   world = engine.world;
+// engine.velocityIterations = 19
+//   engine.world.gravity.x = 355;
+// engine.world.gravity.y = 125;
+// engine.world.gravity.isPoint = true;
+// engine.timing.timeScale= 1.2
 
+
+// world.gravity.y = 1;
 // create renderer
 var render = Render.create({
   canvas: canvas,
   engine: engine,
   options: {
-    width:width,
-    height:height,
+    width: width,
+    height: height,
     showAngleIndicator: true,
     showCollisions: true,
     showVelocity: true
   }
 });
-Render.setPixelRatio(render,window.devicePixelRatio)
+Render.setPixelRatio(render, window.devicePixelRatio)
 // Render.run(render);
 
 // create runner
@@ -66,35 +74,32 @@ Runner.run(runner, engine);
 
 // add bodies
 var group = Body.nextGroup(true);
-
-var stack = Composites.stack(250, 255, 1, 6, 0, 0, function (x, y) {
-  return Bodies.rectangle(x, y, 30, 30);
-});
+console.log(group, '-=+++++++++++++++')
 var catapult = Bodies.rectangle(screenWidth / 2, screenHeight - 50, 320, 10, {
   isStatic: true,
   collisionFilter: {
     group: group
-  }
+  },
 });
 let cicyl = Bodies.circle(screenWidth / 2, screenHeight - 200, 10, {
-  density: 1
+  density: 1,
 })
-let rect = Bodies.rectangle(250, 555, 20, 50, {
-  isStatic: true
-})
+// let rect = Bodies.rectangle(250, 555, 20, 50, {
+//   isStatic: true
+// })
 World.add(world, [
   // stack,
   catapult,
   // Bodies.rectangle(400, 600, 800, 50.5, {
   //   isStatic: true
   // }),
-  rect,
-  Bodies.rectangle(400, 535, 20, 80, {
-    isStatic: true,
-    collisionFilter: {
-      group: group
-    }
-  }),
+  // rect,
+  // Bodies.rectangle(400, 535, 20, 80, {
+  //   isStatic: true,
+  //   collisionFilter: {
+  //     group: group
+  //   }
+  // }),
   cicyl,
   // Constraint.create({ 
   //     bodyA: catapult, 
@@ -109,7 +114,7 @@ var mouse = Mouse.create(render.canvas),
   mouseConstraint = MouseConstraint.create(engine, {
     mouse: mouse,
     constraint: {
-      stiffness: 0.2,
+      stiffness: 0.1,
       render: {
         visible: false
       }
@@ -140,11 +145,13 @@ wx.onDeviceMotionChange(function (res) {
 
   // main.ball.updateAngle(Math.PI / 180 * (res.gamma*2))
   if (flag) {
-    Body.setAngle(catapult, Math.PI / 180 * res.gamma);
+    // world.gravity.x = 1*(res.gamma/90);
+    Body.setAngle(catapult, Math.PI / 90 * res.gamma);
     main.physics.gan.update(catapult)
     main.physics.ball.update(cicyl)
   } else {
-    Body.setAngle(catapult, -Math.PI / 180 * res.gamma);
+    // world.gravity.x = -1*(res.gamma/90);
+    Body.setAngle(catapult, -Math.PI / 90 * res.gamma);
     main.physics.gan.update(catapult)
     main.physics.ball.update(cicyl)
   }
@@ -159,4 +166,5 @@ Events.on(engine, 'collisionActive', function () {
 });
 databus.engGan = catapult
 databus.engBall = cicyl
+loadingImage()
 main.init()

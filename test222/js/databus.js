@@ -32,6 +32,7 @@ export default class DataBus {
     } 
     this.animations = []
     this.state = true//状态过度，避免一直弹窗
+    this.gameStatus   = false
     this.gameOverFlag   = false
   }
 }
