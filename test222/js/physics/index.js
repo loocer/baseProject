@@ -13,25 +13,52 @@ import Hand from '../base/hand'
 import Loos from '../base/loos'
 const databus = new DataBus()
 
-const Body = Matter.Body
-let instance = null,IMG = null
+const Body = Matter.Body,
+  Runner = Matter.Runner
+let instance = null,
+  IMG = null
 export default class Physics {
   constructor() {
     if (instance)
       return instance
 
     instance = this
-    
+    this.visible = true
+    this.status = 'WAIT'
     this.gan = new Gan()
     this.ball = new Ball()
     this.hand = new Hand()
     this.loos = new Loos()
-    
+
+  }
+  init() {
+    databus.runner.enabled = false
+    this.reset()
+    wx.showModal({
+      title: '提示',
+      content: '欢迎来到这个平衡的世界',
+      cancelText: '选择关卡',
+      confirmText: '开始游戏',
+      success: (res) => {
+        if (res.confirm) {
+          databus.runner.enabled = true
+          // Runner.start(databus.runner, databus.engine);
+          this.status = 'DOING'
+
+        } else if (res.cancel) {
+          databus.pageIndex = 0
+        }
+      }
+    })
   }
   reset(ctx) {
+    // Runner.stop(databus.runner)
+    
+    
     IMG = GAME_IMG.get('bg')
+    
+    this.ball.init(screenWidth / 2, screenHeight - 200)
     this.gan.init(screenWidth / 2, screenHeight - 50)
-    this.ball.init(screenWidth / 2,screenHeight - 200)
     this.hand.init(40, 40, 100)
     this.loos.init()
     Body.setPosition(databus.engGan, {
@@ -40,29 +67,53 @@ export default class Physics {
     })
     Body.setPosition(databus.engBall, {
       x: screenWidth / 2,
-      y: screenHeight - 200
+      y: screenHeight - 80
     })
   }
   update() {
-    this.hand.update()
-    this.checkOver()
-    if(databus.trans.y>databus.maxTop*screenHeight){
-      databus.maxTop++
-      this.loos.reateLoop()
+    console.log(234243343434)
+    if (this.status == 'WAIT') {
+      return
+    } else {
+      this.hand.update()
+      this.checkOver()
+      if (databus.trans.y > databus.maxTop * screenHeight) {
+        databus.maxTop++
+        this.loos.reateLoop()
+      }
     }
+
   }
   checkOver() {
     let by = this.ball.y
     let gy = this.gan.y
     if (by > gy + screenHeight / 2) {
-      databus.gameOverFlag = true
+      this.status = 'WAIT'
+      databus.ctx.translate(0, -databus.trans.y)
+      databus.reset()
+      wx.showModal({
+        title: '提示',
+        content: '哦，游戏结束了！',
+        cancelText: '选择关卡',
+        confirmText: '重新开始',
+        success:(res)=> {
+          if (res.confirm) {
+            this.reset()
+            databus.runner.enabled = true
+            this.status = 'DOING'
+            
+          } else if (res.cancel) {
+            databus.pageIndex = 0
+          }
+        }
+      })
     }
-    if(this.loos.checkOver(this.ball)){
+    if (this.loos.checkOver(this.ball)) {
       this.ball.overBall()
       // databus.gameOverFlag = true
     }
   }
-  drawBg(ctx){
+  drawBg(ctx) {
     ctx.drawImage(
       IMG,
       0,
@@ -71,17 +122,17 @@ export default class Physics {
       screenHeight
     )
     let bgLength = databus.maxTop
-    for(let i=1;i<bgLength+1;i++){
+    for (let i = 1; i < bgLength + 1; i++) {
       ctx.drawImage(
         IMG,
         0,
-        -screenHeight*i,
+        -screenHeight * i,
         screenWidth,
         screenHeight
       )
     }
   }
-  addEventLinner(){
+  addEventLinner() {
     this.hand.addEventLinner()
     // canvas.addEventListener('touchstart',databus.touchHandler)
   }
@@ -90,23 +141,22 @@ export default class Physics {
     ctx.save();
 
     // 重置渲染上下文并清空画布
-    
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // 恢复先前渲染上下文所进行的变换
-    if(databus.gameStatus){
+    if (databus.gameStatus) {
       this.drawBg(ctx)
       this.ball.drawToCanvas(ctx)
       ctx.fillStyle = 'rgba(255,255, 255, .8)';
-      ctx.fillRect(0,-databus.trans.y, screenWidth,screenHeight);
+      ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
       this.loos.drawToCanvas(ctx)
       this.gan.drawToCanvas(ctx)
       this.hand.drawToCanvas(ctx)
-    }else{
+    } else {
       this.drawBg(ctx)
-      
       ctx.fillStyle = 'rgba(255,255, 255, .8)';
-      ctx.fillRect(0,-databus.trans.y, screenWidth,screenHeight);
+      ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
       this.loos.drawToCanvas(ctx)
       this.ball.drawToCanvas(ctx)
       this.gan.drawToCanvas(ctx)

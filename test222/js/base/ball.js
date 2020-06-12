@@ -65,7 +65,6 @@ export default class Ball {
   update(body) {
     if (!this.visible)
       return
-      // console.log(body.angle,3333333)
       this.rotate = body.angle
       this.x = body.position.x
       this.y = body.position.y

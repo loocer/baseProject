@@ -74,7 +74,6 @@ Runner.run(runner, engine);
 
 // add bodies
 var group = Body.nextGroup(true);
-console.log(group, '-=+++++++++++++++')
 var catapult = Bodies.rectangle(screenWidth / 2, screenHeight - 50, 320, 10, {
   isStatic: true,
   collisionFilter: {
@@ -82,7 +81,7 @@ var catapult = Bodies.rectangle(screenWidth / 2, screenHeight - 50, 320, 10, {
   },
 });
 let cicyl = Bodies.circle(screenWidth / 2, screenHeight - 200, 10, {
-  density: 1,
+  density: 10,
 })
 // let rect = Bodies.rectangle(250, 555, 20, 50, {
 //   isStatic: true
@@ -166,5 +165,8 @@ Events.on(engine, 'collisionActive', function () {
 });
 databus.engGan = catapult
 databus.engBall = cicyl
+databus.world = world
+databus.runner = runner
+databus.engine = engine
 loadingImage()
 main.init()

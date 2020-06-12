@@ -8,12 +8,16 @@ import Gan from '../base/gan'
 import Ball from '../base/ball'
 import Hand from '../base/hand'
 import Loos from '../base/loos'
+import {
+  GAME_IMG
+} from '../utils/common'
 const databus = new DataBus()
 
 const Body = Matter.Body
 let doIndex = 5
 let instance
 let allMakeLove = 30
+let IMG = null
 export default class Physics {
   constructor() {
     if (instance)
@@ -27,6 +31,10 @@ export default class Physics {
     this.ball = new Ball()
     this.hand = new Hand()
     this.loos = new Loos()
+    IMG = GAME_IMG.get('bg')
+  }
+  init(){
+
   }
   reset(ctx) {
 
@@ -58,17 +66,17 @@ export default class Physics {
     ctx.strokeRect(40, 290, screenWidth - 80, screenHeight - 350);
 
   }
-  navigate(index){
-    if(doIndex<index){
+  navigate(index) {
+    if (doIndex < index) {
       wx.showToast({
         title: '请一步一步解锁关卡！',
         icon: 'none',
         duration: 2000
       })
-    }else{
+    } else {
       databus.pageIndex = 1
     }
-    
+
   }
   checkPastion(x, y) {
     let ps = this.allPasition
@@ -135,42 +143,47 @@ export default class Physics {
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, screenHeight - 80, screenWidth, screenHeight);
   }
+  handTouchMove(e) {
+    instance.moveTouches = e.touches[0]
+    let touch = e.touches[0].clientY;
+    let moveY = instance.moveY
+    let startY = instance.startY
+    startY = !startY ? touch : startY
+    instance.moveY = startY - touch + moveY
+    instance.startY = touch
+  }
+  handTouchEnd(e) {
+    let time = e.timeStamp
+    let touch = e.changedTouches[0];
+    let lastX = instance.moveTouches.clientX
+    let lastY = instance.moveTouches.clientY
+    let y = touch.clientY
+    let x = touch.clientX
+    let row = Math.ceil(allMakeLove / 4)
+    let h = (screenWidth - 100) / 4
+    if (instance.moveY < 0) { // 到顶
+      instance.moveY = 0;
+    } else if (instance.moveY > (row - 6) * h) { // 到底
+      instance.moveY = (row - 6) * h;
+    }
+    if (lastX == x && lastY == y&&time-instance.startTime<100) {
+      instance.checkPastion(x, y)
+    }
+  }
+  handTouchStart(e) {
+    let time = e.timeStamp
+    let touch = e.touches[0];
+    instance.moveTouches = e.touches[0]
+    instance.startY = touch.clientY
+    instance.startTime = time
+  }
   addEventLinner() {
-    let that = this
-    wx.onTouchMove(e => {
-
-      let touch = e.touches[0].clientY;
-      let moveY = that.moveY
-      let startY = this.startY
-      startY = !startY ? touch : startY
-      that.moveY = startY - touch + moveY
-      this.startY = touch
-    });
-    wx.onTouchEnd(e => {
-      let touch = e.changedTouches[0];
-      let y = touch.clientY
-      let x = touch.clientX
-      let row = Math.ceil(allMakeLove / 4)
-      let h = (screenWidth - 100) / 4
-      if (this.moveY < 0) { // 到顶
-        this.moveY = 0;
-      } else if (this.moveY > (row - 4) * h) { // 到底
-        this.moveY = (row - 4) * h;
-      }
-      this.checkPastion(x, y)
-    });
-    wx.onTouchStart(e => {
-      let touch = e.touches[0];
-      this.startY = touch.clientY
-      // startY = undefined;
-      // if (moveY < 0) { // 到顶
-      //   moveY = 0;
-      // } else if (moveY > itemCanvas.height - 590) { // 到底
-      //   moveY = itemCanvas.height - 590;
-      // }
-      // reDrawItem(moveY);
-    });
-
+    databus.touchHandMove = instance.handTouchMove
+    databus.touchHandEnd = instance.handTouchEnd
+    databus.touchHandStart = instance.handTouchStart
+    wx.onTouchMove(databus.touchHandMove);
+    wx.onTouchEnd(databus.touchHandEnd);
+    wx.onTouchStart(databus.touchHandStart);
   }
   drawCol(ctx) {
     let ys = 300 - this.moveY
@@ -204,6 +217,13 @@ export default class Physics {
 
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
+    // ctx.drawImage(
+    //   IMG,
+    //   0,
+    //   0,
+    //   screenWidth,
+    //   screenHeight
+    // )
     // 恢复先前渲染上下文所进行的变换
     this.drawCol(ctx)
     this.drawRow(ctx)

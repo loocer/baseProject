@@ -88,7 +88,8 @@ export default class Hand {
 
   }
   addEventLinner() {
-    databus.touchStartHandler = (e) => {
+    console.log(22222222)
+    databus.handTouchStart = (e) => {
       for (let p of e.touches) {
         let x = p.clientX
         let y = p.clientY
@@ -102,8 +103,8 @@ export default class Hand {
         }
       }
     }
-    wx.onTouchStart(databus.touchStartHandler)
-    databus.touchCancelHandler = (e) => {
+    wx.onTouchStart(databus.handTouchStart)
+    databus.touchHandEnd = (e) => {
       databus.actionIndex = null
       temp.upDoingFlag = false
       temp.topDoingFlag = false
@@ -118,7 +119,7 @@ export default class Hand {
       //   }
       // }
     }
-    wx.onTouchEnd(databus.touchCancelHandler)
+    wx.onTouchEnd(databus.touchHandEnd)
   }
   toTop(x, y) {
     return !!(x >= (this.x - this.r ) &&

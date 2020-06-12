@@ -4,11 +4,22 @@ function rnd(start, end) {
 import DataBus from '../databus'
 const screenHeight = window.innerHeight
 const screenWidth = window.innerWidth
+var Engine = Matter.Engine,
+  Render = Matter.Render,
+  Runner = Matter.Runner,
+  MouseConstraint = Matter.MouseConstraint,
+  Mouse = Matter.Mouse,
+  World = Matter.World,
+  Bodies = Matter.Bodies,
+  Body = Matter.Body,
+  Vector = Matter.Vector,
+  Events = Matter.Events;
 import {
   GAME_IMG
 } from '../utils/common'
+import * as Matter from '../libs/matter'
 const databus = new DataBus()
-let IMG=null
+let IMG = null
 export default class Loos {
   constructor() {
     this.visible = true
@@ -19,9 +30,9 @@ export default class Loos {
     this.loop = []
     this.reateLoop()
   }
-  creaLoop(){
-    let maxH = (-(databus.maxTop) * screenHeight)/2
-    let minH = (-(databus.maxTop - 1) * screenHeight)/2
+  creaLoop() {
+    let maxH = (-(databus.maxTop) * screenHeight) / 2
+    let minH = (-(databus.maxTop - 1) * screenHeight) / 2
     let maxW = screenWidth / 2
     let minW = 0
     let x = rnd(minW, maxW)
@@ -29,12 +40,16 @@ export default class Loos {
     let r = rnd(10, 20)
     let flag = false
     for (let obj of this.loop) {
-      
-      let R = r+obj.r
+
+      let R = r + obj.r
       let l = Math.sqrt((x - obj.x) * (x - obj.x) + (y - obj.y) * (y - obj.y))
-      flag = R<l
+      flag = R < l
     }
-    return {x,y,r}
+    return {
+      x,
+      y,
+      r
+    }
     // if(this.loop.length==0){
     //   return {x,y,r}
     // }
@@ -43,57 +58,30 @@ export default class Loos {
     // }
   }
   reateLoop() {
-    if (databus.maxTop == 0) {
-      // let size = (databus.maxTop + 1) * 10
-      let size = 30
-      for (let i = 0; i < size; i++) {
-        let obj = this.creaLoop()
-        
-        if (obj&&obj.y < screenHeight - 500) {
-          this.loop.push(obj)
-        }
-      }
-    } else {
-      let size = (databus.maxTop + 1) * 50
-      for (let i = 0; i < size; i++) {
-        let obj = this.creaLoop()
-        obj&&this.loop.push(obj)
-      }
-    }
-    
-    // let maxH = (-(databus.maxTop) * screenHeight)/2
-    // let minH = (-(databus.maxTop - 1) * screenHeight)/2
-    // let maxW = screenWidth / 2
-    // let minW = 0
+    let cicyl = Bodies.circle(screenWidth / 2, 200, 30, {
+        isStatic: true,
+      }),
+      world = databus.world;
+    World.add(world, [cicyl])
+    databus.balls.push(cicyl)
+    // let size = 30
     // if (databus.maxTop == 0) {
-    //   let size = (databus.maxTop + 1) * 50
-    //   for (let i = 0; i < size; i++) {
-    //     let x = rnd(minW, maxW)
-    //     let y = rnd(minH, maxH)
-    //     let r = rnd(10, 20)
-    //     if (y < screenHeight - 500) {
-    //       this.loop.push({
-    //         x,
-    //         y,
-    //         r
-    //       })
-    //     }
+    //   // let size = (databus.maxTop + 1) * 10
 
+    //   for (let i = 0; i < size; i++) {
+    //     let obj = this.creaLoop()
+
+    //     if (obj&&obj.y < screenHeight - 500) {
+    //       this.loop.push(obj)
+    //     }
     //   }
     // } else {
-    //   let size = (databus.maxTop + 1) * 50
+    //   // let size = (databus.maxTop + 1) * 50
     //   for (let i = 0; i < size; i++) {
-    //     let x = rnd(minW, maxW)
-    //     let y = rnd(minH, maxH)
-    //     let r = rnd(10, 20)
-    //     this.loop.push({
-    //       x,
-    //       y,
-    //       r
-    //     })
+    //     let obj = this.creaLoop()
+    //     obj&&this.loop.push(obj)
     //   }
     // }
-
   }
   checkOver(ball) {
     for (let obj of this.loop) {
@@ -111,62 +99,37 @@ export default class Loos {
     }
     return false
   }
+  drwaBall(ctx) {
+    let balls = databus.balls
+    if (!this.visible)
+      return
+    for (let ball of balls) {
+      let position =ball.position 
+      ctx.beginPath();
+      ctx.fillStyle = 'red';
+      ctx.arc(position.x , position.y , 30, 0, 2 * Math.PI);
+      ctx.fill()
+    }
+  }
   drawToCanvas(ctx) {
     if (!this.visible)
       return
     for (let obj of this.loop) {
-      let hindex = ~~((obj.y-screenHeight)/screenHeight)
+      let hindex = ~~((obj.y - screenHeight) / screenHeight)
       ctx.save()
       ctx.beginPath();
-      ctx.arc(obj.x*2, obj.y*2, obj.r, 0, 2 * Math.PI);
+      ctx.arc(obj.x * 2, obj.y * 2, obj.r, 0, 2 * Math.PI);
       ctx.clip()
       ctx.drawImage(
         IMG,
         0,
-        (hindex)*screenHeight,
+        (hindex) * screenHeight,
         screenWidth,
         screenHeight
       )
       ctx.restore()
     }
-    
-    // ctx.drawImage(
-    //   IMG,
-    //   0,
-    //   0,
-    //   screenWidth,
-    //   screenHeight
-    // )
-    // let bgLength = databus.maxTop
-    // for(let i=1;i<bgLength+1;i++){
-    //   ctx.drawImage(
-    //     IMG,
-    //     0,
-    //     -screenHeight*i,
-    //     screenWidth,
-    //     screenHeight
-    //   )
-    // }
-    // ctx.restore()
-    // ctx.beginPath();
-    // ctx.arc(200, 200, 20, 0, 2 * Math.PI);
-    // ctx.clip()
-    // ctx.drawImage(
-    //   IMG,
-    //   0,
-    //   0,
-    //   screenWidth,
-    //   screenHeight
-    // )
-    
-    // ctx.drawImage(
-    //   IMG,
-    //   0,
-    //   0,
-    //   screenWidth,
-    //   screenHeight
-    // )
-   
+    this.drwaBall(ctx)
   }
   lessKong() {
     let temp = []

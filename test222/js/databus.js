@@ -11,13 +11,13 @@ export default class DataBus {
       return instance
 
     instance = this
-
+    this.pageIndex = 0
 
     this.reset()
   }
 
   reset() {
-    this.pageIndex = 0
+    
     this.actionIndex=null
     this.maxTop = 0
     this.frame      = 0
@@ -34,5 +34,6 @@ export default class DataBus {
     this.state = true//状态过度，避免一直弹窗
     this.gameStatus   = false
     this.gameOverFlag   = false
+    this.balls = []
   }
 }
