@@ -3,6 +3,7 @@ import '../libs/symbol'
 const screenHeight = window.innerHeight
 const screenWidth = window.innerWidth
 import DataBus from '../databus'
+import fucks from '../fuck/index'
 import * as Matter from '../libs/matter'
 import {
   GAME_IMG
@@ -70,8 +71,19 @@ export default class Physics {
       y: screenHeight - 80
     })
   }
+  deawFuck(ctx){
+    let balls = databus.csBall
+    if (!this.visible)
+      return
+    for (let ball of balls) {
+      let position =ball.position 
+      ctx.beginPath();
+      ctx.fillStyle = 'red';
+      ctx.arc(position.x , position.y , 30, 0, 2 * Math.PI);
+      ctx.fill()
+    }
+  }
   update() {
-    console.log(234243343434)
     if (this.status == 'WAIT') {
       return
     } else {
@@ -81,6 +93,7 @@ export default class Physics {
         databus.maxTop++
         this.loos.reateLoop()
       }
+      fucks[0]()
     }
 
   }
@@ -162,5 +175,6 @@ export default class Physics {
       this.gan.drawToCanvas(ctx)
       this.hand.drawToCanvas(ctx)
     }
+    this.deawFuck(ctx)
   }
 }

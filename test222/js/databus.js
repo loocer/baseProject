@@ -35,5 +35,7 @@ export default class DataBus {
     this.gameStatus   = false
     this.gameOverFlag   = false
     this.balls = []
+    this.csBall = []
+    this.kong = []
   }
 }

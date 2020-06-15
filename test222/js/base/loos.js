@@ -58,7 +58,7 @@ export default class Loos {
     // }
   }
   reateLoop() {
-    let cicyl = Bodies.circle(screenWidth / 2, 200, 30, {
+    let cicyl = Bodies.circle(screenWidth / 5, 200, 30, {
         isStatic: true,
       }),
       world = databus.world;
@@ -84,6 +84,7 @@ export default class Loos {
     // }
   }
   checkOver(ball) {
+    this.loop = databus.kong
     for (let obj of this.loop) {
       let R = ball.r >= obj.r ? ball.r : obj.r
       let r = ball.r < obj.r ? ball.r : obj.r
@@ -112,6 +113,8 @@ export default class Loos {
     }
   }
   drawToCanvas(ctx) {
+    console.log(3333333)
+    this.loop = databus.kong
     if (!this.visible)
       return
     for (let obj of this.loop) {
