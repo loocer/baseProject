@@ -10,8 +10,13 @@ import {
   GAME_IMG
 } from '../utils/common'
 let IMG=null
+let instance
 export default class Ball {
   constructor() {
+    if ( instance )
+      return instance
+
+    instance = this
     this.visible = true
     this.width = 40
     this.r = 10

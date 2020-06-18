@@ -1,4 +1,5 @@
 import * as Matter from '../libs/matter'
+import Bullet from '../bullet/bullet1'
 var World = Matter.World,
   Bodies = Matter.Bodies;
 import DataBus from '../databus'
@@ -107,12 +108,23 @@ const create = () => {
 
 }
 export const addFuck = () => {
+  console.log('fuck---')
   if (kongFlag) {
     kongFlag = false
     create()
   }
+  if(databus.time%20==0){
+    let bullet = databus.pools.getItemByClass('bullet', Bullet)
+    bullet.init(
+      -databus.trans.x,
+      databus.trans.y
+    )
+    databus.bullets.add(bullet)
+  }
   if (ciFlag) {
     if (databus.trans.y > screenHeight / 3) {
+      
+      
       ciFlag = false
       let cicyl = Bodies.circle(screenWidth / 2, -databus.trans.y, 10, {
         density: 10,

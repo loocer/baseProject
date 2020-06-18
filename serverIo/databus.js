@@ -1,12 +1,9 @@
 
 
-import Pools from './base/pools'
+const  Pools = require('./pools')
 let instance
 
-/**
- * 全局状态管理器
- */
-export default class DataBus {
+class DataBus {
   constructor() {
     if ( instance )
       return instance
@@ -33,12 +30,13 @@ export default class DataBus {
     } 
     this.time = 0
     this.animations = []
-    this.state = true//状态过度，避免一直弹窗
     this.gameStatus   = false
     this.gameOverFlag   = false
     this.balls = []
     this.csBall = []
     this.kong = []
+    
     this.bullets = new Set()
   }
 }
+module.exports = DataBus

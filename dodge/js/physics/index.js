@@ -87,6 +87,13 @@ export default class Physics {
     if (this.status == 'WAIT') {
       return
     } else {
+      databus.time++
+      Array.from(databus.bullets)
+      .forEach((item) => {
+        if (item.visible) {
+          item.update()
+        }
+      })
       this.hand.update()
       this.checkOver()
       if (databus.trans.y > databus.maxTop * screenHeight) {
@@ -162,14 +169,21 @@ export default class Physics {
     if (true) {
       // console.log(23445566)
       
-      ctx.fillStyle = 'rgba(255,255, 255, .8)';
+      ctx.fillStyle = 'rgba(0,0,0, .8)';
       ctx.fillRect(-databus.trans.x, -databus.trans.y, screenWidth, screenHeight);
       ctx.save();
       ctx.translate(-databus.trans.x , -databus.trans.y)
       this.loos.drawToCanvas(ctx)
-      this.hand.drawToCanvas(ctx)
+      // this.hand.drawToCanvas(ctx)
+      Array.from(databus.bullets)
+      .forEach((item) => {
+        if (item.visible) {
+          item.drawToCanvas(ctx)
+        }
+      })
       ctx.restore()
       this.ball.drawToCanvas(ctx)
+      
     } else {
       ctx.fillStyle = 'rgba(255,255, 255, .8)';
       ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
