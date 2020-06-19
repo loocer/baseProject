@@ -3,7 +3,7 @@ import '../libs/symbol'
 const screenHeight = window.innerHeight
 const screenWidth = window.innerWidth
 import DataBus from '../databus'
-import {draw} from '../bullet/draw'
+import draw from '../bullet/draw'
 import * as Matter from '../libs/matter'
 import Gan from '../base/gan'
 import Ball from '../base/ball'
@@ -91,16 +91,16 @@ export default class Physics {
 
     ctx.fillStyle = "black";
     // ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
-    ctx.fillStyle = "green"
-    ctx.font = "20px Arial"
-    ctx.fillText(
-      this.comeMas.name,
-      20,
-      screenHeight/2
-    )
+    // ctx.fillStyle = "green"
+    // ctx.font = "20px Arial"
+    // ctx.fillText(
+    //   this.comeMas.name,
+    //   20,
+    //   screenHeight/2
+    // )
     databus.bullets.forEach((item) => {
         if (item.visible) {
-          draw(ctx,item)
+          draw.drawBullets(ctx,item)
           // item.drawToCanvas(ctx)
         }
       })

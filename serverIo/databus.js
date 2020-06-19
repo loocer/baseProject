@@ -37,6 +37,7 @@ class DataBus {
     this.kong = []
     
     this.bullets = new Set()
+    this.heros = new Set()
   }
 }
 module.exports = DataBus
