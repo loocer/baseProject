@@ -19,6 +19,7 @@ function getRoteImg(pobj, acObj) {
 let databus = new DataBus()
 class Enemy{
   constructor(WIDTH =30, HEIGHT = 30) {
+    this.isReal = true
     this.width = WIDTH
     this.height = HEIGHT
   }
@@ -26,36 +27,37 @@ class Enemy{
     this.x = x
     this.y = y
     this.name= 'enemy1'
+    this.id="1234"
+    this.visible = true
     this.player = null
     this.fireDistance = 200
     this.fireSpeed = 20
+    this.speed =5
   }
 
   getPosition() {
-    let player = this.player
-    let px = player.x + player.width / 2
-    let py = player.y + player.height / 2
-    let lpx = Math.abs(this.x - player.x)
-    let lpy = Math.abs(this.y - player.y)
-    let tempx = 0
-    let tempy = 0
-    if (lpx > lpy) {
-      tempx = player.x > this.x ? this.x + this.speed : this.x - this.speed
-      tempy = player.y > this.y ? this.y + lpy / lpx : this.y - lpy / lpx
-    } else {
-      tempy = player.y > this.y ? this.y + this.speed : this.y - this.speed
-      tempx = player.x > this.x ? this.x + lpx / lpy : this.x - lpx / lpy
+    let {x,y} = this.player
+    let zx = this.x
+    let zy = this.y
+    if(Math.abs(x-zx)<2&&Math.abs(y-zy)<2){
+      this.setFireObj(null)
+      return
     }
-    this.x = tempx
-    this.y = tempy
-    getRoteImg({
-      x1: this.x,
-      x2: player.x,
-      y1: this.y,
-      y2: player.y
-    },
-      this
-    )
+    let fib = Math.abs((x-zx)/(y-zy))
+    this.moveY = Math.sqrt(1/(fib*fib+1));
+    this.moveX = this.moveY*fib
+    if(x>zx){
+      this.x += this.moveX * this.speed
+    }else{
+      this.x -= this.moveX * this.speed
+    }
+    if(y>zy){
+      this.y += this.moveY * this.speed
+    }else{
+      this.y -= this.moveY * this.speed
+    }
+    // this.y += this.moveY * this.speed
+    // this.x += this.moveX * this.speed
   }
   fireHot(){
     if(this.fireSpeed%20==0){

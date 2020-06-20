@@ -11,7 +11,7 @@ class Main {
   }
   init(io) {
     this.io = io
-    setInterval(this.loop,1000)
+    setInterval(this.loop,30)
     init()
   }
   

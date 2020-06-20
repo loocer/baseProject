@@ -40,5 +40,6 @@ export default class DataBus {
     this.csBall = []
     this.kong = []
     this.bullets = new Set()
+    this.hero = new Set()
   }
 }

@@ -6,7 +6,6 @@ draw.drawBullets = (ctx, bulletObj) => {
   const IMG = GAME_IMG.get('biu')
   if (!bulletObj.visible)
     return
-  console.log(222222222)
   ctx.save()
   let length = Math.sqrt((bulletObj.x - bulletObj.zx) * (bulletObj.x - bulletObj.zx) + (bulletObj.y - bulletObj.zy) * (bulletObj.y - bulletObj.zy))
   ctx.translate(bulletObj.x, bulletObj.y)
@@ -31,6 +30,18 @@ draw.drawBullets = (ctx, bulletObj) => {
       length
     )
   }
+  ctx.restore()
+}
+draw.drawHero = (ctx, obj) => {
+  if (!obj.visible)
+    return
+  ctx.save()
+  ctx.translate(obj.x, obj.y)
+  // ctx.rotate(obj.rotate * Math.PI / 180)
+  ctx.beginPath();
+  ctx.fillStyle = "#00917D";
+  ctx.arc(0, 0, obj.width, 0, 2 * Math.PI);
+  ctx.fill();
   ctx.restore()
 }
 export default draw
