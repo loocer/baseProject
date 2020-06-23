@@ -11,7 +11,7 @@ class Main {
   }
   init(io) {
     this.io = io
-    setInterval(this.loop,30)
+    setInterval(this.loop,10)
     init()
   }
   
@@ -28,6 +28,13 @@ class Main {
           item.update()
         }
       })
+
+    Array.from(databus.bullets)
+      .forEach((item) => {
+        if (!item.visible) {
+          databus.bullets.delete(item)
+        }
+      })  
     databus.time++
   }
   render() {

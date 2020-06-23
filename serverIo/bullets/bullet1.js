@@ -1,7 +1,4 @@
-
-
-
-const  DataBus = require('./databus')
+const  DataBus = require('../databus')
 const groundHeight = 10000
 const groundWidth = 10000
 const BULLET_WIDTH = 1
@@ -36,24 +33,22 @@ class Bullet{
     this.showLength = 0
     this.stopFlag = false
     this.stopFlagTemp = false
-    this.speed = 20
+    this.speed = 2
     this.points = []
     this.visible = true
     this.getMovexy()
   }
   getMovexy(){
     let {zx,zy} = this
-    let x=200,y=300
-    let fib = (x-zx)/(y-zy)
+    let x=this.endx,y=this.endy
+    let fib = Math.abs((x-zx)/(y-zy))
     this.moveY = Math.sqrt(1/(fib*fib+1));
     this.moveX = this.moveY*fib
   }
   update() {
     if (!this.visible)
       return
-    if (this.stopFlagTemp) {
-      this.showLength += 4
-    } else {
+    if (true) {
       getRoteImg({
           x1: this.x + this.moveX,
           x2: this.x,
@@ -62,8 +57,16 @@ class Bullet{
         },
         this
       )
-      this.y += this.moveY * this.speed
-      this.x += this.moveX * this.speed
+      if (this.endx > this.x) {
+        this.x += this.moveX * this.speed
+      } else {
+        this.x -= this.moveX * this.speed
+      }
+      if (this.endy > this.y) {
+        this.y += this.moveY * this.speed
+      } else {
+        this.y -= this.moveY * this.speed
+      }
     }
     if (this.y < 0 ||
       this.y > groundHeight ||
@@ -72,7 +75,9 @@ class Bullet{
     ) {
       this.stopFlagTemp = true
     }
-    if (this.showLength == 100) {
+    let l =Math.sqrt((this.x - this.zx) * (this.x - this.zx) + (this.y - this.zy) * (this.y - this.zy))
+    let k =Math.sqrt((this.endx - this.zx) * (this.endx - this.zx) + (this.endy - this.zy) * (this.endy - this.zy))
+    if (l>k) {
       this.visible = false
       databus.pools.recover(this.name, this)
     }

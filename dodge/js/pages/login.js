@@ -59,6 +59,15 @@ export default class Physics {
       name: 'fuck you tom,wo shi ted:' + instance.code
     })
   }
+  chioseBug(x,y){
+    let chiose = []
+    for(let h of databus.hero){
+      let r = Math.sqrt((h.x - x) * (h.x - x) + (h.y - y) * (h.y - y))
+      if(r<h.r){
+        chiose.push(h)
+      }
+    }
+  }
   handTouchStart(e) {
     let touch = e.touches[0];
     let obj = {}
@@ -66,9 +75,9 @@ export default class Physics {
     obj.y = touch.clientY
     obj.width =30
     obj.height = 30
-    obj.isReal = false
+    obj.isReal = true
     obj.visible = true
-    let herosIds = ['1234']
+    let herosIds = ['1',2,3,4,5,6]
     socket.emit('rosot', {Point:obj,herosIds,evType:'MOVE'})
     //   wx.login({
     //     success:(res)=>{
@@ -119,7 +128,7 @@ export default class Physics {
     })
     databus.bullets.forEach((item) => {
       if (item.visible) {
-        draw.drawBullets(ctx, item)
+        draw.drawBullet1(ctx, item)
         // item.drawToCanvas(ctx)
       }
     })

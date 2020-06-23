@@ -32,6 +32,18 @@ draw.drawBullets = (ctx, bulletObj) => {
   }
   ctx.restore()
 }
+draw.drawBullet1 = (ctx, bulletObj) => {
+  if (!bulletObj.visible)
+    return
+  ctx.save()
+  ctx.translate(bulletObj.x, bulletObj.y)
+  // ctx.rotate(obj.rotate * Math.PI / 180)
+  ctx.beginPath();
+  ctx.fillStyle = "blue";
+  ctx.arc(0, 0, 2, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.restore()
+}
 draw.drawHero = (ctx, obj) => {
   if (!obj.visible)
     return
@@ -40,7 +52,7 @@ draw.drawHero = (ctx, obj) => {
   // ctx.rotate(obj.rotate * Math.PI / 180)
   ctx.beginPath();
   ctx.fillStyle = "#00917D";
-  ctx.arc(0, 0, obj.width, 0, 2 * Math.PI);
+  ctx.arc(0, 0, obj.r, 0, 2 * Math.PI);
   ctx.fill();
   ctx.restore()
 }
