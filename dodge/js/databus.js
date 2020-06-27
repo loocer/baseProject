@@ -31,6 +31,7 @@ export default class DataBus {
       x:0,
       y:0
     } 
+    this.typeId = '111'
     this.time = 0
     this.animations = []
     this.state = true//状态过度，避免一直弹窗

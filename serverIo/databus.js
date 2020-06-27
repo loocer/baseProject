@@ -35,7 +35,7 @@ class DataBus {
     this.balls = []
     this.csBall = []
     this.kong = []
-    
+    this.moveTeam = new Map()
     this.bullets = new Set()
     this.heros = new Set()
   }

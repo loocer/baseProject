@@ -23,7 +23,7 @@ function getRoteImg(pobj, acObj) {
 class Bullet{
   constructor() {
   }
-  init({x, y,endx,endy}) {
+  init({x, y,endx,endy,typeId}) {
     this.name = 'bullet1'
     this.endx = endx
     this.endy =endy
@@ -31,6 +31,7 @@ class Bullet{
     this.zy = y
     this.x = x
     this.y = y
+    this.typeId = typeId
     this.width = BULLET_WIDTH
     this.height = BULLET_HEIGHT
     this.showLength = 0
@@ -47,6 +48,19 @@ class Bullet{
     let fib = (x-zx)/(y-zy)
     this.moveY = Math.sqrt(1/(fib*fib+1));
     this.moveX = this.moveY*fib
+  }
+  chenckFishEney(){
+    Array.from(databus.heros)
+    .forEach((item) => {
+      if (item.visible) {
+       if(item.typeId!=this.typeId){
+        if (this.x > item.x- item.r&& this.x < item.x + item.r  && this.y > item.y-item.r && this.y < item.y + item.r ) {
+          this.visible=false
+          item.life--
+        }
+       }
+      }
+    })
   }
   update() {
     if (!this.visible)
@@ -76,6 +90,7 @@ class Bullet{
       this.visible = false
       databus.pools.recover(this.name, this)
     }
+    this.chenckFishEney()
     // databus.removeBullets(this)
 
     // delete this
