@@ -62,6 +62,7 @@ draw.drawHero = (ctx, obj,that) => {
     ctx.beginPath();
     ctx.fillStyle =  obj.color;
     let leng = (obj.r*2*(obj.life/obj.allLife))
+    leng = leng<0?0:leng
     ctx.fillRect(-obj.r, -12, leng, -4);
     ctx.fill();
   }

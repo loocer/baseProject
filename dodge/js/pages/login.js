@@ -126,26 +126,41 @@ export default class Physics {
       instance.tachStatus = 0
       return
     }
-    let touch = e.changedTouches[0]
+    instance.tachStatus = 2
     let {
       startPoint
     } = instance.tachPoint
-    if (!startPoint) {
-      return
-    }
-    console.log('7777777777777777777777', touch, startPoint)
+    let touch = e.changedTouches[0]
     let xmin = Math.abs(touch.clientX - startPoint.clientX)
     let ymin = Math.abs(touch.clientY - startPoint.clientY)
     if (xmin < 5 && ymin < 5) {
-      let item = instance.iSClickHer(touch.clientX, touch.clientY)
-      if (item) {
-        instance.chioseList = [item]
-        instance.tachStatus = 2
+      if(instance.chioseList.length==0){
+        instance.tachStatus = 0
         return
       }
-    } else {
+      let eny = instance.isChioseMaster(touch.clientX, touch.clientY)
+      instance.tachStatus = 0
+      instance.tachPoint = null
+      let obj = {}
+      if (eny) {
+        obj = eny
+        obj.isReal = true
+      } else {
+        obj.x = touch.clientX + databus.trans.x
+        obj.y = touch.clientY + databus.trans.y
+        obj.width = 30
+        obj.height = 30
+        obj.isReal = false
+        obj.visible = true
+      }
 
-
+      socket.emit('rosot', {
+        Point: obj,
+        herosIds: instance.chioseList,
+        evType: 'MOVE'
+      })
+      // instance.chioseList = []
+    }else{
       let herosIds = []
       instance.heros.forEach((item) => {
         if (item.visible) {
@@ -155,10 +170,11 @@ export default class Physics {
           }
         }
       })
-      instance.chioseList = herosIds
       instance.tachStatus = 2
-      console.log(herosIds)
+      instance.chioseList = herosIds
     }
+    
+
   }
   connectNet() {
     socket.emit('chat message', {
@@ -180,12 +196,12 @@ export default class Physics {
       movePoint
     } = this.tachPoint
     let qs = {
-      clientX:startPoint.clientX + databus.trans.x,
-      clientY:startPoint.clientY + databus.trans.y
+      clientX: startPoint.clientX + databus.trans.x,
+      clientY: startPoint.clientY + databus.trans.y
     }
     let qm = {
-      clientX:movePoint.clientX + databus.trans.x,
-      clientY:movePoint.clientY + databus.trans.y
+      clientX: movePoint.clientX + databus.trans.x,
+      clientY: movePoint.clientY + databus.trans.y
     }
     let isLChiose = false
     if (qs.clientX < qm.clientX) {
@@ -241,28 +257,12 @@ export default class Physics {
       instance.tachStatus = 1
     }
     if (instance.tachStatus == 2) {
-      let eny = instance.isChioseMaster(touch.clientX, touch.clientY)
-      instance.tachStatus = 0
-      instance.tachPoint = null
-      let obj = {}
-      if (eny) {
-        obj = eny
-        obj.isReal = true
-      } else {
-        obj.x = touch.clientX + databus.trans.x
-        obj.y = touch.clientY+ databus.trans.y
-        obj.width = 30
-        obj.height = 30
-        obj.isReal = false
-        obj.visible = true
+      instance.tachPoint = {
+        startPoint: touch,
+        movePoint: touch
       }
+      instance.tachStatus = 1
 
-      socket.emit('rosot', {
-        Point: obj,
-        herosIds: instance.chioseList,
-        evType: 'MOVE'
-      })
-      instance.chioseList = []
     }
 
 
