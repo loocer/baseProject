@@ -186,7 +186,6 @@ class Enemy {
   queryEnemy(){
     Array.from(databus.heros)
       .forEach((item) => {
-        console.log(1231123)
         if (item.typeId!=this.typeId) {
           let distance = Math.sqrt((this.x - item.x) * (this.x - item.x) + (this.y - item.y) * (this.y - item.y))
           if (distance < this.fireDistance) {

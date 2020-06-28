@@ -12,6 +12,7 @@ export default class DataBus {
       return instance
 
     instance = this
+    this.ctx = null
     this.pageIndex = 0
     this.pools = new Pools()
     this.reset()

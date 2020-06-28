@@ -35,7 +35,7 @@ export default class Physics {
     this.tachPoint = {}
   }
   init() {
-    socket = io('http://192.168.2.103:3000');
+    socket = io('http://172.16.25.101:3000');
     socket.on('chat message', (s) => {
       console.log(44444444444444)
       databus.bullets = s.bullets
@@ -52,7 +52,7 @@ export default class Physics {
       if (item.visible) {
         if (item.typeId == this.typeId) {
           list.push(item)
-        }else{
+        } else {
           enemys.push(item)
         }
         // item.drawToCanvas(ctx)
@@ -93,11 +93,35 @@ export default class Physics {
   }
   handTouchMove(e) {
     let touch = e.touches[0]
+    if (e.touches.length == 2) {
+      let {
+        movePoint
+      } = instance.tachPoint
+      let mp = touch
+      console.log('55555555555555555', instance.tachPoint, databus.trans)
+
+      databus.trans.x += (movePoint.clientX - mp.clientX)
+      databus.trans.y += (movePoint.clientY - mp.clientY)
+      databus.ctx.translate(databus.transed.x, databus.transed.y)
+      databus.ctx.translate(-databus.trans.x, -databus.trans.y)
+      databus.transed = {
+        x: databus.trans.x,
+        y: databus.trans.y,
+      }
+      console.log('.....222222222222222222222.', databus.transed, databus.trans)
+      console.log('66666666666666666', movePoint, mp)
+      instance.tachPoint.movePoint = mp
+    }
+
     if (instance.tachStatus == 1) {
       instance.tachPoint.movePoint = touch
     }
   }
   handTouchEnd(e) {
+    if (e.changedTouches.length > 1) {
+      instance.tachStatus = 0
+      return
+    }
     if (!instance.tachPoint) {
       instance.tachStatus = 0
       return
@@ -106,18 +130,22 @@ export default class Physics {
     let {
       startPoint
     } = instance.tachPoint
-    let xmin = Math.abs(touch.clientX - startPoint.clientX )
-    let ymin = Math.abs(touch.clientY - startPoint.clientY )
-    if(xmin<5 && ymin<5){
-      let item = instance.iSClickHer(touch.clientX,touch.clientY)
-      if(item){
+    if (!startPoint) {
+      return
+    }
+    console.log('7777777777777777777777', touch, startPoint)
+    let xmin = Math.abs(touch.clientX - startPoint.clientX)
+    let ymin = Math.abs(touch.clientY - startPoint.clientY)
+    if (xmin < 5 && ymin < 5) {
+      let item = instance.iSClickHer(touch.clientX, touch.clientY)
+      if (item) {
         instance.chioseList = [item]
         instance.tachStatus = 2
         return
       }
-    }else{
-      
-  
+    } else {
+
+
       let herosIds = []
       instance.heros.forEach((item) => {
         if (item.visible) {
@@ -151,28 +179,36 @@ export default class Physics {
       startPoint,
       movePoint
     } = this.tachPoint
+    let qs = {
+      clientX:startPoint.clientX + databus.trans.x,
+      clientY:startPoint.clientY + databus.trans.y
+    }
+    let qm = {
+      clientX:movePoint.clientX + databus.trans.x,
+      clientY:movePoint.clientY + databus.trans.y
+    }
     let isLChiose = false
-    if (startPoint.clientX < movePoint.clientX) {
-      if (item.x > startPoint.clientX && item.x < movePoint.clientX) {
+    if (qs.clientX < qm.clientX) {
+      if (item.x > qs.clientX && item.x < qm.clientX) {
         isLChiose = true
       } else {
         return false
       }
     } else {
-      if (item.x > movePoint.clientX && item.x < startPoint.clientX) {
+      if (item.x > qm.clientX && item.x < qs.clientX) {
         isLChiose = true
       } else {
         return false
       }
     }
-    if (startPoint.clientY < movePoint.clientY) {
-      if (item.y > startPoint.clientY && item.y < movePoint.clientY) {
+    if (qs.clientY < qm.clientY) {
+      if (item.y > qs.clientY && item.y < qm.clientY) {
         isLChiose = true
       } else {
         return false
       }
     } else {
-      if (item.y > movePoint.clientY && item.y < startPoint.clientY) {
+      if (item.y > qm.clientY && item.y < qs.clientY) {
         isLChiose = true
       } else {
         return false
@@ -180,18 +216,23 @@ export default class Physics {
     }
     return isLChiose
   }
-  isChioseMaster(x,y){
+  isChioseMaster(x, y) {
     for (let obj of instance.enemys) {
-      if (x > obj.x- obj.r&& x < obj.x + obj.r  && y > obj.y-obj.r && y < obj.y + obj.r ) {
+      if (x > obj.x - obj.r && x < obj.x + obj.r && y > obj.y - obj.r && y < obj.y + obj.r) {
         return obj
       }
     }
     return false
   }
   handTouchStart(e) {
-
     let touch = e.touches[0]
- 
+    if (e.touches.length == 2) {
+      instance.tachPoint = {
+        movePoint: touch
+      }
+      instance.tachStatus = 0
+      return
+    }
     if (instance.tachStatus == 0) {
       instance.tachPoint = {
         startPoint: touch,
@@ -204,12 +245,12 @@ export default class Physics {
       instance.tachStatus = 0
       instance.tachPoint = null
       let obj = {}
-      if(eny){
+      if (eny) {
         obj = eny
         obj.isReal = true
-      }else{
-        obj.x = touch.clientX
-        obj.y = touch.clientY
+      } else {
+        obj.x = touch.clientX + databus.trans.x
+        obj.y = touch.clientY+ databus.trans.y
         obj.width = 30
         obj.height = 30
         obj.isReal = false
@@ -256,8 +297,9 @@ export default class Physics {
         movePoint
       } = this.tachPoint
       if (this.tachPoint) {
-        ctx.strokeRect(startPoint.clientX, startPoint.clientY, movePoint.clientX - startPoint.clientX, movePoint.clientY - startPoint.clientY);
+        ctx.beginPath();
         ctx.strokeStyle = "green";
+        ctx.strokeRect(startPoint.clientX, startPoint.clientY, movePoint.clientX - startPoint.clientX, movePoint.clientY - startPoint.clientY);
         ctx.stroke();
       }
     }
@@ -273,6 +315,7 @@ export default class Physics {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
+
     ctx.fillStyle = "black";
     // ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
     // ctx.fillStyle = "green"
@@ -284,7 +327,7 @@ export default class Physics {
     // )
     databus.hero.forEach((item) => {
       if (item.visible) {
-        draw.drawHero(ctx, item,this)
+        draw.drawHero(ctx, item, this)
         // item.drawToCanvas(ctx)
       }
     })
@@ -294,6 +337,9 @@ export default class Physics {
         // item.drawToCanvas(ctx)
       }
     })
+    ctx.save()
+    ctx.translate(databus.trans.x, databus.trans.y)
     this.drawChiose(ctx)
+    ctx.restore()
   }
 }
