@@ -334,7 +334,7 @@ export default class Physics {
 
 
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, databus.groundWidth*1.5, databus.groundHeight*1.5);
 
 
 
