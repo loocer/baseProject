@@ -6,6 +6,7 @@ import DataBus from '../databus'
 import draw from '../bullet/draw'
 import io from '../libs/socketio';
 import MiniMap from '../physics/miniMap'
+import HomePanel from '../physics/homePanel'
 
 const databus = new DataBus()
 let socket = null
@@ -30,6 +31,7 @@ export default class Physics {
     this.tachStatus = 0 //1 is chiose 2 is end chiose 3 is go,0 is init
     this.tachPoint = {}
     this.miniMap = new MiniMap()
+    this.homePanel = new HomePanel()
   }
   init() {
     socket = io('http://172.16.25.101:3000');
@@ -362,6 +364,7 @@ export default class Physics {
     ctx.save()
     ctx.translate(databus.trans.x, databus.trans.y)
     this.drawChiose(ctx)
+    this.homePanel.render(ctx)
     this.miniMap.render(ctx)
     ctx.restore()
   }

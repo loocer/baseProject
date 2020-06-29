@@ -10,7 +10,7 @@ export default class MiniMap {
     instance = this
     this.width = 200
     this.height = 200
-    this.x = screenWidth - this.width
+    this.x = 0
     this.y = 0
   }
   inClose(x,y){
