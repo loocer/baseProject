@@ -19,7 +19,8 @@ export default class DataBus {
   }
 
   reset() {
-    
+    this.groundWidth = 2000
+    this.groundHeight =2000
     this.actionIndex=null
     this.maxTop = 0
     this.frame      = 0

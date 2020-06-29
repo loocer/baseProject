@@ -1,4 +1,4 @@
-import physics from '../physics/index'
+
 import pass from './pass'
 import login from './login'
 import Databus from '../databus'
@@ -7,7 +7,7 @@ let tempIndex = null
 let list = null
 export const work=(that)=>{
   if(databus.pageIndex!=tempIndex){
-    list = [new login(),new pass(),new physics()]
+    list = [new login(),new pass()]
     wx.offTouchStart(databus.handTouchStart)
     wx.offTouchMove(databus.touchHandMove)
     wx.offTouchEnd(databus.handTouchEnd)

@@ -4,12 +4,8 @@ const screenHeight = window.innerHeight
 const screenWidth = window.innerWidth
 import DataBus from '../databus'
 import draw from '../bullet/draw'
-import * as Matter from '../libs/matter'
-import Gan from '../base/gan'
-import Ball from '../base/ball'
-import Hand from '../base/hand'
-import Loos from '../base/loos'
 import io from '../libs/socketio';
+import MiniMap from '../physics/miniMap'
 
 const databus = new DataBus()
 let socket = null
@@ -33,6 +29,7 @@ export default class Physics {
     }
     this.tachStatus = 0 //1 is chiose 2 is end chiose 3 is go,0 is init
     this.tachPoint = {}
+    this.miniMap = new MiniMap()
   }
   init() {
     socket = io('http://172.16.25.101:3000');
@@ -44,6 +41,17 @@ export default class Physics {
     });
     socket.on('event', function (data) {});
     socket.on('disconnect', function () {});
+    this.initPosition(300,400)
+  }
+  initPosition(x,y){
+    databus.trans.x =  x
+    databus.trans.y = y
+    databus.ctx.translate(databus.transed.x, databus.transed.y)
+    databus.ctx.translate(-databus.trans.x, -databus.trans.y)
+    databus.transed = {
+      x: databus.trans.x,
+      y: databus.trans.y,
+    }
   }
   getThisHero(hers) {
     let list = []
@@ -89,17 +97,19 @@ export default class Physics {
   queryNo() {
     let x = 400
     let y = 500
-
   }
   handTouchMove(e) {
     let touch = e.touches[0]
+    if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
+      let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
+      instance.initPosition(p.x,p.y)
+      return
+    }
     if (e.touches.length == 2) {
       let {
         movePoint
       } = instance.tachPoint
       let mp = touch
-      console.log('55555555555555555', instance.tachPoint, databus.trans)
-
       databus.trans.x += (movePoint.clientX - mp.clientX)
       databus.trans.y += (movePoint.clientY - mp.clientY)
       databus.ctx.translate(databus.transed.x, databus.transed.y)
@@ -108,8 +118,6 @@ export default class Physics {
         x: databus.trans.x,
         y: databus.trans.y,
       }
-      console.log('.....222222222222222222222.', databus.transed, databus.trans)
-      console.log('66666666666666666', movePoint, mp)
       instance.tachPoint.movePoint = mp
     }
 
@@ -118,9 +126,19 @@ export default class Physics {
     }
   }
   handTouchEnd(e) {
+    let touch = e.changedTouches[0]
+    if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
+      let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
+      instance.initPosition(p.x,p.y)
+      return
+    }
     if (e.changedTouches.length > 1) {
       instance.tachStatus = 0
       return
+    }
+    if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
+      let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
+      instance.initPosition(p.x,p.y)
     }
     if (!instance.tachPoint) {
       instance.tachStatus = 0
@@ -130,7 +148,6 @@ export default class Physics {
     let {
       startPoint
     } = instance.tachPoint
-    let touch = e.changedTouches[0]
     let xmin = Math.abs(touch.clientX - startPoint.clientX)
     let ymin = Math.abs(touch.clientY - startPoint.clientY)
     if (xmin < 5 && ymin < 5) {
@@ -242,6 +259,11 @@ export default class Physics {
   }
   handTouchStart(e) {
     let touch = e.touches[0]
+    if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
+      let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
+      instance.initPosition(p.x,p.y)
+      return
+    }
     if (e.touches.length == 2) {
       instance.tachPoint = {
         movePoint: touch
@@ -340,6 +362,7 @@ export default class Physics {
     ctx.save()
     ctx.translate(databus.trans.x, databus.trans.y)
     this.drawChiose(ctx)
+    this.miniMap.render(ctx)
     ctx.restore()
   }
 }
