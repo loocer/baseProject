@@ -8,8 +8,8 @@ export default class MiniMap {
     if (instance)
       return instance
     instance = this
-    this.width = 200
-    this.height = 200
+    this.width = 160
+    this.height = 160
     this.x = 0
     this.y = 0
   }

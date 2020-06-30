@@ -7,6 +7,7 @@ import draw from '../bullet/draw'
 import io from '../libs/socketio';
 import MiniMap from '../physics/miniMap'
 import HomePanel from '../physics/homePanel'
+import ToolTab from '../physics/toolTab'
 
 const databus = new DataBus()
 let socket = null
@@ -20,6 +21,7 @@ export default class Physics {
     this.typeId = databus.typeId
     this.allPasition = []
     this.moveY = 0
+    this.whatPanel = 0 //1:tools,2:map
     this.chioseList = []
     this.code = null
     this.heros = []
@@ -32,11 +34,11 @@ export default class Physics {
     this.tachPoint = {}
     this.miniMap = new MiniMap()
     this.homePanel = new HomePanel()
+    this.toolTab = new ToolTab()
   }
   init() {
     socket = io('http://172.16.25.101:3000');
     socket.on('chat message', (s) => {
-      console.log(44444444444444)
       databus.bullets = s.bullets
       databus.hero = this.commonData(s.heros)
       this.getThisHero(s.heros)
@@ -102,9 +104,24 @@ export default class Physics {
   }
   handTouchMove(e) {
     let touch = e.touches[0]
-    if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
-      let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
-      instance.initPosition(p.x,p.y)
+    if(instance.whatPanel == 2){
+      if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
+        let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
+        instance.initPosition(p.x,p.y)
+        return
+      }
+    }
+   
+    if(instance.whatPanel == 1){
+      let {
+        movePoint
+      } = instance.tachPoint
+      let movex = movePoint.clientY - touch.clientY
+      instance.homePanel.scoolly-=movex
+      instance.tachPoint.movePoint = touch
+      return
+    }
+    if(instance.whatPanel==3){
       return
     }
     if (e.touches.length == 2) {
@@ -129,12 +146,24 @@ export default class Physics {
   }
   handTouchEnd(e) {
     let touch = e.changedTouches[0]
-    if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
-      let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
-      instance.initPosition(p.x,p.y)
+    if(instance.whatPanel==1){
+      instance.homePanel.scoollReset()
+      instance.whatPanel = 0
       return
     }
-    if (e.changedTouches.length > 1) {
+    if(instance.whatPanel==2){
+      if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
+        let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
+        instance.initPosition(p.x,p.y)
+        instance.whatPanel = 0
+        return
+      }
+    }
+    if(instance.whatPanel==3){
+      instance.whatPanel = 0
+      return
+    }
+    if (e.changedTouches.length > 1){
       instance.tachStatus = 0
       return
     }
@@ -193,7 +222,7 @@ export default class Physics {
       instance.chioseList = herosIds
     }
     
-
+    
   }
   connectNet() {
     socket.emit('chat message', {
@@ -264,6 +293,22 @@ export default class Physics {
     if(instance.miniMap.inClose(touch.clientX,touch.clientY)){
       let p = instance.miniMap.getMovePosition(touch.clientX,touch.clientY)
       instance.initPosition(p.x,p.y)
+      instance.whatPanel = 2
+      return
+    }
+    if(instance.homePanel.inClose(touch.clientX,touch.clientY)){
+      instance.whatPanel = 1
+      instance.tachPoint = {
+        movePoint: touch
+      }
+      return
+    }
+    if(instance.toolTab.inClose(touch.clientX,touch.clientY)){
+      instance.whatPanel = 3
+      instance.toolTab.chagePanel(touch.clientX,touch.clientY)
+      instance.tachPoint = {
+        movePoint: touch
+      }
       return
     }
     if (e.touches.length == 2) {
@@ -341,7 +386,8 @@ export default class Physics {
 
 
     ctx.fillStyle = "black";
-    // ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
+    ctx.fillRect(0, 0, databus.groundWidth*1.5, databus.groundHeight*1.5);
+    ctx.fill()
     // ctx.fillStyle = "green"
     // ctx.font = "20px Arial"
     // ctx.fillText(
@@ -366,6 +412,7 @@ export default class Physics {
     this.drawChiose(ctx)
     this.homePanel.render(ctx)
     this.miniMap.render(ctx)
+    this.toolTab.render(ctx)
     ctx.restore()
   }
 }

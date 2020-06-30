@@ -1,54 +1,58 @@
 import DataBus from '../databus'
+import HomePanel from './homePanel'
 import data from './data'
 const screenHeight = window.innerHeight
 const screenWidth = window.innerWidth
 let databus = new DataBus()
 let instance
-export default class HomePanel {
+export default class ToolTab {
   constructor() {
     if (instance)
       return instance
     instance = this
-    this.tools = data.get('home')
-    this.toolWidth = 70
-    this.toolHeight =70
+    this.tools = [{
+      name: 'home',
+      color:'#046990'
+    }, {
+      name: 'tool',
+      color:'#0effde'
+    }, {
+      name: 'sojer',
+      color:'#3cf500'
+    },{
+      name: 'tanke',
+      color:'#f5e200'
+    }]
+    this.toolWidth = 40
+    this.toolHeight =40
     this.scoolly = 0
     this.width = 160
-    this.height = screenHeight - 200
+    this.height = 40
     this.x = 0
-    this.y = 200
+    this.y = 160
+    this.homePanel = new HomePanel()
   }
 
   inClose(x, y) {
     return x > this.x && x < this.x + this.width && y > this.y && y < this.y + this.height
   }
-  scoollReset(){
-    if(this.scoolly>0){
-      this.scoolly=0
-    }
-    let marginPanel =  (this.width - this.toolWidth * 2) / 4 
-    let hei = Math.ceil(this.tools.length / 2)*(this.toolHeight+marginPanel)
-    let height = hei - (screenHeight - this.y )
-    if(Math.abs(this.scoolly)>height){
-      if(height< this.height){
-        this.scoolly=0
-      }else{
-        this.scoolly = -height
+  chagePanel(x,y){
+    let key = this.chiosePanel(x,y)
+    this.homePanel.tools = data.get(key)
+  }
+  chiosePanel(x,y){
+    for (let index in this.tools) {
+      let wxx = index*this.toolWidth
+      let wix = (index+1)*this.toolWidth
+      if(x > wxx&& x < wix&& y > this.y && y < this.y + this.height){
+        return this.tools[index].name
       }
     }
   }
   drawNo(ctx) {
-    let marginPanel =  (this.width - this.toolWidth * 2) / 4 
-    ctx.save()
-    ctx.translate(this.x, this.y)
-    ctx.fillStyle = "#00b3bb";
-    ctx.fillRect(0, 0, this.width, this.height);
-    ctx.fill();
-    ctx.restore()
     for (let index in this.tools) {
-      console.log(marginPanel)
-      let x = index % 2 ?marginPanel : this.toolWidth+marginPanel*3
-      let y = ~~(index / 2)*(this.toolHeight+marginPanel) + marginPanel + this.scoolly+this.y
+      let x = index*this.toolWidth
+      let y =  this.y
       ctx.save()
       ctx.translate(x, y)
       ctx.fillStyle = this.tools[index].color;
@@ -56,7 +60,7 @@ export default class HomePanel {
       ctx.fill();
       ctx.restore()
     }
-    
+
   }
   getMovePosition(x, y) {
     let px = (x - this.x) / this.width * databus.groundWidth - screenWidth / 2
