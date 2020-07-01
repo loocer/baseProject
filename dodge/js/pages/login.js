@@ -8,6 +8,7 @@ import io from '../libs/socketio';
 import MiniMap from '../physics/miniMap'
 import HomePanel from '../physics/homePanel'
 import ToolTab from '../physics/toolTab'
+import Scoll from '../physics/scoll'
 
 const databus = new DataBus()
 let socket = null
@@ -21,7 +22,7 @@ export default class Physics {
     this.typeId = databus.typeId
     this.allPasition = []
     this.moveY = 0
-    this.whatPanel = 0 //1:tools,2:map
+    this.whatPanel = 0 //1:tools,2:map,4 is scool
     this.chioseList = []
     this.code = null
     this.heros = []
@@ -30,14 +31,15 @@ export default class Physics {
     this.comeMas = {
       name: 'test'
     }
-    this.tachStatus = 0 //1 is chiose 2 is end chiose 3 is go,0 is init
+    this.tachStatus = 0 //1 is chiose 2 is end chiose 3 is go,0 is init,
     this.tachPoint = {}
     this.miniMap = new MiniMap()
     this.homePanel = new HomePanel()
     this.toolTab = new ToolTab()
+    this.scoll = new Scoll()
   }
   init() {
-    socket = io('http://172.16.25.101:3000');
+    socket = io('http://192.168.2.101:3000');
     socket.on('chat message', (s) => {
       databus.bullets = s.bullets
       databus.hero = this.commonData(s.heros)
@@ -116,9 +118,24 @@ export default class Physics {
       let {
         movePoint
       } = instance.tachPoint
-      let movex = movePoint.clientY - touch.clientY
-      instance.homePanel.scoolly-=movex
+      // let movex = movePoint.clientY - touch.clientY
+      // instance.homePanel.scoolly-=movex
       instance.tachPoint.movePoint = touch
+      return
+    }
+    if(instance.whatPanel==4){
+      let {
+        movePoint
+      } = instance.tachPoint
+      let movex = movePoint.clientY - touch.clientY
+      if(instance.scoll.scoolly-movex<10||instance.scoll.scoolly-movex+instance.scoll.toolHeight>instance.scoll.height-10){
+        return
+      }else{
+        instance.scoll.scoolly-=movex
+        instance.homePanel.scoolly+=movex
+        instance.tachPoint.movePoint = touch
+      }
+      
       return
     }
     if(instance.whatPanel==3){
@@ -160,6 +177,10 @@ export default class Physics {
       }
     }
     if(instance.whatPanel==3){
+      instance.whatPanel = 0
+      return
+    }
+    if(instance.whatPanel==4){
       instance.whatPanel = 0
       return
     }
@@ -298,6 +319,14 @@ export default class Physics {
     }
     if(instance.homePanel.inClose(touch.clientX,touch.clientY)){
       instance.whatPanel = 1
+      instance.homePanel.getActionNo(touch.clientX,touch.clientY)
+      instance.tachPoint = {
+        movePoint: touch
+      }
+      return
+    }
+    if(instance.scoll.inClose(touch.clientX,touch.clientY)){
+      instance.whatPanel = 4
       instance.tachPoint = {
         movePoint: touch
       }

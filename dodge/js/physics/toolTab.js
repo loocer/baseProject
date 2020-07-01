@@ -38,12 +38,13 @@ export default class ToolTab {
   }
   chagePanel(x,y){
     let key = this.chiosePanel(x,y)
-    this.homePanel.tools = data.get(key)
+    console.log(key,'___________++++++++++++')
+    this.homePanel.changeTab(key)
   }
   chiosePanel(x,y){
     for (let index in this.tools) {
       let wxx = index*this.toolWidth
-      let wix = (index+1)*this.toolWidth
+      let wix = (~~index+1)*this.toolWidth
       if(x > wxx&& x < wix&& y > this.y && y < this.y + this.height){
         return this.tools[index].name
       }
