@@ -5,7 +5,10 @@ const action = (UserEvent)=>{
 	{
 	    case 'MOVE':
 	        moveAction(UserEvent)
-	        break;
+			break;
+		case 'MOVE':
+			moveAction(UserEvent)
+			break;	
 	}
 }
 const moveAction = (UserEvent)=>{

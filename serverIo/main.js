@@ -2,64 +2,64 @@ const DataBus = require('./databus')
 const Bullet = require('./bullet')
 const init = require('./init')
 let temp = null
-let databus = new DataBus()
 let results = {}
 class Main {
   constructor() {
     this.aniId = 0
+    this.databus = new DataBus()
     temp = this
   }
   init(io) {
     this.io = io
     setInterval(this.loop, 50)
-    init()
+    init(this.databus)
   }
 
   update() {
-    Array.from(databus.bullets)
+    Array.from(this.databus.bullets)
       .forEach((item) => {
         if (item.visible) {
           item.update()
         }else{
-          databus.heros.delete(item)
+          this.databus.heros.delete(item)
         }
       })
-    Array.from(databus.heros)
+    Array.from(this.databus.heros)
       .forEach((item) => {
         if (item.visible) {
           item.update()
         }else{
-          databus.heros.delete(item)
+          this.databus.heros.delete(item)
         }
       })
 
-    Array.from(databus.bullets)
+    Array.from(this.databus.bullets)
       .forEach((item) => {
         if (!item.visible) {
-          databus.bullets.delete(item)
+          this.databus.bullets.delete(item)
         }
       })
-    for (let key of databus.moveTeam.keys()) {
+    for (let key of this.databus.moveTeam.keys()) {
       let tempList = []
-      for (let obj of databus.moveTeam.get(key)) {
+      for (let obj of this.databus.moveTeam.get(key)) {
         if (obj.visible) {
           tempList.push(obj)
         }
       }
       if(tempList.length!=0){
-        databus.moveTeam.set(key, tempList)
+        this.databus.moveTeam.set(key, tempList)
       }else{
-        databus.moveTeam.delete(key)
+        this.databus.moveTeam.delete(key)
       }
     }
-    databus.time++
+    this.databus.time++
   }
   render() {
-    let bus = Array.from(databus.bullets)
+    let bus = Array.from(this.databus.bullets)
     results.bullets = bus
-    let hrs = Array.from(databus.heros)
+    let hrs = Array.from(this.databus.heros)
     results.heros = hrs
-    temp.io.emit('chat message', results);
+    temp.io.emit('main_update', results);
   }
   loop() {
     temp.update()
