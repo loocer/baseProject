@@ -1,20 +1,27 @@
 const DataBus = require('./databus')
 const Bullet = require('./bullet')
+const bs = require('./req/tools/databus')
+const action = require('./action')
 const init = require('./init')
 let temp = null
 let results = {}
 class Main {
-  constructor() {
+  constructor({roomNo,peopleNum}) {
+    this.roomNo = roomNo
+    this.players = new Map()
+    this.peopleNum = peopleNum
     this.aniId = 0
     this.databus = new DataBus()
     temp = this
   }
-  init(io) {
-    this.io = io
+  init() {
+    this.io = bs.io
     setInterval(this.loop, 50)
     init(this.databus)
   }
-
+  action(event){
+    action(event,this)
+  }
   update() {
     Array.from(this.databus.bullets)
       .forEach((item) => {
@@ -59,6 +66,8 @@ class Main {
     results.bullets = bus
     let hrs = Array.from(this.databus.heros)
     results.heros = hrs
+    results.players = Array.from(this.players)
+    results.house = Array.from(this.databus.house)
     temp.io.emit('main_update', results);
   }
   loop() {

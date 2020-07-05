@@ -1,8 +1,11 @@
-var demoData = require('./tools/demoData')
+const demoData = require('./tools/demoData')
 var userControl = {};
-// var rooms = require('../gameMain/rooms');
-// const getAuthorize = require('./tools/auth').getAuthorize;
-// var RoomPlayers = require('../gameMain/roomPlayers');
+const data = require('../req/tools/data');
+const getAuthorize = require('./tools/auth').getAuthorize;
+const auth = require('./tools/auth').authorize
+const RoomPlayers = require('../req/roomPlayers');
+const Main = require('../main')
+const roomsEngine=require('../req/tools/data').roomsEngine;
 // var ZhajinhuaPlayer = require('../gameMain/player');
 const acType = {
   ON_COME: 'ON_COME',
@@ -15,7 +18,6 @@ const acType = {
   ADD_RAISE: 'ADD_RAISE'
 }
 const filter = require('./tools/filter')
-// const auth = require('./tools/auth').authorize
 userControl.getUserInfo = function (app) {
   // app.get('/get-userInfo', filter.authorize, function (req, res) {
     // let results = {}
@@ -57,65 +59,41 @@ userControl.getRoomStatus = function (app) {
 }
 userControl.createRoom = function (app) {
   app.get('/create-room', filter.authorize, function (req, res) {
-    // let results = {}
-    // console.log(req.session)
-    // let roomNo = String(req.query.roomNo)
-    // let peopleNum = req.query.peopleNum
-    // const detaRooms = demoData.rooms
-    // let reUser = getAuthorize(req.headers.authorization)
-    // console.log(roomNo)
-    // console.log(detaRooms)
-    // console.log(reUser)
-    // console.log('-=-=------------------')
-    // /*--------判断房卡是否有效--------*/
-    // // console.log(req)
-    // let status = detaRooms.has(roomNo)
-    // if (status) {
-    //   status = rooms.size != 0 && rooms.has(roomNo)
-    //   if (status) {
-    //     results.status = 2
-    //     results.msg = '房间号已被创建！'
-    //     res.status(403),
-    //       res.json(results)
-    //   }
-    //   if (!status) {
-    //     // demoData.rooms.forEach(function(room,index){
-    //     //   if (room.id==roomNo) {
-    //     //     demoData.rooms.splice(index, 1);
-    //     //   }
-    //     // });
-    //     detaRooms.delete(roomNo)
-    //     let roomPlayers = new RoomPlayers({ id: roomNo, peopleNum: peopleNum })
-    //     rooms.set(roomNo, roomPlayers)
-    //     results.status = 1
-    //     //------------------------------------//
-    //     let user = null
-    //     for (var u in demoData.users) {
-    //       if (demoData.users[u].id === reUser.id) {
-    //         user = demoData.users[u]
-    //       }
-    //     }
-    //     //------------------------------------//
-    //     var player = new ZhajinhuaPlayer(user)
-    //     player.isMain = true
-    //     player.state = acType.ON_READY
-    //     roomPlayers.doingObj = player
+    console.log(req.session)
+    let results = {}
+    let roomNo = req.query.roomNo
+    let peopleNum = req.query.peopleNum
+    let userId = req.headers.user_id
+    let user = data.users.get(userId)
+    const detaRooms = demoData.rooms
+    let status = detaRooms.has(roomNo)
+    if (status) {
+      status = data.roomsEngine.size != 0 && data.roomsEngine.has(roomNo)
+      if (status) {
+        results.status = 2
+        results.msg = '房间号已被创建！'
+        res.status(403),
+        res.json(results)
+      }
+      if (!status) {
+        demoData.rooms.delete(roomNo)
+        const main =new Main({ id: roomNo, peopleNum: peopleNum })
+        main.init()
+        let roomPlayers = new RoomPlayers(user)
+        roomPlayers.init(main)
+        main.players.set(user.id,roomPlayers)
+        roomsEngine.set(roomNo,main)
 
-    //     roomPlayers.players.set(player.id, player)
-    //     roomPlayers.playIngs.set(player.id, player)
-    //     roomPlayers.fangzhu = player
-    //     // console.log(roomPlayers)
-    //     results.data = { roomNo: roomNo, peopleNum: peopleNum, userId: user.id }
-    //     results.msg = '房间创建成功！'
-    //     res.status(200),
-    //       res.json(results)
-    //   }
-    // } else {
-    //   results.status = 0
-    //   results.msg = '没有这个房间（房号不对）！'
-    //   res.status(200),
-    //     res.json(results)
-    // }
+        results.msg = '房间创建成功！'
+        res.status(200),
+          res.json(results)
+      }
+    } else {
+      results.status = 0
+      results.msg = '没有这个房间（房号不对）！'
+      res.status(200),
+        res.json(results)
+    }
   })
 }
 userControl.addPlaytoRoom = function (app) {
@@ -170,12 +148,13 @@ userControl.addPlaytoRoom = function (app) {
 userControl.login = function (app) {
   app.post('/login', function (req, res) {
     let results = {}
-    var user = req.body
-    var users = demoData.users
-    users.add(user)
+    const user = req.body
+    user.token = auth(user)
+    data.users.set(user.id,user)
+    req.session.user_id = user.id
     results.status = 1
     results.msg = '创建成功！'
-    results.data = {}
+    results.data = user
     res.status(200)
     res.json(results)
   })

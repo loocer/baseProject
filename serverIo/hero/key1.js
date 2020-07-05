@@ -1,5 +1,5 @@
 
-const DataBus = require('../databus')
+
 const Bullet = require('../bullets/bullet1')
 const common = require('../contant')
 function getRoteImg(pobj, acObj) {
@@ -17,15 +17,14 @@ function getRoteImg(pobj, acObj) {
 // const ENEMY_WIDTH = 20
 // const ENEMY_HEIGHT = 20
 
-let databus = new DataBus()
 class Enemy {
   constructor(WIDTH = 20, HEIGHT = 20) {
     this.isReal = true
     this.width = WIDTH
     this.height = HEIGHT
   }
-  init(x, y, id,typeId) {
-    
+  init(databus,x, y, id,typeId) {
+    this.databus = databus
     this.color = common.colorType[typeId]
     this.typeId = typeId
     this.x = x
@@ -45,7 +44,7 @@ class Enemy {
     this.moveEnd = {}
   }
   rttf(x, y) {
-    for (let en of databus.heros) {
+    for (let en of this.databus.heros) {
       if (en.id != this.id) {
         let rl = Math.sqrt((en.x - x) * (en.x - x) + (en.y - y) * (en.y - y))
         let ro = this.r + en.r
@@ -57,7 +56,7 @@ class Enemy {
     return true
   }
   getMideemPoint(){
-    let temps = databus.moveTeam.get(this.teamId)
+    let temps = this.databus.moveTeam.get(this.teamId)
     temps.sort(function(a,b){
 			return a.x - b.x
     })
@@ -159,15 +158,16 @@ class Enemy {
   }
   fireHot() {
     if (this.fireSpeed % 20 == 0) {
-      let bullet = databus.pools.getItemByClass('bullet', Bullet)
+      let bullet = this.databus.pools.getItemByClass('bullet', Bullet)
       bullet.init({
+        databus:this.databus,
         x: this.x,
         y: this.y,
         typeId:this.typeId,
         endx: this.player.x,
         endy: this.player.y
       })
-      databus.bullets.add(bullet)
+      this.databus.bullets.add(bullet)
     }
     this.fireSpeed++
 
@@ -184,7 +184,7 @@ class Enemy {
     this.player = obj
   }
   queryEnemy(){
-    Array.from(databus.heros)
+    Array.from(this.databus.heros)
       .forEach((item) => {
         if (item.typeId!=this.typeId) {
           let distance = Math.sqrt((this.x - item.x) * (this.x - item.x) + (this.y - item.y) * (this.y - item.y))

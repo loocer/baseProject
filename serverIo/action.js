@@ -1,30 +1,30 @@
 const  DataBus = require('./databus')
 const databus = new DataBus()
-const action = (UserEvent)=>{
+const action = (UserEvent,main)=>{
 	switch(UserEvent.evType)
 	{
 	    case 'MOVE':
-	        moveAction(UserEvent)
+	        moveAction(UserEvent,main)
 			break;
 		case 'MOVE':
-			moveAction(UserEvent)
+			moveAction(UserEvent,main)
 			break;	
 	}
 }
-const moveAction = (UserEvent)=>{
+const moveAction = (UserEvent,main)=>{
 	let tempKey = Date.parse(new Date())
 	let herosIds = UserEvent.herosIds
-	let heros = [...databus.heros]
+	let heros = [...main.databus.heros]
 	let controls = []
 	for(let id of herosIds){
-		for (let key of databus.moveTeam.keys()) {
+		for (let key of main.databus.moveTeam.keys()) {
 			let tempList = []
-			for(let obj of databus.moveTeam.get(key)){
+			for(let obj of main.databus.moveTeam.get(key)){
 				if(obj.id!=id){
 					tempList.push(obj)
 				}
 			}
-			databus.moveTeam.set(key,tempList)
+			main.databus.moveTeam.set(key,tempList)
 		  }
 		for(let her of heros){
 			if(her.id==id){
@@ -34,7 +34,7 @@ const moveAction = (UserEvent)=>{
 			}
 		}
 	}
-	databus.moveTeam.set(tempKey,controls)
-	console.log(databus.moveTeam)
+	main.databus.moveTeam.set(tempKey,controls)
+	console.log(main.databus.moveTeam)
 }
 module.exports = action

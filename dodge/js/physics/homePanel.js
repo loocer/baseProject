@@ -95,6 +95,15 @@ export default class HomePanel {
       ctx.fillStyle = this.tools[index].color;
       ctx.fillRect(0, 0, this.toolWidth, this.toolHeight);
       ctx.fill();
+     
+      ctx.restore()
+      ctx.save()
+      console.log(6666666)
+      ctx.fillStyle = '#fff';
+      ctx.font = '40px Arial';
+      ctx.scale(.2, .2);
+      ctx.fillText(this.tools[index][0],x*5,y*5+this.toolHeight/2);
+console.log(111222222)
       ctx.restore()
       this.tools[index].x = x
       this.tools[index].y = y

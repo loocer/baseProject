@@ -1,10 +1,9 @@
-const  DataBus = require('../databus')
+
 const groundHeight = 10000
 const groundWidth = 10000
 const BULLET_WIDTH = 1
 const BULLET_HEIGHT = 100
 
-let databus = new DataBus()
 function getRoteImg(pobj, acObj) {
   if (pobj.x1 == pobj.x2){
     acObj.rotate=0
@@ -20,7 +19,8 @@ function getRoteImg(pobj, acObj) {
 class Bullet{
   constructor() {
   }
-  init({x, y,endx,endy,typeId}) {
+  init({databus,x, y,endx,endy,typeId}) {
+    this.databus = databus
     this.name = 'bullet1'
     this.typeId = typeId
     this.endx = endx
@@ -47,7 +47,7 @@ class Bullet{
     this.moveX = this.moveY*fib
   }
   chenckFishEney(){
-    Array.from(databus.heros)
+    Array.from(this.databus.heros)
     .forEach((item) => {
       if (item.visible) {
        if(item.typeId!=this.typeId){
@@ -93,7 +93,7 @@ class Bullet{
     let k =Math.sqrt((this.endx - this.zx) * (this.endx - this.zx) + (this.endy - this.zy) * (this.endy - this.zy))
     if (l>k) {
       this.visible = false
-      databus.pools.recover(this.name, this)
+      this.databus.pools.recover(this.name, this)
     }
     this.chenckFishEney()
     // databus.removeBullets(this)

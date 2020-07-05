@@ -32,6 +32,17 @@ draw.drawBullets = (ctx, bulletObj) => {
   }
   ctx.restore()
 }
+draw.drawHouse=(ctx, item)=>{
+  console.log(1111111111)
+  ctx.save()
+  ctx.translate(item.x, item.y)
+  // ctx.rotate(obj.rotate * Math.PI / 180)
+  ctx.beginPath();
+  ctx.fillStyle = item.player.color;
+  ctx.fillRect(0,0, item.width, item.height);
+  ctx.fill();
+  ctx.restore()
+}
 draw.drawBullet1 = (ctx, bulletObj) => {
   if (!bulletObj.visible)
     return

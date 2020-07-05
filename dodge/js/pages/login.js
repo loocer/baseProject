@@ -5,6 +5,7 @@ const screenWidth = window.innerWidth
 import DataBus from '../databus'
 import draw from '../bullet/draw'
 import io from '../libs/socketio';
+import datas from '../physics/data'
 import MiniMap from '../physics/miniMap'
 import HomePanel from '../physics/homePanel'
 import ToolTab from '../physics/toolTab'
@@ -39,15 +40,27 @@ export default class Physics {
     this.scoll = new Scoll()
   }
   init() {
-    socket = io('http://192.168.2.101:3000');
-    socket.on('chat message', (s) => {
+    let userInfo = wx.getStorageSync('userInfo')
+    let ip = wx.getStorageSync('socketIp')
+    socket = io(ip);
+    socket.on('main_update', (s) => {
       databus.bullets = s.bullets
+      databus.house = s.house
+      databus.player = new Map(s.players).get(userInfo.id)
       databus.hero = this.commonData(s.heros)
+      this.setPanlTools(databus.player.panels)
       this.getThisHero(s.heros)
     });
     socket.on('event', function (data) {});
     socket.on('disconnect', function () {});
     this.initPosition(300,400)
+  }
+  setPanlTools(panel){
+    let index = 0
+    for(let key of  datas.keys()){
+      datas.set(key,panel[index])
+      index++
+    }
   }
   initPosition(x,y){
     databus.trans.x =  x
@@ -223,7 +236,7 @@ export default class Physics {
         obj.visible = true
       }
 
-      socket.emit('rosot', {
+      socket.emit('111111', {
         Point: obj,
         herosIds: instance.chioseList,
         evType: 'MOVE'
@@ -403,7 +416,7 @@ export default class Physics {
     }
   }
   render(ctx) {
-
+    console.log(3333333333333333)
 
 
     // 重置渲染上下文并清空画布
@@ -427,6 +440,12 @@ export default class Physics {
     databus.hero.forEach((item) => {
       if (item.visible) {
         draw.drawHero(ctx, item, this)
+        // item.drawToCanvas(ctx)
+      }
+    })
+    databus.house.forEach((item)=>{
+      if (item.visible) {
+        draw.drawHouse(ctx, item, this)
         // item.drawToCanvas(ctx)
       }
     })

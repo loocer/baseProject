@@ -18,6 +18,8 @@ let doIndex = 5
 let instance
 let allMakeLove = 30
 let IMG = null
+let adtress = "http://localhost:3000"
+let ip = ""
 export default class init {
   constructor() {
     if (instance)
@@ -33,7 +35,43 @@ export default class init {
     this.loos = new Loos()
     IMG = GAME_IMG.get('bg')
   }
-  init(){
+  creacteRoom() {
+    let obj = {
+      roomNo: 111111,
+      peopleNum: 3
+    }
+    wx.request({
+      url: adtress + "/create-room",
+      data: obj,
+      header: {
+        'content-type': 'application/json', // 默认值
+        'authorization':wx.getStorageSync('token'),
+        'user_id':wx.getStorageSync('userInfo').id
+      },
+      success(res) {
+        
+        console.log(res)
+       
+        databus.pageIndex = 1
+      }
+    })
+  }
+  login(userInfo) {
+    wx.request({
+      url: adtress + "/login",
+      data: userInfo,
+      method:'post',
+      header: {
+        'content-type': 'application/json', // 默认值
+      },
+      success: (res) => {
+        wx.setStorageSync('userInfo', res.data.data)
+        wx.setStorageSync('token', res.data.data.token)
+        this.creacteRoom()
+      }
+    })
+  }
+  init() {
     let button = wx.createUserInfoButton({
       type: 'text',
       text: '进入',
@@ -54,9 +92,23 @@ export default class init {
       try {
         wx.setStorageSync('userInfo', res.userInfo)
         wx.setStorageSync('signature', res.signature)
-        databus.pageIndex = 1
-        button.destroy()
-      } catch (e) { }
+        wx.request({
+          url: 'http://192.168.2.103:3000/get-socketAddress',
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: (res) => {
+            console.log(res)
+            button.destroy()
+            wx.setStorageSync('socketIp', res.data.data)
+            ip = res.data.data
+            let userInfo = wx.getStorageSync('userInfo')
+            let id = wx.getStorageSync('signature')
+            userInfo.id = id
+            this.login(userInfo)
+          }
+        })
+      } catch (e) {}
       console.log(res)
     })
   }
@@ -119,14 +171,12 @@ export default class init {
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, screenHeight - 80, screenWidth, screenHeight);
   }
-  handTouchMove(e) {
-  }
-  handTouchEnd(e) {
-  }
+  handTouchMove(e) {}
+  handTouchEnd(e) {}
   handTouchStart(e) {
     console.log('________=====')
     wx.getUserInfo({
-      success: function(res) {
+      success: function (res) {
         var userInfo = res.userInfo
         wx.showToast({
           title: '111成功',
@@ -140,7 +190,7 @@ export default class init {
         if (!res.authSetting['scope.userInfo']) {
           wx.authorize({
             scope: 'scope.userInfo',
-            success () {
+            success() {
               // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
               wx.showToast({
                 title: '成功',
@@ -161,6 +211,5 @@ export default class init {
     wx.onTouchEnd(databus.touchHandEnd);
     wx.onTouchStart(databus.touchHandStart);
   }
-  render(ctx) {
-  }
+  render(ctx) {}
 }

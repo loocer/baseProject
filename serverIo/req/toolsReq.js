@@ -2,7 +2,7 @@ var toolsReq={};
 const demoData = require('./tools/demoData')
 var filter = require('./tools/filter')
 toolsReq.getSocketAddress=function(app){
-  app.get('/get-socketAddress',filter.authorize,function(req,res){
+  app.get('/get-socketAddress',function(req,res){
     let results = {}
     var interfaces = require('os').networkInterfaces();  
     for(var devName in interfaces){  
