@@ -93,7 +93,7 @@ export default class init {
         wx.setStorageSync('userInfo', res.userInfo)
         wx.setStorageSync('signature', res.signature)
         wx.request({
-          url: 'http://192.168.2.103:3000/get-socketAddress',
+          url: 'http://localhost:3000/get-socketAddress',
           header: {
             'content-type': 'application/json' // 默认值
           },

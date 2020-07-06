@@ -39,6 +39,7 @@ class DataBus {
     this.bullets = new Set()
     this.heros = new Set()
     this.house = new Set()
+    this.panels = new Set()
   }
 }
 module.exports = DataBus

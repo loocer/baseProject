@@ -5,13 +5,9 @@ const mstatus = {
   CRETING: 'CRETING',
   FINISH: 'FINISH'
 }
-const home = [{
-  color: 'red',
-  status: mstatus.CRETING
-}, {
-  color: '#d8ff00',
-  status: mstatus.CRETING
-}]
+const home = [[
+  'power',{exObj:{progress:0,time:100}}
+]]
 const tool = [{
   color: '#00d0ff',
   status: mstatus.CRETING

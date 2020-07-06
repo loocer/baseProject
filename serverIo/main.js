@@ -59,6 +59,11 @@ class Main {
         this.databus.moveTeam.delete(key)
       }
     }
+    for(let key of this.players.keys()){
+      let per = this.players.get(key)
+      per.visible&&per.update()
+    }
+    
     this.databus.time++
   }
   render() {

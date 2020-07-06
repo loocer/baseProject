@@ -61,6 +61,7 @@ export default class Physics {
       datas.set(key,panel[index])
       index++
     }
+    this.homePanel.changeTab(this.homePanel.key)
   }
   initPosition(x,y){
     databus.trans.x =  x

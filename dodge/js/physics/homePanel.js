@@ -15,6 +15,7 @@ export default class HomePanel {
     this.toolHeight = 50
     this.scoolly = 0
     this.width = 130
+    this.key = ''
     this.height = screenHeight - 200
     this.x = 0
     this.y = 200
@@ -25,6 +26,7 @@ export default class HomePanel {
     return x > this.x && x < this.x + this.width && y > this.y && y < this.y + this.height
   }
   changeTab(key) {
+    this.key = key
     this.tools = data.get(key)
     let marginPanel = (this.width - this.toolWidth * 2) / 4
     let hei = Math.ceil(this.tools.length / 2) * (this.toolHeight + marginPanel)
@@ -83,27 +85,30 @@ export default class HomePanel {
     let marginPanel = (this.width - this.toolWidth * 2) / 4
     ctx.save()
     ctx.translate(this.x, this.y)
-    ctx.fillStyle = "#00b3bb";
+    ctx.fillStyle = "blue";
     ctx.fillRect(0, 0, this.width, this.height);
     ctx.fill();
     ctx.restore()
     for (let index in this.tools) {
+      let fib = this.tools[index][1].exObj.progress/this.tools[index][1].exObj.time
       let x = index % 2 == 0 ? marginPanel : this.toolWidth + marginPanel * 3
       let y = ~~(index / 2) * (this.toolHeight + marginPanel) + marginPanel + this.scoolly + this.y
       ctx.save()
       ctx.translate(x, y)
-      ctx.fillStyle = this.tools[index].color;
+      ctx.fillStyle = 'red';
       ctx.fillRect(0, 0, this.toolWidth, this.toolHeight);
       ctx.fill();
-     
+
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.62)';
+      ctx.fillRect(this.toolWidth*fib, 0, this.toolWidth*(1-fib), this.toolHeight);
+      ctx.fill();
       ctx.restore()
       ctx.save()
-      console.log(6666666)
       ctx.fillStyle = '#fff';
       ctx.font = '40px Arial';
       ctx.scale(.2, .2);
       ctx.fillText(this.tools[index][0],x*5,y*5+this.toolHeight/2);
-console.log(111222222)
       ctx.restore()
       this.tools[index].x = x
       this.tools[index].y = y
@@ -119,21 +124,6 @@ console.log(111222222)
     }
   }
   update() {}
-  renderEnemys(ctx) {
-    databus.hero.forEach((item) => {
-      if (item.visible) {
-        let x = item.x / databus.groundWidth * this.width + this.x
-        let y = item.y / databus.groundHeight * this.height + this.y
-        ctx.save()
-        ctx.translate(x, y)
-        ctx.beginPath();
-        ctx.fillStyle = item.color;
-        ctx.arc(0, 0, 1, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.restore()
-      }
-    })
-  }
   render(ctx) {
     this.drawNo(ctx)
   }

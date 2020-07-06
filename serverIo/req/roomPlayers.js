@@ -26,19 +26,28 @@ class roomPlayers{
 		this.stepType = acType.BEGEN
 		this.status = false
 		this.fangzhu = null
-		this.panels =[1,1,1,1]//1:diyige
-        this.user = user
+		this.panels =[]//1:diyige
+		this.user = user
+		this.visible = true
+	}
+	update(){
+		for(let ps of this.panels){
+			for(let p of ps){
+				p[1].exObj.update()
+			}
+		}
 	}
 	init(main){
-		this.setPanel()
+		this.setPanel(main)
 		let mainHouse = main.databus.pools.getItemByClass('mainHouse', MainHouse)
     	mainHouse.init(main.databus,500,500,this)
 		main.databus.house.add(mainHouse)
 	}
-	setPanel(){
+	setPanel(main){
 		console.log(contant)
 		for(let obj of contant.houseType.keys()){
 			let panel = new Panel()
+			main.databus.panels.add(panel)
 			contant.houseType.get(obj).exObj = panel
 		}
 		this.panels[0] =  Array.from(contant.houseType)
