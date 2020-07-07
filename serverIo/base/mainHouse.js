@@ -16,6 +16,7 @@ class MainHouse{
     this.player = player
     this.x = x
     this.y = y
+    this.player.houses.push('mainHouse')
   }
   leseBleed(){
     this.bleed--

@@ -29,6 +29,7 @@ class roomPlayers{
 		this.panels =[]//1:diyige
 		this.user = user
 		this.visible = true
+		this.houses = []
 	}
 	update(){
 		for(let ps of this.panels){

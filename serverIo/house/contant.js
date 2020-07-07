@@ -1,19 +1,19 @@
-
+const house = require('./data') 
 const houseType = new Map([
     [
-        'power',
+        house.POWER,
         {}
     ],
     [
-        'barracks',
+        house.BARRACKS,
         {}
     ],
     [
-        'arsenal',
+        house.ARSENAL,
         {}
     ],
     [
-        'radar',
+        house.RADAR,
         {}
     ]
 ])
