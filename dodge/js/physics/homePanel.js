@@ -12,10 +12,12 @@ export default class HomePanel {
     instance = this
     this.tools = data.get('home')
     this.toolWidth = 50
+    this.finlWidth = 50
+    this.finlHeight = 50
     this.toolHeight = 50
     this.scoolly = 0
     this.width = 130
-    this.key = ''
+    this.key = 'home'
     this.height = screenHeight - 200
     this.x = 0
     this.y = 200
@@ -28,8 +30,8 @@ export default class HomePanel {
   changeTab(key) {
     this.key = key
     this.tools = data.get(key)
-    let marginPanel = (this.width - this.toolWidth * 2) / 4
-    let hei = Math.ceil(this.tools.length / 2) * (this.toolHeight + marginPanel)
+    let marginPanel = (this.width - this.finlWidth * 2) / 4
+    let hei = Math.ceil(this.tools.length / 2) * (this.finlHeight + marginPanel)
     if (hei < this.height) {
       this.scoll.width = 0
       this.toolWidth = 70
@@ -89,29 +91,52 @@ export default class HomePanel {
     ctx.fillRect(0, 0, this.width, this.height);
     ctx.fill();
     ctx.restore()
-    for (let index in this.tools) {
-      let fib = this.tools[index][1].exObj.progress/this.tools[index][1].exObj.time
+    let temps = []
+    for(let temp of this.tools){
+      if(temp[1].exObj.status!=0){
+        temps.push(temp)
+      }
+    }
+    for (let index in temps) {
+      let exObj = temps[index][1].exObj
       let x = index % 2 == 0 ? marginPanel : this.toolWidth + marginPanel * 3
       let y = ~~(index / 2) * (this.toolHeight + marginPanel) + marginPanel + this.scoolly + this.y
-      ctx.save()
-      ctx.translate(x, y)
-      ctx.fillStyle = 'red';
-      ctx.fillRect(0, 0, this.toolWidth, this.toolHeight);
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.62)';
-      ctx.fillRect(this.toolWidth*fib, 0, this.toolWidth*(1-fib), this.toolHeight);
-      ctx.fill();
-      ctx.restore()
-      ctx.save()
-      ctx.fillStyle = '#fff';
-      ctx.font = '40px Arial';
-      ctx.scale(.2, .2);
-      ctx.fillText(this.tools[index][0],x*5,y*5+this.toolHeight/2);
-      ctx.restore()
-      this.tools[index].x = x
-      this.tools[index].y = y
+      if(exObj.status==1){
+        ctx.save()
+        ctx.translate(x, y)
+        ctx.fillStyle = '#ccc';
+        ctx.fillRect(0, 0, this.toolWidth, this.toolHeight);
+        ctx.fill();
+        ctx.fillStyle = '#001fff';
+        ctx.font = '40px Arial';
+        ctx.scale(.2, .2);
+        ctx.fillText(temps[index][0],x*5,y*5+this.toolHeight/2);
+        ctx.restore()
+        this.tools[index].x = x
+        this.tools[index].y = y
+      }else{
+        let fib =exObj.progress/exObj.time
+        ctx.save()
+        ctx.translate(x, y)
+        ctx.fillStyle = 'red';
+        ctx.fillRect(0, 0, this.toolWidth, this.toolHeight);
+        ctx.fill();
+  
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.62)';
+        ctx.fillRect(this.toolWidth*fib, 0, this.toolWidth*(1-fib), this.toolHeight);
+        ctx.fill();
+        ctx.restore()
+        ctx.save()
+        ctx.fillStyle = '#fff';
+        ctx.font = '40px Arial';
+        ctx.scale(.2, .2);
+        ctx.fillText(temps[index][0],x*5,y*5+this.toolHeight/2);
+        ctx.restore()
+        this.tools[index].x = x
+        this.tools[index].y = y
+      }
+      
     }
     this.scoll.render(ctx)
   }

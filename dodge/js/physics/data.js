@@ -6,7 +6,7 @@ const mstatus = {
   FINISH: 'FINISH'
 }
 const home = [[
-  'power',{exObj:{progress:0,time:100}}
+  'power',{exObj:{progress:0,time:100,status:0}}
 ]]
 const tool = [{
   color: '#00d0ff',

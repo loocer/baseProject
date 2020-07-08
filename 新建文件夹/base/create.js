@@ -3,7 +3,7 @@ const data = require('../house/data')
 
 
 const bandDdde = {}
-const baseOn = (databus,type)=>{
+bandDdde.baseOn = (databus,type)=>{
     let obj =  databus.pools.getItemByClass(type, House)
     databus.house.add(obj)
     return obj

@@ -24,12 +24,9 @@ class House {
   checkPanelStatus() {
     let { panels } = this.player
     for (let p of panels) {
-      for (let pobj of p) {
-
-        if (pobj[1].showHouse.has(this.name)) {
-          pobj[1].hasHouse.add(this.name)
-          this.changePanelStatus(this.name)
-        }
+      if (p.showHouse.has(this.name)) {
+        p.hasHouse.add(this.name)
+        this.changePanelStatus(this.name)
       }
     }
   }
@@ -37,27 +34,21 @@ class House {
     this.visible = false
     let { panels } = this.player
     for (let p of panels) {
-      for (let pobj of p) {
-        if (pobj[1].hasHouse.has(this.name)) {
-          pobj[1].hasHouse.delete(this.name)
-          this.changePanelStatus(this.name)
-        }
+      if (p.hasHouse.has(this.name)) {
+        p.hasHouse.delete(this.name)
+        this.changePanelStatus(this.name)
       }
     }
   }
-  changePanelStatus(key) {
+  changePanelStatus(key){
     let { panels } = this.player
-
-    for (let p of panels) {
-      for (let pobj of p) {
-        if (pobj[1].showHouse.size == pobj[1].hasHouse.size) {
-          if (pobj[1].exObj.status != 2) {
-            pobj[1].exObj.status = 1
-          }
-        }
+    let panel = new Map(panels).get(key)
+    if(panel.showHouse.size==panel.hasHouse.size){
+      if(panel.exObj.status!=2){
+        panel.exObj.status=1
       }
     }
-    this.player.panels = panels
+    this.player.panel = Array.from(panel)
   }
   update() {
     if (!this.visible)

@@ -1,13 +1,6 @@
 const house = require('./data')
 const houseType = [
     [
-        house.MAINHOUSE,
-        {
-            showHouse: new Set(),
-            hasHouse: new Set(),
-        }
-    ],
-    [
         house.POWER,
         {
             showHouse: new Set([house.MAINHOUSE]),
