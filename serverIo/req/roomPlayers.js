@@ -32,7 +32,14 @@ class roomPlayers{
 			let panel = new Panel()
 			obj[1].exObj = panel
 		}
+		for(let obj of contant.houseType2){
+			let panel = new Panel()
+			obj[1].exObj = panel
+		}
 		this.panels[0] =  contant.houseType
+		this.panels[1] =  contant.houseType2
+		this.panels[2] =  contant.houseType
+		this.panels[3] =  contant.houseType2
 	}
 }
 module.exports=roomPlayers

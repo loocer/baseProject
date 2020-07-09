@@ -28,10 +28,11 @@ class House {
 
         if (pobj[1].showHouse.has(this.name)) {
           pobj[1].hasHouse.add(this.name)
-          this.changePanelStatus(this.name)
+          
         }
       }
     }
+    this.changePanelStatus(this.name)
   }
   makeOver() {
     this.visible = false
@@ -40,17 +41,21 @@ class House {
       for (let pobj of p) {
         if (pobj[1].hasHouse.has(this.name)) {
           pobj[1].hasHouse.delete(this.name)
-          this.changePanelStatus(this.name)
         }
       }
     }
+    this.changePanelStatus()
   }
   changePanelStatus(key) {
     let { panels } = this.player
-
+    console.log(panels)
     for (let p of panels) {
       for (let pobj of p) {
         if (pobj[1].showHouse.size == pobj[1].hasHouse.size) {
+          
+          if(!pobj[1].exObj.status){
+// console.log(pobj)
+          }
           if (pobj[1].exObj.status != 2) {
             pobj[1].exObj.status = 1
           }
