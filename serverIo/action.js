@@ -6,9 +6,37 @@ const action = (UserEvent,main)=>{
 	    case 'MOVE':
 	        moveAction(UserEvent,main)
 			break;
-		case 'MOVE':
-			moveAction(UserEvent,main)
+		case 'CHENGE_CREATE':console.log()
+			changeCreateAction(UserEvent,main)
 			break;	
+	}
+}
+const changeCreateAction = (UserEvent,main)=>{
+	console.log(UserEvent)
+	let player = main.players.get(UserEvent.userId)
+	for(let panles of player.panels){
+		for(let panel of panles){
+			if(panel[0]==UserEvent.code){
+				if(panel[1].exObj.status==1){
+					panel[1].exObj.status=2
+					return
+				}
+				if(panel[1].exObj.status==2){
+					panel[1].exObj.status=3
+					return
+				}
+				if(panel[1].exObj.status==3){
+					panel[1].exObj.status=2
+					return
+				}
+				if(panel[1].exObj.status==4){
+					panel[1].exObj.status=1
+					panel[1].exObj.progress = 0
+					return
+				}
+				return
+			}
+		}
 	}
 }
 const moveAction = (UserEvent,main)=>{

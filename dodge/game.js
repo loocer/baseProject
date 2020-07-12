@@ -9,8 +9,6 @@ import {
 
 import DataBus from './js/databus'
 
-import * as Matter from './js/libs/matter'
-
 
 const databus = new DataBus()
 const main = new Main()
