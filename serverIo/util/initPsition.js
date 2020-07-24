@@ -18,6 +18,7 @@ class Init {
             }
         }
         this.positions = positions
+        return positions
     }
     initEdge(){
         let {positions,width,height,step} = this

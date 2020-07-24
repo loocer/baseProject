@@ -2,6 +2,8 @@
 
 const Bullet = require('../bullets/bullet1')
 const common = require('../contant')
+const Tools = require('../util/tools')
+
 function getRoteImg(pobj, acObj) {
   if (pobj.x1 == pobj.x2) {
     acObj.rotate = 0
@@ -19,6 +21,7 @@ function getRoteImg(pobj, acObj) {
 
 class Enemy {
   constructor(WIDTH = 20, HEIGHT = 20) {
+    this.tools = new Tools()
     this.isReal = true
     this.width = WIDTH
     this.height = HEIGHT
@@ -39,7 +42,7 @@ class Enemy {
     this.player = null
     this.fireDistance = 100
     this.fireSpeed = 20
-    this.speed = 2
+    this.speed = 3
     this.frame = 0
     this.moveEnd = {}
   }
@@ -55,36 +58,10 @@ class Enemy {
     }
     return true
   }
-  getMideemPoint(){
-    let temps = this.databus.moveTeam.get(this.teamId)
-    temps.sort(function(a,b){
-			return a.x - b.x
-    })
-    let leaderPoint =  temps[~~(temps.length/2)]
-    return leaderPoint
-  }
-  // getSelfAlef({x,y}){
-  //   let r = Math.sqrt((this.x - x) * (this.x - x) + (this.y - y) * (this.y - y))
-  //   console.log(Math.acos((this.x - x)/r)*180/Math.PI)
-
-  //   if( this.y>y){
-  //     this.frame =360 - ( Math.acos((this.x - x)/r)*180/Math.PI+1)
-  //   }else{
-  //     this.frame = Math.acos((this.x - x)/r)*180/Math.PI+1
-  //   }
-  //   this.moveSelf({x,y})
-  //   // console.log(rs,os* 180 / Math.PI,ow* 180 / Math.PI,'-----------',mt* 180 / Math.PI)
-  // }
-  chioseFun(){
-    let xoy = Math.abs(this.x - this.player.x) - Math.abs(this.y - this.player.y)
-    if(xoy>0){
-
-    }
-  }
   getFib(point){
     let { x, y } = point 
-    let zx = this.moveEnd.x
-    let zy = this.moveEnd.y
+    let zx = this.x
+    let zy = this.y
     if (Math.abs(x - zx) < 2 && Math.abs(y - zy) < 2) {
       this.setFireObj(null)
       return false
@@ -95,24 +72,14 @@ class Enemy {
     
   }
   getPosition() {
-    let kend = this.speed+4,fib = 1,x, y 
-    let zx =  this.moveEnd.x
-    let zy =  this.moveEnd.y
+    let nextPoint = this.setAtex()
+    let fib = 1,x, y
+    let zx =  nextPoint?common.positions[nextPoint].x:this.moveEnd.x
+    let zy =  nextPoint?common.positions[nextPoint].y:this.moveEnd.y
     let endx = this.x, endy = this.y
-    if(Math.abs(this.x - zx) < this.speed+5||Math.abs(this.y - zy) < this.speed+5){
-      fib= this.getFib(this)
+    fib= this.getFib({x:zx,y:zy})
       x = this.x
       y = this.y
-    }else{
-      let p = this.getMideemPoint()
-      fib= this.getFib(p)
-      x = p.x
-      y = p.y
-    }
-    if(!fib){
-      this.queryEnemy()
-      return
-    }
     this.moveY = Math.sqrt(1 / (fib * fib + 1));
     this.moveX = this.moveY * fib
     if (x < zx) {
@@ -125,13 +92,28 @@ class Enemy {
     } else {
       endy -= this.moveY * this.speed
     }
-    if (this.rttf(endx, endy)) {
-      this.x = endx
-      this.y = endy
-    }
-    else{
-      this.delDifense()
-    }
+    this.x = endx
+    this.y = endy
+    // if (this.rttf(endx, endy)) {
+    //   this.x = endx
+    //   this.y = endy
+    // }
+    // else{
+    //   this.delDifense()
+    // }
+  }
+  getThisAtex(x,y){
+    let ax = x%100>50?~~(x/100)+1:~~(x/100)
+    let ay = y%100>50?~~(y/100)+1:~~(y/100)
+    let index = ay*100+ax
+    return index
+  }
+  setAtex(){
+    let moveEndAtex = this.getThisAtex(this.moveEnd.x,this.moveEnd.y)
+    let thisAtex = this.getThisAtex(this.x,this.y)
+    let nextPoint= this.tools.findPathNextPoint(common.graph, thisAtex,moveEndAtex)   
+    return nextPoint
+    console.log(paths)
   }
   delDifense(){
     let zx =  this.moveEnd.x

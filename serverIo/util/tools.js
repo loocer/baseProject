@@ -1,11 +1,11 @@
 
-const  Queue = require('./queue')
-const  Stack = require('./stack')
+const Queue = require('./queue')
+const Stack = require('./stack')
 let that = null
-class Tools{
-    constructor () {
-       if ( that )
-        return that
+class Tools {
+    constructor() {
+        if (that)
+            return that
         that = this
         this.Colors = {
             WHITE: 0,
@@ -18,7 +18,7 @@ class Tools{
         vertices.forEach(v => color[v] = this.Colors.WHITE);
         return color;
     }
-    breadthFirstSearch(graph, startVertex, callback){
+    breadthFirstSearch(graph, startVertex, callback) {
         let vertices = graph.getVertices();
         let adjList = graph.getAdjList();
         let color = this.initializeColor(vertices);
@@ -40,24 +40,35 @@ class Tools{
             if (callback) callback(u);
         }
     }
-    findPath(graph,startVertex,endVertex){
+    findPath(graph, startVertex, endVertex) {
         let shortestPathA = this.BFS(graph, startVertex);
         let vertices = graph.getVertices();
-        
-            let path = new Stack();
-            for (let v2 = endVertex; v2 !== startVertex; v2 = shortestPathA.predecessors[v2]) {
-                path.push(v2);
-            }
 
-            path.push(startVertex);
-            let s = path.pop();
-            while (!path.isEmpty()) {
-                s += ` - ${path.pop()}`;
-            }
+        let path = new Stack();
+        for (let v2 = endVertex; v2 !== startVertex; v2 = shortestPathA.predecessors[v2]) {
+            path.push(v2);
+        }
 
-            console.log(s);
+        path.push(startVertex);
+        let s = path.pop();
+        while (!path.isEmpty()) {
+            s += ` - ${path.pop()}`;
+        }
+        return s
+
     }
-    BFS(graph, startVertex){
+    findPathNextPoint(graph, startVertex, endVertex){
+        let shortestPathA = this.BFS(graph, startVertex);
+        let vertices = graph.getVertices();
+
+        let path = new Stack();
+        for (let v2 = endVertex; v2 !== startVertex; v2 = shortestPathA.predecessors[v2]) {
+            path.push(v2);
+        }
+        let s = path.pop();
+        return s
+    }
+    BFS(graph, startVertex) {
         let vertices = graph.getVertices();
         let adjList = graph.getAdjList();
         let color = this.initializeColor(vertices);
@@ -88,7 +99,7 @@ class Tools{
             color[u] = this.Colors.BLACK;
         }
 
-        return {distances, predecessors};
+        return { distances, predecessors };
     };
 }
 module.exports = Tools

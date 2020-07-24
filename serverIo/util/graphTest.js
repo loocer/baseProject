@@ -23,7 +23,7 @@ let tools = new Tools()
 // init.main()
 let gr = init.main()
 var timestamp=new Date().getTime()
-tools.findPath(gr, 0,9999)
+tools.findPath(gr, 456,76)
 var timestam1p=new Date().getTime()
 console.log(timestam1p-timestamp,'----')
 // console.log(graph.toString());

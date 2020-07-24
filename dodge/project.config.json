@@ -27,7 +27,7 @@
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "game",
-	"libVersion": "2.3.2",
+	"libVersion": "2.10.4",
 	"appid": "wx04d43b1abdf1117a",
 	"projectname": "test222",
 	"simulatorType": "wechat",

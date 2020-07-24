@@ -1,14 +1,14 @@
 const  Key1 = require('./hero/key1')
 const init = (databus)=>{
 	let key = databus.pools.getItemByClass('enemy1', Key1)
-    key.init(databus,100,300,'1',111)
+    key.init(databus,400,300,'1',111)
     databus.heros.add(key)
     let key1 = databus.pools.getItemByClass('enemy1', Key1)
-    key1.init(databus,200,300,'2',111)
+    key1.init(databus,400,500,'2',111)
     databus.heros.add(key1)
 
     let key2 = databus.pools.getItemByClass('enemy1', Key1)
-    key2.init(databus,100,100,'3',111)
+    key2.init(databus,600,100,'3',111)
     databus.heros.add(key2)
     let key5 = databus.pools.getItemByClass('enemy1', Key1)
     key5.init(databus,300,400,'4',222)

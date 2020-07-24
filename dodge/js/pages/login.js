@@ -53,7 +53,7 @@ export default class Physics {
     });
     socket.on('event', function (data) { });
     socket.on('disconnect', function () { });
-    this.initPosition(300, 400)
+    this.initPosition(0, 0)
   }
   setPanlTools(panel) {
     let index = 0
@@ -64,6 +64,12 @@ export default class Physics {
     this.homePanel.changeTab(this.homePanel.key)
   }
   initPosition(x, y) {
+    if(x<-160){
+      return
+    }
+    if(y<0||y>databus.groundHeight){
+      return
+    }
     databus.trans.x = x
     databus.trans.y = y
     databus.ctx.translate(databus.transed.x, databus.transed.y)
@@ -520,7 +526,6 @@ export default class Physics {
         // item.drawToCanvas(ctx)
       }
     })
-    
     ctx.save()
     ctx.translate(databus.trans.x, databus.trans.y)
     this.drawChiose(ctx)

@@ -11,6 +11,8 @@ const rooms=require('./req/tools/data').rooms;
 const roomsEngine=require('./req/tools/data').roomsEngine;
 const session  = require('express-session')
 
+const contant = require('./contant')
+contant.init()
 
 
 app.use(session({
