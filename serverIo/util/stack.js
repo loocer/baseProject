@@ -29,7 +29,9 @@ function Stack() {
     this.clear = function () {
       items = [];
     };
-
+    this.list = function(){
+      return items
+    }
     // 打印栈内的所有元素
     this.print = function () {
       console.log(items.toString());

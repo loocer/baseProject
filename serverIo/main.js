@@ -16,7 +16,7 @@ class Main {
   }
   init() {
     this.io = bs.io
-    setInterval(this.loop, 50)
+    setInterval(this.loop, 10)
     init(this.databus)
   }
   action(event){

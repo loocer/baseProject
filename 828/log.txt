@@ -1,0 +1,607 @@
+[
+    {
+        "time": "2020-08-12T12:08:44.573Z",
+        "type": "stdOut",
+        "message": "🛠️    Transform source project..."
+    },
+    {
+        "time": "2020-08-12T12:08:45.629Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/bullet/bullet1/bullet.js",
+        "row": 47,
+        "column": 17,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:45.724Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/bullet/bullet3/bullet.js",
+        "row": 45,
+        "column": 17,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.006Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 65,
+        "column": 31,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.008Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 221,
+        "column": 29,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.014Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 619,
+        "column": 16,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.015Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 783,
+        "column": 15,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.016Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 841,
+        "column": 29,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.030Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1106,
+        "column": 1,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.030Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1107,
+        "column": 1,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.030Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1108,
+        "column": 1,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.030Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1109,
+        "column": 1,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.031Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1124,
+        "column": 29,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.034Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1256,
+        "column": 9,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.038Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1376,
+        "column": 22,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.039Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1484,
+        "column": 33,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.040Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1491,
+        "column": 34,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.041Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1497,
+        "column": 12,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.041Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1500,
+        "column": 12,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.042Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1503,
+        "column": 5,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.042Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/libs/weapp-adapter.js",
+        "row": 1506,
+        "column": 5,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.170Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 24,
+        "column": 16,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.170Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 33,
+        "column": 16,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.171Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 37,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.171Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 40,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.171Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 43,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.171Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 58,
+        "column": 19,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.172Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 70,
+        "column": 20,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.172Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 76,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.172Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 84,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.172Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 103,
+        "column": 17,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.172Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 124,
+        "column": 4,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.172Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/index.js",
+        "row": 130,
+        "column": 8,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.194Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/main.js",
+        "row": 5,
+        "column": 14,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.194Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/main/main.js",
+        "row": 8,
+        "column": 26,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.223Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 1,
+        "column": 19,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.223Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 4,
+        "column": 20,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.224Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 5,
+        "column": 21,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.224Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 7,
+        "column": 14,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.224Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 10,
+        "column": 14,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.224Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 15,
+        "column": 17,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.224Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 37,
+        "column": 4,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.225Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 61,
+        "column": 6,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.226Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 76,
+        "column": 16,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.226Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 128,
+        "column": 17,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.227Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 183,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.227Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 198,
+        "column": 4,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.227Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 214,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.228Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 226,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.229Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 241,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.229Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 258,
+        "column": 0,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.230Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 296,
+        "column": 0,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.230Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 312,
+        "column": 0,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.230Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 325,
+        "column": 0,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.230Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/myOpenDataContext/index.js",
+        "row": 329,
+        "column": 0,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.403Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/player/index.js",
+        "row": 197,
+        "column": 4,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.430Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/runtime/hand/index.js",
+        "row": 109,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.430Z",
+        "type": "transform function call arg name",
+        "file": "C:/project/guantongyunwang/baseProject/828/js/runtime/hand/index.js",
+        "row": 137,
+        "column": 2,
+        "before": "wx",
+        "after": "tt",
+        "message": "转换了上下文, wx ==> tt"
+    },
+    {
+        "time": "2020-08-12T12:08:46.472Z",
+        "type": "stdOut",
+        "message": "🍻    Successfully transform wxml file"
+    },
+    {
+        "time": "2020-08-12T12:08:46.500Z",
+        "type": "stdOut",
+        "message": "🍻    Successfully transform wxss file"
+    },
+    {
+        "time": "2020-08-12T12:08:46.438Z",
+        "type": "stdOut",
+        "message": "⛔    transfrom js file C:/project/guantongyunwang/baseProject/828/js/runtime/pages/game.js error: SyntaxError: This experimental syntax requires enabling the parser plugin: 'classProperties' (32:13)"
+    },
+    {
+        "time": "2020-08-12T12:08:46.439Z",
+        "type": "stdOut",
+        "message": "⛔    Something error when transforming js file"
+    },
+    {
+        "time": "2020-08-12T12:08:47.222Z",
+        "type": "stdOut",
+        "message": "🎊    Congratulations, transform done! Please check transform log in"
+    },
+    {
+        "time": "2020-08-12T12:08:47.222Z",
+        "type": "stdOut",
+        "message": "📝    C:\\project\\guantongyunwang\\baseProject\\828\\log.txt"
+    }
+]

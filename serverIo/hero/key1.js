@@ -26,7 +26,7 @@ class Enemy {
     this.width = WIDTH
     this.height = HEIGHT
   }
-  init(databus,x, y, id,typeId) {
+  init(databus, x, y, id, typeId) {
     this.databus = databus
     this.color = common.colorType[typeId]
     this.typeId = typeId
@@ -45,6 +45,7 @@ class Enemy {
     this.speed = 3
     this.frame = 0
     this.moveEnd = {}
+    this.tempPoints = []
   }
   rttf(x, y) {
     for (let en of this.databus.heros) {
@@ -58,28 +59,55 @@ class Enemy {
     }
     return true
   }
-  getFib(point){
-    let { x, y } = point 
+  getFib(point) {
+    let { x, y } = point
     let zx = this.x
     let zy = this.y
-    if (Math.abs(x - zx) < 2 && Math.abs(y - zy) < 2) {
+    if (Math.abs(x - zx) < 20 && Math.abs(y - zy) < 20) {
       this.setFireObj(null)
-      return false
-    }else{
-      let fib = Math.abs((x - zx) / (y - zy))
+      return 1314
+    } else {
+      let fib = y - zy==0?0:Math.abs((x - zx) / (y - zy))
       return fib
     }
+
+  }
+  setPoint(){
     
+    if(this.tempPoints.length==0){
+      return this.moveEnd
+    }else{
+      let index = this.tempPoints[0],temp = []
+      let en = common.positions[index]
+      let rl = Math.sqrt((en.x - this.x) * (en.x - this.x) + (en.y - this.y) * (en.y - this.y))
+      if(rl<10){
+        if(this.tempPoints.length==1){
+          return this.moveEnd
+        }else{
+          this.tempPoints.shift()
+        }
+      }
+      
+      return common.positions[this.tempPoints[0]]
+    }
+  }
+  setMovePoints(){
+    let nextPoint = this.getAllPostion()
   }
   getPosition() {
-    let nextPoint = this.setAtex()
-    let fib = 1,x, y
-    let zx =  nextPoint?common.positions[nextPoint].x:this.moveEnd.x
-    let zy =  nextPoint?common.positions[nextPoint].y:this.moveEnd.y
+    let nextPoint = this.getAllPostion()
+    let point = nextPoint?common.positions[nextPoint]:this.moveEnd
+    let fib = 10
+    let zx =  point.x
+    let zy =  point.y,
+    x = this.x,
+    y = this.y
     let endx = this.x, endy = this.y
-    fib= this.getFib({x:zx,y:zy})
-      x = this.x
-      y = this.y
+
+    fib = this.getFib({ x: zx, y: zy })
+    if(fib==1314){
+      return
+    }
     this.moveY = Math.sqrt(1 / (fib * fib + 1));
     this.moveX = this.moveY * fib
     if (x < zx) {
@@ -92,8 +120,14 @@ class Enemy {
     } else {
       endy -= this.moveY * this.speed
     }
-    this.x = endx
-    this.y = endy
+    if (this.rttf(endx, endy)) {
+      this.x = endx
+      this.y = endy
+    } else {
+      // this.tempPoints.push(nextPoint)
+      // this.getPosition()
+    }
+    console.log(this.x,this.y)
     // if (this.rttf(endx, endy)) {
     //   this.x = endx
     //   this.y = endy
@@ -102,50 +136,60 @@ class Enemy {
     //   this.delDifense()
     // }
   }
-  getThisAtex(x,y){
-    let ax = x%100>50?~~(x/100)+1:~~(x/100)
-    let ay = y%100>50?~~(y/100)+1:~~(y/100)
-    let index = ay*100+ax
+  getThisAtex(x, y) {
+    let ax = x % 100 > 50 ? ~~(x / 100) + 1 : ~~(x / 100)
+    let ay = y % 100 > 50 ? ~~(y / 100) + 1 : ~~(y / 100)
+    let index = ay * 100 + ax
     return index
   }
-  setAtex(){
-    let moveEndAtex = this.getThisAtex(this.moveEnd.x,this.moveEnd.y)
-    let thisAtex = this.getThisAtex(this.x,this.y)
-    let nextPoint= this.tools.findPathNextPoint(common.graph, thisAtex,moveEndAtex)   
-    return nextPoint
-    console.log(paths)
-  }
-  delDifense(){
-    let zx =  this.moveEnd.x
-    let zy =  this.moveEnd.y
-    let endx = this.x, endy = this.y
-    let xoy = Math.abs(this.x - this.player.x) - Math.abs(this.y - this.player.y)
-    if(xoy>0){
-      if (this.rttf(endx, endy+this.speed*5)) {
-        this.x = endx
-        this.y = endy+this.speed*5
-      }else{
-        this.x = endx
-        this.y = endy-this.speed*5
-      }
-    }else{
-      if (this.rttf(endx+this.speed*5, endy)) {
-        this.x = endx+this.speed*5
-        this.y = endy
-      }else{
-        this.x = endx-this.speed*5
-        this.y = endy
+  getResetAllPostion(){
+    let moveEndAtex = this.getThisAtex(this.moveEnd.x, this.moveEnd.y)
+    let thisAtex = this.getThisAtex(this.x, this.y)
+    this.tools.initializeColor(common.graph)
+    let {positions} = common
+    for(let i in positions){
+      let {x,y} = positions[i]
+      for(let ke of this.databus.heros){
+        let l = Math.sqrt((ke.x - x) * (ke.x - x) + (ke.y - y) * (ke.y - y))
+        if(l<ke.r*2){
+          this.tools.color[i] = 1
+        }
       }
     }
+    let paths = this.tools.findPathNextPoint(common.graph, thisAtex, moveEndAtex)
+    console.log(paths)
   }
+  getAllPostion(){
+    let moveEndAtex = this.getThisAtex(this.moveEnd.x, this.moveEnd.y)
+    let thisAtex = this.getThisAtex(this.x, this.y)
+    this.tools.initializeColor(common.graph)
+    let {positions} = common
+    // for(let i in positions){
+    //   let {x,y} = positions[i]
+    //   for(let ke of this.databus.heros){
+    //     let l = Math.sqrt((ke.x - x) * (ke.x - x) + (ke.y - y) * (ke.y - y))
+    //     if(l<ke.r*2){
+    //       this.tools.color[i] = 1
+    //     }
+    //   }
+    // }
+    // for(let tm of this.tempPoints){
+    //   this.tools.color[tm] = 1
+    // }
+    let points = this.tools.findPathNextPoint(common.graph, thisAtex, moveEndAtex)
+    return points
+  }
+  setAtex() {
+  }
+  
   fireHot() {
     if (this.fireSpeed % 20 == 0) {
       let bullet = this.databus.pools.getItemByClass('bullet', Bullet)
       bullet.init({
-        databus:this.databus,
+        databus: this.databus,
         x: this.x,
         y: this.y,
-        typeId:this.typeId,
+        typeId: this.typeId,
         endx: this.player.x,
         endy: this.player.y
       })
@@ -164,11 +208,13 @@ class Enemy {
   }
   setFireObj(obj) {
     this.player = obj
+    this.moveEnd = obj
+    this.tempPoints = []
   }
-  queryEnemy(){
+  queryEnemy() {
     Array.from(this.databus.heros)
       .forEach((item) => {
-        if (item.typeId!=this.typeId) {
+        if (item.typeId != this.typeId) {
           let distance = Math.sqrt((this.x - item.x) * (this.x - item.x) + (this.y - item.y) * (this.y - item.y))
           if (distance < this.fireDistance) {
             this.setFireObj(item)
@@ -187,7 +233,7 @@ class Enemy {
   //   this.y = y + r * Math.sin((tis % 360)*Math.PI/180)
   //   console.log(Math.acos((this.x - x)/r)*180/Math.PI)
   // }
-  
+
   update() {
 
     if (!this.visible)
@@ -200,10 +246,9 @@ class Enemy {
       this.getDistance()
     }
     if (this.player && !this.player.isReal) {
-      this.moveEnd = this.player
       this.getPosition()
     }
-    if (this.life==0) {
+    if (this.life == 0) {
       this.visible = false
     }
     this.frame++

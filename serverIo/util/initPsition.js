@@ -39,6 +39,9 @@ class Init {
             if(index%widthSize!=99){
                 graph.addEdge(index, index+1);
             }
+
+
+
             // for(let i=0;i<4;i++){
             //     graph.addEdge(index, 'B');
             // }

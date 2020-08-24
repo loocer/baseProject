@@ -114,7 +114,7 @@ export default class init {
     databus.touchHandStart = instance.handTouchStart
     wx.onTouchMove(databus.touchHandMove);
     wx.onTouchEnd(databus.touchHandEnd);
-    wx.onTouchStart(databus.touchHandStart);
+    wx.onTouchStart(databus.touchHandStart);    
   }
   render(ctx) {
     ctx.fillStyle = "red";

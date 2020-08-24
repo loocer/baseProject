@@ -7,21 +7,24 @@ class Tools {
         if (that)
             return that
         that = this
+        this.color = []
         this.Colors = {
             WHITE: 0,
             GREY: 1,
             BLACK: 2
         };
     }
-    initializeColor(vertices) {
+    initializeColor(graph) {
         let color = {};
+        let vertices = graph.getVertices();
         vertices.forEach(v => color[v] = this.Colors.WHITE);
-        return color;
+        this.color = color
     }
     breadthFirstSearch(graph, startVertex, callback) {
         let vertices = graph.getVertices();
         let adjList = graph.getAdjList();
-        let color = this.initializeColor(vertices);
+        this.initializeColor(vertices);
+        let color = this.color
         let queue = new Queue();
 
         queue.enqueue(startVertex);
@@ -71,7 +74,7 @@ class Tools {
     BFS(graph, startVertex) {
         let vertices = graph.getVertices();
         let adjList = graph.getAdjList();
-        let color = this.initializeColor(vertices);
+        let color = this.color
         let queue = new Queue();
         let distances = {};
         let predecessors = {};
