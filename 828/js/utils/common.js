@@ -214,7 +214,15 @@ const blackBug = () => {
   }
   return list
 }
-
+const passBg = ()=>{
+  let list = []
+  for (let i = 1; i <6; i++) {
+    let atlas = new Image()
+    atlas.src = getImgByName('pass' + i).url
+    list.push(atlas)
+  }
+  return list
+}
 export const loadingImage = () => {
   GAME_IMG.set('spider', spider())
   GAME_IMG.set('yellow_bugs', yellowBug_Image())
@@ -226,6 +234,7 @@ export const loadingImage = () => {
   GAME_IMG.set('houseIcon',houseIcon())
   GAME_IMG.set('learnBg',learnBg())
   GAME_IMG.set('speedIcon',speedIcon())
+  GAME_IMG.set('passBg',passBg())
 }
 
 const getImgByName = (name) => {

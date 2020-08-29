@@ -37,7 +37,7 @@ export default class Init {
   }
   addEventLinner(){
     databus.touchHandler = this.touchHandler
-    wx.onTouchStart(databus.touchHandler)
+    tt.onTouchStart(databus.touchHandler)
     // canvas.addEventListener('touchstart',databus.touchHandler)
   }
   touchHandler(e){
@@ -46,12 +46,12 @@ export default class Init {
     if (instance.checkStart(x, y)) {
       
       if(databus.isShowLearn){
-        databus.pageIndex = 5
+        databus.pageIndex = 6
         
       }else{
-        databus.pageIndex = 2
+        databus.pageIndex = 6
         // databus.checkIndex = 2
-        // wx.showToast({
+        // tt.showToast({
         //   title: '你是高手，直接来到第3关！',
         //   icon: 'none',
         //   duration: 1000

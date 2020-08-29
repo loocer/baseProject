@@ -14,15 +14,15 @@ export const work = (that) => {
     event = databus.touchHandler
     databus.pageList = [
       [1, new init()],
-      [0, new pass()],
       [0, new runking()],
       [0, new game()],
       [1, new gameover()],
       [1, new over()],
-      [0, new learn()]
+      [0, new learn()],
+      [0, new pass()],
     ]
-    wx.offTouchStart(databus.touchHandler)
-    wx.offTouchMove(databus.moveHandler)
+    tt.offTouchStart(databus.touchHandler)
+    tt.offTouchMove(databus.moveHandler)
     databus.pageList[databus.pageIndex][1].addEventLinner(that)
     tempIndex = databus.pageIndex
     if (databus.pageList[databus.pageIndex][0]) {
@@ -32,7 +32,7 @@ export const work = (that) => {
     }
     if(tempIndex==0){
      
-      wx.getStorage({
+      tt.getStorage({
         key: 'isShowLearn',
         success (res) {
           databus.isShowLearn = res.data

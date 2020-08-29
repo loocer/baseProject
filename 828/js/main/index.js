@@ -88,7 +88,7 @@ export const run = () => {
     // console.log(netResourse)
     for (let obb of netResourse) {
       let task = tt.downloadFile({
-        url: 'http://39.103.132.21/'+obb.fileId,
+        url: 'https://www.xuxin.love/img'+obb.fileId,
         success(res) {
           if (res.statusCode === 200) {
             index++;

@@ -109,6 +109,16 @@ for (let i = 1; i < 6; i++) {
 }
 return list
 })()
+export const pass = (() => {
+let list = []
+for (let i = 1; i < 6; i++) {
+  list.push({
+    name: 'pass' + i,
+    fileId: `828/pass/${i}.png`,
+  })
+}
+return list
+})()
 export const bullet = (() => {
 let list = [{
     name: 'bullet1',
@@ -131,4 +141,4 @@ return list
 export const netResourse = [{
 name: 'title',
 fileId: '828/button/tittle.png',
-}, ...booms, ...icon, ...yellowBug, ...over, ...antBug, ...bihuBug, ...blackBug, ...bullet, ...hand, ...learnBg, ...cool]
+}, ...booms, ...icon, ...yellowBug, ...over, ...antBug, ...bihuBug, ...blackBug, ...bullet, ...hand, ...learnBg, ...cool,...pass]

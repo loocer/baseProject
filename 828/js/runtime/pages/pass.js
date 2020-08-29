@@ -10,6 +10,7 @@ const databus = new DataBus()
 let doIndex = 5
 let instance
 let allMakeLove = 30
+let initTop = 120 
 let IMG = null
 export default class Physics {
   constructor() {
@@ -20,8 +21,7 @@ export default class Physics {
     this.allPasition = []
     this.moveY = 0
     this.startY = 0
-    this.gan = new Gan()
-    this.ball = new Ball()
+    this.passBg = GAME_IMG.get('passBg')
   }
   init(){
 
@@ -38,7 +38,7 @@ export default class Physics {
 
   }
   drawRow(ctx) {
-    let ys = 300 - this.moveY
+    let ys = initTop - this.moveY
     let aLLRow = Math.ceil(allMakeLove / 4) + 1
     for (let i = 0; i < aLLRow; i++) {
       let sx = 50
@@ -84,7 +84,7 @@ export default class Physics {
     let row = Math.ceil(mvu / 4)
     let index = 0,
       list = []
-    let yd = 305 - this.moveY
+    let yd = initTop - this.moveY
     for (let i = 0; i < row; i++) {
       for (let t = 0; t < 4; t++) {
         index++
@@ -101,11 +101,13 @@ export default class Physics {
         if (index > doIndex - 1) {
           ctx.fillStyle = "rgba(0, 0, 0, 0.23)";
         }
-        let x1 = (screenWidth - 100) / 4 * t + 55
-        let x2 = (screenWidth - 100) / 4 - 10
+        let x1 = (screenWidth - 100) / 4 * t + 65
+        let x2 = (screenWidth - 100) / 4 - 30
         let y1 = (screenWidth - 100) / 4 * i + yd
         let y2 = (screenWidth - 100) / 4 - 10
-        ctx.fillRect(x1, y1, x2, y2)
+        // ctx.fillRect(x1, y1, x2, y2)
+        ctx.drawImage(this.passBg[4], 0, 0, 156, 148, x1,y1,78,78)
+        
         ctx.fillStyle = '#fff';
         ctx.font = '100px Arial';
         let tx = (screenWidth - 100) / 4 * t + 50 + 20
@@ -151,6 +153,7 @@ export default class Physics {
     let x = touch.clientX
     let row = Math.ceil(allMakeLove / 4)
     let h = (screenWidth - 100) / 4
+    console.log(instance.moveY,'-===============')
     if (instance.moveY < 0) { // 到顶
       instance.moveY = 0;
     } else if (instance.moveY > (row - 6) * h) { // 到底
@@ -176,7 +179,7 @@ export default class Physics {
     wx.onTouchStart(databus.touchHandStart);
   }
   drawCol(ctx) {
-    let ys = 300 - this.moveY
+    let ys = initTop - this.moveY
     let boxWidth = (screenWidth - 100) / 4
     let allH = Math.ceil(allMakeLove / 4) * boxWidth + ys
     let onex1 = 50
@@ -206,7 +209,7 @@ export default class Physics {
 
 
     ctx.fillStyle = "#fff";
-    ctx.fillRect(0, -databus.trans.y, screenWidth, screenHeight);
+    ctx.fillRect(0, -databus.transY, screenWidth, screenHeight);
     // ctx.drawImage(
     //   IMG,
     //   0,
@@ -218,8 +221,8 @@ export default class Physics {
     this.drawCol(ctx)
     this.drawRow(ctx)
     this.drawNo(ctx)
-    this.drawPanel(ctx)
-    this.drawBorder(ctx)
+    // this.drawPanel(ctx)
+    // this.drawBorder(ctx)
 
   }
 }
