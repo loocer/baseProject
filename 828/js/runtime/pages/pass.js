@@ -9,8 +9,8 @@ const databus = new DataBus()
 
 let doIndex = 5
 let instance
-let allMakeLove = 30
-let initTop = 120 
+let allMakeLove = 60
+let initTop =120 
 let IMG = null
 export default class Physics {
   constructor() {
@@ -21,6 +21,7 @@ export default class Physics {
     this.allPasition = []
     this.moveY = 0
     this.startY = 0
+    this.width = 320
     this.passBg = GAME_IMG.get('passBg')
   }
   init(){
@@ -39,11 +40,13 @@ export default class Physics {
   }
   drawRow(ctx) {
     let ys = initTop - this.moveY
+    let boxWidth = this.width / 4
+    let onex1 = (screenWidth - this.width)/2
     let aLLRow = Math.ceil(allMakeLove / 4) + 1
     for (let i = 0; i < aLLRow; i++) {
-      let sx = 50
-      let ex = (screenWidth - 100) + 50
-      let h = (screenWidth - 100) / 4
+      let sx =onex1
+      let ex = this.width+onex1
+      let h = this.width / 4
       ctx.strokeStyle = "green";
       ctx.beginPath();
       ctx.moveTo(sx, h * i + ys);
@@ -80,6 +83,9 @@ export default class Physics {
     }
   }
   drawNo(ctx) {
+    let boxWidth = this.width / 4
+    let onex1 = (screenWidth - this.width)/2
+
     let mvu = allMakeLove
     let row = Math.ceil(mvu / 4)
     let index = 0,
@@ -101,17 +107,16 @@ export default class Physics {
         if (index > doIndex - 1) {
           ctx.fillStyle = "rgba(0, 0, 0, 0.23)";
         }
-        let x1 = (screenWidth - 100) / 4 * t + 65
-        let x2 = (screenWidth - 100) / 4 - 30
-        let y1 = (screenWidth - 100) / 4 * i + yd
-        let y2 = (screenWidth - 100) / 4 - 10
-        // ctx.fillRect(x1, y1, x2, y2)
-        ctx.drawImage(this.passBg[4], 0, 0, 156, 148, x1,y1,78,78)
+        let x1 = boxWidth * t + onex1
+        let x2 = x1+boxWidth
+        let y1 = boxWidth * i + yd
+        let y2 = boxWidth+y1
+        ctx.drawImage(this.passBg[4], 0, 0, 156, 148, x1,y1,boxWidth,boxWidth)
         
         ctx.fillStyle = '#fff';
         ctx.font = '100px Arial';
-        let tx = (screenWidth - 100) / 4 * t + 50 + 20
-        let ty = (screenWidth - 100) / 4 * i + yd + 20
+        let tx = x1 + 20
+        let ty = boxWidth * i + yd + 20
         ctx.save();
         ctx.scale(.2, .2);
         ctx.fillText(index, tx * 5, ty * 5);
@@ -123,8 +128,6 @@ export default class Physics {
           index
         })
         ctx.restore()
-
-        // ctx.fillText('关卡', (screenWidth - 100) / 4 * t + 50 + 20, (screenWidth - 100) / 4 * i + yd+50);
       }
     }
 
@@ -145,6 +148,7 @@ export default class Physics {
     instance.startY = touch
   }
   handTouchEnd(e) {
+    
     let time = e.timeStamp
     let touch = e.changedTouches[0];
     let lastX = instance.moveTouches.clientX
@@ -152,12 +156,11 @@ export default class Physics {
     let y = touch.clientY
     let x = touch.clientX
     let row = Math.ceil(allMakeLove / 4)
-    let h = (screenWidth - 100) / 4
-    console.log(instance.moveY,'-===============')
+    let h = instance.width / 4
     if (instance.moveY < 0) { // 到顶
       instance.moveY = 0;
-    } else if (instance.moveY > (row - 6) * h) { // 到底
-      instance.moveY = (row - 6) * h;
+    } else if (instance.moveY > (row -4) * h+initTop+30) { // 到底
+      instance.moveY = (row - 4) * h+initTop+30;
     }
     if (lastX == x && lastY == y&&time-instance.startTime<100) {
       instance.checkPastion(x, y)
@@ -180,13 +183,13 @@ export default class Physics {
   }
   drawCol(ctx) {
     let ys = initTop - this.moveY
-    let boxWidth = (screenWidth - 100) / 4
+    let boxWidth = this.width / 4
     let allH = Math.ceil(allMakeLove / 4) * boxWidth + ys
-    let onex1 = 50
-    let onex2 = (screenWidth - 100) / 4 + 50
-    let onex3 = (screenWidth - 100) / 4 * 2 + 50
-    let onex4 = (screenWidth - 100) / 4 * 3 + 50
-    let onex5 = (screenWidth - 100) / 4 * 4 + 50
+    let onex1 = (screenWidth - this.width)/2
+    let onex2 = onex1 + boxWidth
+    let onex3 = onex2 + boxWidth
+    let onex4 = onex3 + boxWidth
+    let onex5 = onex4 + boxWidth
     let xlist = [onex1, onex2, onex3, onex4, onex5]
     for (let obj of xlist) {
       ctx.strokeStyle = "green";
@@ -196,6 +199,13 @@ export default class Physics {
       ctx.stroke();
     }
 
+  }
+  drawBg(ctx){
+    let width = 450
+    let x = (screenWidth - width)/2
+    let y = initTop- 40
+    let height = 550/880*width
+    ctx.drawImage(this.passBg[5], 0, 0, 880, 550, x,y,width,height)
   }
   render(ctx) {
 
@@ -218,9 +228,11 @@ export default class Physics {
     //   screenHeight
     // )
     // 恢复先前渲染上下文所进行的变换
+   
     this.drawCol(ctx)
     this.drawRow(ctx)
     this.drawNo(ctx)
+     this.drawBg(ctx)
     // this.drawPanel(ctx)
     // this.drawBorder(ctx)
 

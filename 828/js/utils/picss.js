@@ -111,7 +111,7 @@ return list
 })()
 export const pass = (() => {
 let list = []
-for (let i = 1; i < 6; i++) {
+for (let i = 1; i < 7; i++) {
   list.push({
     name: 'pass' + i,
     fileId: `828/pass/${i}.png`,

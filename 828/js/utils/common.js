@@ -216,7 +216,7 @@ const blackBug = () => {
 }
 const passBg = ()=>{
   let list = []
-  for (let i = 1; i <6; i++) {
+  for (let i = 1; i <7; i++) {
     let atlas = new Image()
     atlas.src = getImgByName('pass' + i).url
     list.push(atlas)
