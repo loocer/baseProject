@@ -97,51 +97,39 @@ userControl.createRoom = function (app) {
   })
 }
 userControl.addPlaytoRoom = function (app) {
-  app.get('/into-room', filter.authorize, function (req, res) {
-    // let results = {}
-    // console.log(req.query.roomNo)
-    // let roomNo = req.query.roomNo
-    // /*--------判断房卡是否有效--------*/
-    // // console.log(req)
-    // let status = rooms.has(roomNo)
-    // // for(var n in demoData.rooms){
-    // //   if(demoData.rooms[n].id == roomNo){
-    // //     status = true
-    // //   }
-    // // }
-    // // let room = null
-    // // for(let i in rooms){
-    // //     if(rooms[i].id == roomNo){
-    // //       status = true
-    // //       room= rooms[i]
-    // //     }
-    // //   }
-    // if (status) {
-    //   const room = rooms.get(roomNo)
-    //   if (room.players.length < room.peopleNum) {
-    //     //-----------------------------------//
-    //     let user = null
-    //     for (var u in demoData.users) {
-    //       if (demoData.users[u].id === req.session.user_id) {
-    //         user = demoData.users[u]
-    //       }
-    //     }
-    //     //------------------------------------//
-    //     var player = new ZhajinhuaPlayer(user)
-    //     player.isMain = false
-    //     room.players.set(player.id, player)
-    //     results.status = 1
-    //     results.data = { roomNo: roomNo, peopleNum: room.peopleNum }
-    //     results.msg = '欢迎进入！'
-    //     res.status(200),
-    //       res.json(results)
-    //   } else {
-    //     results.status = 0
-    //     results.msg = '进入失败！'
-    //     res.status(200),
-    //       res.json(results)
+  app.get('/into-room',function (req, res) {
+    let results = {}
+    console.log(req.query)
+    let roomNo = req.query.roomNo
+    /*--------判断房卡是否有效--------*/
+    // console.log(req)
+    let status = demoData.rooms.has(roomNo)
+    // for(let n in demoData.rooms){
+    //   if(demoData.rooms[n].id == roomNo){
+    //     status = true
     //   }
     // }
+    if (status) {
+      const room = roomsEngine.get(roomNo)
+      if (room.players.size < room.peopleNum) {
+        //-----------------------------------//
+        let userId = req.headers.user_id
+        let user = data.users.get(userId)
+
+        let roomPlayers = new RoomPlayers(user)
+        room.players.set(userId,roomPlayers)
+        results.status = 1
+        results.data = { roomNo: roomNo, peopleNum: room.peopleNum }
+        results.msg = '欢迎进入！'
+        res.status(200),
+        res.json(results)
+      } else {
+        results.status = 0
+        results.msg = '进入失败！'
+        res.status(200),
+          res.json(results)
+      }
+    }
 
   })
 }

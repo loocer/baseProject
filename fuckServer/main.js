@@ -20,7 +20,7 @@ class Main {
     init(this.databus)
   }
   action(event){
-    action(event,this)
+    this.players.get('435').action(event)
   }
   update() {
     Array.from(this.databus.bullets)
@@ -40,25 +40,8 @@ class Main {
         }
       })
 
-    Array.from(this.databus.bullets)
-      .forEach((item) => {
-        if (!item.visible) {
-          this.databus.bullets.delete(item)
-        }
-      })
-    for (let key of this.databus.moveTeam.keys()) {
-      let tempList = []
-      for (let obj of this.databus.moveTeam.get(key)) {
-        if (obj.visible) {
-          tempList.push(obj)
-        }
-      }
-      if(tempList.length!=0){
-        this.databus.moveTeam.set(key, tempList)
-      }else{
-        this.databus.moveTeam.delete(key)
-      }
-    }
+   
+    
     for(let key of this.players.keys()){
       let per = this.players.get(key)
       per.visible&&per.update()

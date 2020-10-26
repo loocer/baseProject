@@ -14,32 +14,37 @@ class roomPlayers{
 		this.panels =[]//1:diyige
 		this.user = user
 		this.visible = true
-		this.houses = []
+		this.box = null
+		this.speedMove = 0.1
+		this.rotation = null
+		this.position = null
 	}
 	update(){
-		for(let ps of this.panels){
-			for(let p of ps){
-				p[1].exObj.update()
-			}
-		}
+		// if(this.box){
+		// 	this.box.transform.rotate(new Laya.Vector3(0,0,this.rotes.z* Math.PI / 180),true);
+		// 	this.box.transform.rotate(new Laya.Vector3(0,-this.rotes.x* Math.PI / 180,0),true);
+		// 	this.box.transform.rotate(new Laya.Vector3(this.rotes.y* Math.PI / 180,0,0),true);
+		// 		// utl.box.transform.rotation = new Laya.Vector3(utl.box.transform.rotation.x,utl.box.transform.rotation.y,utl.box.transform.rotation.z)
+				
+					
+		// 	let tz = Math.cos(Math.PI/180*this.box.transform.rotationEuler.y)*this.speedMove
+		// 	let tx = Math.sin(Math.PI/180*this.box.transform.rotationEuler.y)*this.speedMove
+		// 	let ty = Math.sin(Math.PI/180*this.box.transform.rotationEuler.x)*this.speedMove
+		// 	// utl.box.transform.translate(new Laya.Vector3(tx,-ty,tz),false)
+		// 	let temp = utl.box.transform.position
+		// 	this.trans = {
+		// 		x:temp.x+tx,
+		// 		y:temp.y-ty,
+		// 		z:temp.z+tz
+		// 	}
+		// 	this.box.transform.position =new Laya.Vector3(this.trans.x,this.trans.y,this.trans.z)
+		// }
+		
 	}
-	init(main){
-		this.setPanel(main)
-		create({type:data.MAINHOUSE,databus:main.databus,player:this,x:100,y:400})
-	}
-	setPanel(main){
-		for(let obj of contant.houseType){
-			let panel = new Panel()
-			obj[1].exObj = panel
-		}
-		for(let obj of contant.houseType2){
-			let panel = new Panel()
-			obj[1].exObj = panel
-		}
-		this.panels[0] =  contant.houseType
-		this.panels[1] =  contant.houseType2
-		this.panels[2] =  contant.houseType
-		this.panels[3] =  contant.houseType2
+	action(event){
+		this.rotation = event.rotation
+		this.position = event.position
+		// action(event,this)
 	}
 }
 module.exports=roomPlayers
