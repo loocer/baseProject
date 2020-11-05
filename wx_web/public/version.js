@@ -1,1 +1,0 @@
-function timestamp(e){var t=(new Date).getTime();return e.indexOf("?")>-1?e+"&_="+t:e+"?_="+t}version&&"$version"!==version&&"$version"!==localStorage.getItem("$$VERSION")&&(localStorage.setItem("$$VERSION","$version"),location.href=timestamp(location.href)); // eslint-disable-line
