@@ -16,11 +16,16 @@ class Main {
   }
   init() {
     this.io = bs.io
-    setInterval(this.loop, 2)
+    setInterval(this.loop, 50)
     init(this.databus)
   }
   action(event){
-    this.players.get(event.userId).action(event)
+    let players = this.players.get(event.userId)
+    if(players){
+      players.action(event)
+    }
+    // this.players.get(event.userId).action(event)
+ 
   }
   update() {
     Array.from(this.databus.bullets)

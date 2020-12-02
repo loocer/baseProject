@@ -3,10 +3,10 @@ export default class ImageRunTime extends Laya.Sprite{
     constructor(){
             super();
             this.scaleTime = 100;
-            this.width = Laya.stage.width/2 
-            this.height = Laya.stage.height
-            this.x = 0;
-            this.y = 0;
+           this.width = 300
+            this.height = 300
+           this.x = 150;
+            this.y = Laya.stage.height - 350;
             this.moveX = 0
             this.moveY = 0
             this.tx=50
@@ -70,37 +70,37 @@ export default class ImageRunTime extends Laya.Sprite{
           return rotate
         }
         leftFormatMovePosition(e) {
-          if(!utl.tachLeftFlag){
-            return
-          }
-          // utl.ani.play("hello");
-          let pobj = {}
-          pobj.x1 = e.stageX //点击
-          pobj.x2 =this.tx + this.twidth/2
-          pobj.y1 = e.stageY
-          pobj.y2 = this.ty + this.theight/2
-          if((e.stageX - this.tx - this.twidth/2) / (this.twidth/2) >1){
-            utl.takeSpeed.x = 1
-          }else{
-             utl.takeSpeed.x = (e.stageX - this.tx - this.twidth/2) / (this.twidth/2) 
-          }
-          if((e.stageX - this.tx - this.twidth/2) / (this.twidth/2) <-1){
-            utl.takeSpeed.x = -1
-          }else{
-             utl.takeSpeed.x = (e.stageX - this.tx - this.twidth/2) / (this.twidth/2) 
-          }
-          if((e.stageY - this.ty - this.theight/2) / (this.theight/2) >1){
-             utl.takeSpeed.y = 1
-          }else{
-            utl.takeSpeed.y = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
-          }
-          if((e.stageY - this.ty - this.theight/2) / (this.theight/2) <-1){
-             utl.takeSpeed.y = -1
-          }else{
-            utl.takeSpeed.y = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
-          }
-          let x = 1,y=1,z=1
-          console.log(utl.socket)
+          // if(!utl.tachLeftFlag){
+          //   return
+          // }
+          // // utl.ani.play("hello");
+          // let pobj = {}
+          // pobj.x1 = e.stageX //点击
+          // pobj.x2 =this.tx + this.twidth/2
+          // pobj.y1 = e.stageY
+          // pobj.y2 = this.ty + this.theight/2
+          // if((e.stageX - this.tx - this.twidth/2) / (this.twidth/2) >1){
+          //   utl.takeSpeed.x = 1
+          // }else{
+          //    utl.takeSpeed.x = (e.stageX - this.tx - this.twidth/2) / (this.twidth/2) 
+          // }
+          // if((e.stageX - this.tx - this.twidth/2) / (this.twidth/2) <-1){
+          //   utl.takeSpeed.x = -1
+          // }else{
+          //    utl.takeSpeed.x = (e.stageX - this.tx - this.twidth/2) / (this.twidth/2) 
+          // }
+          // if((e.stageY - this.ty - this.theight/2) / (this.theight/2) >1){
+          //    utl.takeSpeed.y = 1
+          // }else{
+          //   utl.takeSpeed.y = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
+          // }
+          // if((e.stageY - this.ty - this.theight/2) / (this.theight/2) <-1){
+          //    utl.takeSpeed.y = -1
+          // }else{
+          //   utl.takeSpeed.y = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
+          // }
+          // let x = 1,y=1,z=1
+          // console.log(utl.socket)
            
           // utl.takeSpeed.y = e.stageY - this.ty - this.theight/2
           // utl.box.transform.rotate(new Laya.Vector3(0,utl.rote* Math.PI / 180, 0), true);

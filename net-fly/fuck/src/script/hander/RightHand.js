@@ -68,27 +68,27 @@ export default class ImageRunTime extends Laya.Sprite{
           return rotate
         }
         leftFormatMovePosition(e) {
-          console.log(33333)
-          if(!utl.tachRightFlag){
-            return
-          }
-          // utl.ani.play("hello");
-          let pobj = {}
-          pobj.x1 = e.stageX //点击
-          pobj.x2 =this.tx + this.twidth/2
-          pobj.y1 = e.stageY
-          pobj.y2 = this.ty + this.theight/2
+          // console.log(33333)
+          // if(!utl.tachRightFlag){
+          //   return
+          // }
+          // // utl.ani.play("hello");
+          // let pobj = {}
+          // pobj.x1 = e.stageX //点击
+          // pobj.x2 =this.tx + this.twidth/2
+          // pobj.y1 = e.stageY
+          // pobj.y2 = this.ty + this.theight/2
         
-          if((e.stageY - this.ty - this.theight/2) / (this.theight/2) >1){
-             utl.takeSpeed.z = 1
-          }else{
-            utl.takeSpeed.z = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
-          }
-          if((e.stageY - this.ty - this.theight/2) / (this.theight/2) <-1){
-             utl.takeSpeed.z = -1
-          }else{
-            utl.takeSpeed.z = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
-          }
+          // if((e.stageY - this.ty - this.theight/2) / (this.theight/2) >1){
+          //    utl.takeSpeed.z = 1
+          // }else{
+          //   utl.takeSpeed.z = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
+          // }
+          // if((e.stageY - this.ty - this.theight/2) / (this.theight/2) <-1){
+          //    utl.takeSpeed.z = -1
+          // }else{
+          //   utl.takeSpeed.z = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
+          // }
         }
 
 }

@@ -18,12 +18,17 @@ class player{
 		this.isEnable = false
 		this.state = acType.ON_COME
 		this.posation = {x:0,y:0,z:0}
+		this.rotation = {x:0,y:0,z:0}
 		this.isAction = true,//it is protagonist
 		this.gameStatus = true,//is disabled
 		this.raiseStatus = true,//true is going,false is not going
 		this.pokerValue = [],
 		this.raiseMoney = 200,
 		this.raiseTotalMoney = 0
+	}
+	action(event){
+		this.rotation = event.rotation
+        this.position = event.position
 	}
 }
 module.exports=player

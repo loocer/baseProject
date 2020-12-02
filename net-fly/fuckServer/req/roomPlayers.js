@@ -18,6 +18,11 @@ class roomPlayers{
 		this.speedMove = 0.1
 		this.rotation = null
 		this.position = null
+		this.takeSpeed = {
+			z:0,
+			x:0,
+			y:0
+		}
 	}
 	update(){
 		// if(this.box){
@@ -42,6 +47,7 @@ class roomPlayers{
 		
 	}
 	action(event){
+		this.takeSpeed = event.takeSpeed
 		this.rotation = event.rotation
 		this.position = event.position
 		// action(event,this)

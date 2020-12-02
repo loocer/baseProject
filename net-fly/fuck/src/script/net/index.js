@@ -1,15 +1,18 @@
 
-let address = 'http://192.168.2.100:3000'
+let address = 'http://172.16.25.101:3000'
   import utl from "../utl.js"
 let HttpRequest = Laya.HttpRequest
 let Event       = Laya.Event;
 let result = {}
+let temfe = {
+	x:1
+}
 export const login = ()=>
 {	
 	let obj = {}
 	let hr = new HttpRequest();
-	// let id = Date.parse(new  Date())
-	let id = 435
+	let id = utl.userId
+	// let id = 435
 	function onHttpRequestProgress(e){
 		console.log(e)
 	}
@@ -50,6 +53,14 @@ export const getServiceAddress = ()=>
 }
 export const intoRoom = ()=>
 {
+	// Laya.Sprite3D.load("res/t2/LayaScene_fff/Conventional/f.lh", Laya.Handler.create(null, (sp)=> {
+ //            let layaMonkey1 = utl.newScene.addChild(sp);
+ //            layaMonkey1.transform.position =new Laya.Vector3(0,3,0)
+ //            // layaMonkey1.transform.rotate(new Laya.Vector3(90* Math.PI / 180,0, 0), true);
+ //            utl.box = layaMonkey1
+ //            utl.players.set(utl.userId,layaMonkey1)
+            
+ //    }));
 	let headers = [
 		"Content-Type", "application/x-www-form-urlencoded",
 		'token', result.userInfo.token,
@@ -98,18 +109,77 @@ export const socketMain = ()=>
  //    socket.on(Laya.Event.ERROR, this, errorHandler);
 	utl.socket = io(result.serviceAddress);
 	utl.socket.on('main_update', (s) => {
-		setBox(s.players[0][1])
+		setBox(s.players)
     });
     utl.socket.on('event', function (data) { });
     utl.socket.on('disconnect', function () { });
 }
-const setBox = (obj)=>{
-	if(utl.box&&obj.rotation&&obj.position){
-		 utl.box.transform.rotate(new Laya.Vector3(0,0,-obj.rotation.z* Math.PI / 180),true);
-        utl.box.transform.rotate(new Laya.Vector3(0,-obj.rotation.x* Math.PI / 180,0),true);
-        utl.box.transform.rotate(new Laya.Vector3(obj.rotation.y* Math.PI / 180,0,0),true);
-        utl.box.transform.rotation = new Laya.Vector3(utl.box.transform.rotation.x,utl.box.transform.rotation.y,utl.box.transform.rotation.z)
-		utl.box.transform.position = new Laya.Vector3(obj.position.x,obj.position.y,obj.position.z)
+const setBox = (players)=>{
+	let ps = new Map(players)
+	utl.netPlayers = ps
+	let bs = utl.players
+	if(utl.newScene){
+		for(let k  of ps.keys()){
+			let now = bs.get(k)
+			let erd = ps.get(k)
+			
+			if(now){
+				now.takeSpeed = erd.takeSpeed
+				return
+				if(erd.position&&now.tempPosition){
+					let erdx = {
+						x:~~(erd.position.x*100),
+						y:~~(erd.position.y*100),
+						z:~~(erd.position.z*100)
+					}
+					now.tempPositions.push(erdx)
+					// Laya.Tween.to( now.tempPosition,erdx, 500,null,Laya.Handler.create(this,()=>{
+	    //         	console.log(now.tempPosition.x,'+++9999+')
+
+	    //         	}));
+
+				}
+				if(erd.rotation&&now.tempRotation){
+					let erdx = {
+						x:~~(erd.rotation.x*100),
+						y:~~(erd.rotation.y*100),
+						z:~~(erd.rotation.z*100)
+					}
+					now.tempRotations.push(erdx)
+					// Laya.Tween.to( now.tempRotation,erdx, 500,null,Laya.Handler.create(this,()=>{
+            		
+     //        		}));
+				}
+            	
+			}else{
+				let box = null
+				Laya.Sprite3D.load("res/t2/LayaScene_fff/Conventional/f.lh", Laya.Handler.create(null, (sp)=> {
+			        box = utl.newScene.addChild(sp); 
+			        box.takeSpeed = erd.takeSpeed
+					box.speed = {
+				    	z:0,
+				    	x:0,
+				    	y:0
+				    }
+					if(erd.rotation){
+						box.transform.rotation =  new Laya.Vector3(erd.rotation.x,erd.rotation.y,erd.rotation.z)
+					}
+					if(erd.position){
+						box.transform.position = new Laya.Vector3(erd.position.x,erd.position.y,erd.position.z)
+					}
+
+					// utl.newScene.addChild(box)
+					utl.players.set(erd.id,box)
+			    }));
+			}
+		}
+		// utl.box.transform.rotate(new Laya.Vector3(0,0,-obj.rotation.z* Math.PI / 180),true);
+  //       utl.box.transform.rotate(new Laya.Vector3(0,-obj.rotation.x* Math.PI / 180,0),true);
+  // //       utl.box.transform.rotate(new Laya.Vector3(obj.rotation.y* Math.PI / 180,0,0),true);
+  //       utl.box.transform.rotation = new Laya.Vector3(obj.rotation.x,obj.rotation.y,obj.rotation.z)
+		// utl.box.transform.position = new Laya.Vector3(obj.position.x,obj.position.y,obj.position.z)
+		// Laya.Tween.to( utl.doposition,{x:obj.position.x,y:obj.position.y,z:obj.position.z}, 200,null,Laya.Handler.create(this,()=>{
+  //           }));
 	}
 	
 }
