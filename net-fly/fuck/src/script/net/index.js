@@ -114,6 +114,24 @@ export const socketMain = ()=>
     utl.socket.on('event', function (data) { });
     utl.socket.on('disconnect', function () { });
 }
+const creteBox = (sp,erd)=>{
+	let box = utl.newScene.addChild(sp); 
+    box.takeSpeed = erd.takeSpeed
+	box.speed = {
+    	z:0,
+    	x:0,
+    	y:0
+    }
+	if(erd.rotation){
+		box.transform.rotation =  new Laya.Vector3(erd.rotation.x,erd.rotation.y,erd.rotation.z)
+	}
+	if(erd.position){
+		box.transform.position = new Laya.Vector3(erd.position.x,erd.position.y,erd.position.z)
+	}
+
+	// utl.newScene.addChild(box)
+	utl.players.set(erd.id,box)
+}
 const setBox = (players)=>{
 	let ps = new Map(players)
 	utl.netPlayers = ps
@@ -152,25 +170,16 @@ const setBox = (players)=>{
 				}
             	
 			}else{
-				let box = null
-				Laya.Sprite3D.load("res/t2/LayaScene_fff/Conventional/f.lh", Laya.Handler.create(null, (sp)=> {
-			        box = utl.newScene.addChild(sp); 
-			        box.takeSpeed = erd.takeSpeed
-					box.speed = {
-				    	z:0,
-				    	x:0,
-				    	y:0
-				    }
-					if(erd.rotation){
-						box.transform.rotation =  new Laya.Vector3(erd.rotation.x,erd.rotation.y,erd.rotation.z)
-					}
-					if(erd.position){
-						box.transform.position = new Laya.Vector3(erd.position.x,erd.position.y,erd.position.z)
-					}
-
-					// utl.newScene.addChild(box)
-					utl.players.set(erd.id,box)
-			    }));
+				if(erd.id==utl.userId){
+					Laya.Sprite3D.load("res/t2/LayaScene_fff/Conventional/f.lh", Laya.Handler.create(null, (sp)=> {
+			       		creteBox(sp,erd)
+			    	}));
+				}
+				else{
+					let box4 = utl.box4.clone();
+			     	creteBox(box4,erd)
+				}
+			    
 			}
 		}
 		// utl.box.transform.rotate(new Laya.Vector3(0,0,-obj.rotation.z* Math.PI / 180),true);
