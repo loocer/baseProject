@@ -1,0 +1,1 @@
+{"type":"Scene","props":{"width":2000,"runtime":"script/InitUI.js","name":"initUI","height":2000},"compId":2,"child":[{"type":"Image","props":{"skin":"comp/load2.png","runtime":"script/init/loaded.js"},"compId":6},{"type":"Image","props":{"skin":"comp/load1.png","runtime":"script/init/bg.js"},"compId":5}],"loadList":["comp/load2.png","comp/load1.png"],"loadList3D":[]}
