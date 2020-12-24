@@ -94,16 +94,19 @@ export default class GameUI extends Laya.Scene {
         }));
         sfe.meshRenderer.material = material;
        
-        Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh", Laya.Handler.create(null, (sp)=> {
-            let layaMonkey1 = this.newScene.addChild(sp);
+        // Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh", Laya.Handler.create(null, (sp)=> {
+        //     let layaMonkey1 = this.newScene.addChild(sp);
             
-        }));
-        
+        // }));
+          this.newScene.addChild(utl.models.get('light'));  
       
-        Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh", Laya.Handler.create(null, (sp)=> {
-            utl.box = this.newScene.addChild(sp);
-        }));
-        
+        // Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh", Laya.Handler.create(null, (sp)=> {
+        //     utl.box = this.newScene.addChild(sp);
+        // }));
+        utl.box = utl.models.get('pler')
+        this.newScene.addChild(utl.box);
+
+
         utl.box4 = this.newScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, .5,.8)));
         var material = new Laya.BlinnPhongMaterial();
         Laya.Texture2D.load("res/wood.jpg", Laya.Handler.create(null, function(tex) {
@@ -113,9 +116,26 @@ export default class GameUI extends Laya.Scene {
         
        
         this.createBall()
-        // let obj = this.getChildByName('eee')
-        // obj.visible = false
-        // console.log(obj)
+
+        // Laya.loader.load('https://xuxin.love/img/fly/controll.png', Laya.Handler.create(this, function() {
+        //     let monkey2 = Laya.loader.getRes('https://xuxin.love/img/fly/controll.png');
+        //     let ape2 = new Laya.Sprite();
+        //     Laya.stage.addChild(ape2);
+        //     ape2.graphics.drawTexture(monkey2, 100, 100);
+        //     ape2.width = 400
+        //     ape2.height = 400
+        //     ape2.x = 250;
+        //     ape2.y = Laya.stage.height - 500;
+        // }));
+
+        let fudf = utl.models.get('cotrll')
+        let ape2 = new Laya.Sprite();
+        Laya.stage.addChild(ape2);
+        ape2.graphics.drawTexture(fudf, 100, 100);
+        ape2.width = 400
+        ape2.height = 400
+        ape2.x = 250;
+        ape2.y = Laya.stage.height - 500;
        
           
     }

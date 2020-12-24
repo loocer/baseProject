@@ -6,7 +6,7 @@
     	tachRightFlag:false,//左边点击
     	box:null,
         userId:Date.parse(new  Date())+'',
-        players:new Map(),
+        models:new Map(),
         box4:null,
         speedMove:.4,
         speed:{
@@ -22,7 +22,15 @@
         	y:0
         },
         entity:new Map(),
-        operationYype:1//1:虚拟手柄 2:屏幕方向
+        operationYype:1,//1:虚拟手柄 2:屏幕方向
+        loadIndex:0,
+        loadingElse:[
+            ['cotrll','https://xuxin.love/img/fly/controll.png']
+        ],
+        loadingSprite3D:[
+            ['light','https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh'],
+            ['pler','https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh'],
+        ]
     };
 
     /**
@@ -64,6 +72,159 @@
                 this.x = (Laya.stage.width - this.width)/2;
                 this.y = 300;
             }
+    }
+
+    /**
+     * 本示例采用非脚本的方式实现，而使用继承页面基类，实现页面逻辑。在IDE里面设置场景的Runtime属性即可和场景进行关联
+     * 相比脚本方式，继承式页面类，可以直接使用页面定义的属性（通过IDE内var属性定义），比如this.tipLbll，this.scoreLbl，具有代码提示效果
+     * 建议：如果是页面级的逻辑，需要频繁访问页面内多个元素，使用继承式写法，如果是独立小模块，功能单一，建议用脚本方式实现，比如子弹脚本。
+     */
+
+    class InitUI$1 extends Laya.Scene {
+        constructor() {
+            super();
+            this.loadScene("test/loading.scene");
+            
+
+            this.boxLangth = 3;
+            this.boxedLangth = 0;
+
+            let scene = new Laya.Scene3D();
+            Laya.stage.addChild(scene);
+            this.createText();
+            this.doLoad();
+            //创建相机，构造函数的三个参数为相机横纵比，近距裁剪，远距裁剪
+            this.camera = new Laya.Camera(0, 0.1, 100);
+            this.camera.transform.translate(new Laya.Vector3(0, 0.7, 5));
+            this.camera.transform.rotate(new Laya.Vector3( -15, 0, 0), true, false);
+            
+            //相机设置清楚标记,使用固定颜色
+            this.camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SOLIDCOLOR;
+            //使用默认的颜色
+            //this.camera.clearColor = new Laya.Vector4(0, 0.2, 0.6, 1);
+            //设置摄像机视野范围（角度）
+            this.camera.fieldOfView = 45;
+            //为相机添加视角控制组件(脚本)
+            scene.addChild(this.camera);
+            
+            //添加平行光
+            let directionLight = new Laya.DirectionLight();
+            scene.addChild(directionLight);
+            //设置平行光颜色
+            directionLight.color = new Laya.Vector3(1, 1, 1);
+            directionLight.transform.rotate(new Laya.Vector3( -3.14 / 3, 0, 0));
+            
+
+
+
+            let sprited = new Laya.Sprite3D();
+            scene.addChild(sprited);
+            //正方体
+            let box1 = new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(this.boxLangth, 0.3, 0.3));
+            sprited.addChild(box1);
+            
+            box1.transform.position = new Laya.Vector3(0.0, 0.0, 2);
+           
+
+
+
+
+            let sprite = new Laya.Sprite3D();
+            scene.addChild(sprite);
+            //正方体
+            let tem = Laya.PrimitiveMesh.createBox(3, 0.31, 0.31);
+            this.box = new Laya.MeshSprite3D(tem);
+            sprite.addChild(this.box);
+             var material = new Laya.BlinnPhongMaterial();
+            Laya.Texture2D.load("res/loading.png", Laya.Handler.create(null, function(tex) {
+                    material.albedoTexture = tex;
+            }));
+            this.box.meshRenderer.material = material;
+
+            let scale = new Laya.Vector3(0, 1, 1);
+            this.box.transform.localScale = scale;
+            let scale1 = new Laya.Vector3(1, 1, 1);
+            this.box.transform.localScale = scale1;
+            this.box.transform.position = new Laya.Vector3(0.0, 0.0, 2);
+           
+        }
+        downLoadSprite3D(load){
+            return new Promise((resolve, reject)=>{
+                Laya.Sprite3D.load(load[1], Laya.Handler.create(null, (sp)=> {
+                    utl.models.set(load[0],sp);
+                    ++utl.loadIndex;
+                    this.boxedLangth = utl.loadIndex/(utl.loadingSprite3D.length + utl.loadingElse.length);
+                    this.txt.text = "正在加载"+~~(utl.loadIndex/(utl.loadingSprite3D.length + utl.loadingElse.length)*100)+'%';
+                    let scale = new Laya.Vector3(this.boxedLangth, 1, 1);
+                    this.box.transform.localScale = scale;
+                    this.box.transform.position = new Laya.Vector3(-this.boxLangth/2+this.boxedLangth*3/2, 0.0, 2);
+                    if(this.boxedLangth==1){
+                        this.removeSelf();
+                        // Laya.stage.addChild('test/TestScene.scene');
+                        Laya.Scene.open('test/TestScene.scene');
+                    }
+                    resolve();
+                }));
+            })
+        }
+        downLoad(load){
+            return new Promise((resolve, reject)=>{
+                Laya.loader.load(load[1], Laya.Handler.create(this, function(texture) {
+                    utl.models.set(load[0],texture);
+                    ++utl.loadIndex;
+                    this.boxedLangth = utl.loadIndex/(utl.loadingSprite3D.length + utl.loadingElse.length);
+                    this.txt.text = "正在加载"+~~(utl.loadIndex/(utl.loadingSprite3D.length + utl.loadingElse.length)*100)+'%';
+                    let scale = new Laya.Vector3(this.boxedLangth, 1, 1);
+                    this.box.transform.localScale = scale;
+                    this.box.transform.position = new Laya.Vector3(-this.boxLangth/2+this.boxedLangth*3/2, 0.0, 2);
+                    if(this.boxedLangth==1){
+                        this.removeSelf();
+                        // Laya.stage.addChild('test/TestScene.scene');
+                        Laya.Scene.open('test/TestScene.scene');
+                    }
+                    resolve();
+                }));
+            })
+        }
+        doLoad(){
+            utl.loadIndex = 0;
+            for(let obj of utl.loadingSprite3D){
+                this.downLoadSprite3D(obj);
+            }
+            for(let objElse of utl.loadingElse){
+                this.downLoad(objElse);
+            }
+        }
+        createText() {
+            const 
+                Text = Laya.Text;
+            
+            this.txt = new Text();
+            Laya.stage.addChild(this.txt);
+            //给文本的text属性赋值
+            this.txt.text = "正在加载0";
+            //设置宽度，高度自动匹配
+            this.txt.width = 400;
+            //自动换行
+            this.txt.wordWrap = true;
+
+            this.txt.align = "center";
+            this.txt.fontSize = 40;
+            this.txt.font = "Microsoft YaHei";
+            this.txt.color = "#1aff00";
+            this.txt.bold = true;
+            this.txt.leading = 5;
+
+            // //设置描边属性
+            // txt.stroke = 10;
+            // txt.strokeColor = "#00ffc6";
+
+            // txt.borderColor = "#00ffc6";
+
+            this.txt.x = (Laya.stage.width - this.txt.width) / 2;
+            this.txt.y = (Laya.stage.height - this.txt.textHeight) / 2 + 100;
+        }
+        
     }
 
     class newtach{
@@ -518,16 +679,19 @@
             }));
             sfe.meshRenderer.material = material;
            
-            Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh", Laya.Handler.create(null, (sp)=> {
-                let layaMonkey1 = this.newScene.addChild(sp);
+            // Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh", Laya.Handler.create(null, (sp)=> {
+            //     let layaMonkey1 = this.newScene.addChild(sp);
                 
-            }));
-            
+            // }));
+              this.newScene.addChild(utl.models.get('light'));  
           
-            Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh", Laya.Handler.create(null, (sp)=> {
-                utl.box = this.newScene.addChild(sp);
-            }));
-            
+            // Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh", Laya.Handler.create(null, (sp)=> {
+            //     utl.box = this.newScene.addChild(sp);
+            // }));
+            utl.box = utl.models.get('pler');
+            this.newScene.addChild(utl.box);
+
+
             utl.box4 = this.newScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, .5,.8)));
             var material = new Laya.BlinnPhongMaterial();
             Laya.Texture2D.load("res/wood.jpg", Laya.Handler.create(null, function(tex) {
@@ -537,9 +701,26 @@
             
            
             this.createBall();
-            // let obj = this.getChildByName('eee')
-            // obj.visible = false
-            // console.log(obj)
+
+            // Laya.loader.load('https://xuxin.love/img/fly/controll.png', Laya.Handler.create(this, function() {
+            //     let monkey2 = Laya.loader.getRes('https://xuxin.love/img/fly/controll.png');
+            //     let ape2 = new Laya.Sprite();
+            //     Laya.stage.addChild(ape2);
+            //     ape2.graphics.drawTexture(monkey2, 100, 100);
+            //     ape2.width = 400
+            //     ape2.height = 400
+            //     ape2.x = 250;
+            //     ape2.y = Laya.stage.height - 500;
+            // }));
+
+            let fudf = utl.models.get('cotrll');
+            let ape2 = new Laya.Sprite();
+            Laya.stage.addChild(ape2);
+            ape2.graphics.drawTexture(fudf, 100, 100);
+            ape2.width = 400;
+            ape2.height = 400;
+            ape2.x = 250;
+            ape2.y = Laya.stage.height - 500;
            
               
         }
@@ -808,6 +989,100 @@
         constructor(){
                 super();
                 this.scaleTime = 100;
+                this.width = 100;
+                this.height = 600;
+                this.x = Laya.stage.width - 150;
+                this.y = Laya.stage.height - 650;
+                this.moveX = 0;
+                this.moveY = 0;
+                this.tx=Laya.stage.width - 350;
+                this.twidth = 200;
+                this.theight = 600;
+                this.ty = Laya.stage.height - 350;
+                this.flag = false;
+                console.log(this.maind);
+                
+                //设置组件的中心点
+                this.anchorX = this.anchorY = 0.5;
+                //添加鼠标按下事件侦听。按时时缩小按钮。
+                // this.on(Laya.Event.MOUSE_DOWN,this,this.scaleSmall);
+                // //添加鼠标抬起事件侦听。抬起时还原按钮。
+                // this.on(Laya.Event.MOUSE_UP,this, this.scaleBig);
+                // //添加鼠标离开事件侦听。离开时还原按钮。
+                // this.on(Laya.Event.MOUSE_OUT,this, this.outEvent);
+                // this.on(Laya.Event.MOUSE_MOVE,this, this.leftFormatMovePosition);
+            }
+           scaleBig(e)
+            {        
+                utl.takeSpeed.z = 0;
+                console.log('MOUSE_UP');
+                utl.tachRightFlag = false;
+                // Laya.Tween.to(this,{scaleX:1,scaleY:1},this.scaleTime);
+            }
+            outEvent(){
+              utl.tachRightFlag = false;
+            }
+          
+            scaleSmall(e)
+            {    
+              
+              if(this.tx<e.stageX&&
+                e.stageX<this.tx+this.twidth&&
+                this.ty<e.stageY&&
+                e.stageY<this.ty+this.theight
+                ){
+                utl.tachRightFlag = true;
+              }else{
+                utl.tachRightFlag = false;
+              }
+              console.log('MOUSE_DOWN');
+                //缩小至0.8的缓动效果
+                // Laya.Tween.to(this,{scaleX:0.8,scaleY:0.8},this.scaleTime);
+            }
+            getRoteImg(pobj) {
+              let rotate = 0;
+              if (pobj.x1 == pobj.x2){
+                rotate=0;
+              }
+              if (pobj.x1 > pobj.x2) {
+                let atanrotate = (pobj.y1 - pobj.y2) / (pobj.x1 - pobj.x2);
+                rotate = ~~(Math.atan(atanrotate) / Math.PI * 180) + 90;
+              } else if (pobj.x1 < pobj.x2) {
+                let atanrotate = (pobj.y1 - pobj.y2) / (pobj.x1 - pobj.x2);
+                rotate = ~~(Math.atan(atanrotate) / Math.PI * 180) + 270;
+              }
+              return rotate
+            }
+            leftFormatMovePosition(e) {
+              // console.log(33333)
+              // if(!utl.tachRightFlag){
+              //   return
+              // }
+              // // utl.ani.play("hello");
+              // let pobj = {}
+              // pobj.x1 = e.stageX //点击
+              // pobj.x2 =this.tx + this.twidth/2
+              // pobj.y1 = e.stageY
+              // pobj.y2 = this.ty + this.theight/2
+            
+              // if((e.stageY - this.ty - this.theight/2) / (this.theight/2) >1){
+              //    utl.takeSpeed.z = 1
+              // }else{
+              //   utl.takeSpeed.z = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
+              // }
+              // if((e.stageY - this.ty - this.theight/2) / (this.theight/2) <-1){
+              //    utl.takeSpeed.z = -1
+              // }else{
+              //   utl.takeSpeed.z = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
+              // }
+            }
+
+    }
+
+    class ImageRunTime$3 extends Laya.Sprite{
+        constructor(){
+                super();
+                this.scaleTime = 100;
                 this.width = 400;
                 this.height = 400;
                 this.x = 250;
@@ -919,100 +1194,6 @@
             }
     }
 
-    class ImageRunTime$3 extends Laya.Sprite{
-        constructor(){
-                super();
-                this.scaleTime = 100;
-                this.width = 100;
-                this.height = 600;
-                this.x = Laya.stage.width - 150;
-                this.y = Laya.stage.height - 650;
-                this.moveX = 0;
-                this.moveY = 0;
-                this.tx=Laya.stage.width - 350;
-                this.twidth = 200;
-                this.theight = 600;
-                this.ty = Laya.stage.height - 350;
-                this.flag = false;
-                console.log(this.maind);
-                
-                //设置组件的中心点
-                this.anchorX = this.anchorY = 0.5;
-                //添加鼠标按下事件侦听。按时时缩小按钮。
-                // this.on(Laya.Event.MOUSE_DOWN,this,this.scaleSmall);
-                // //添加鼠标抬起事件侦听。抬起时还原按钮。
-                // this.on(Laya.Event.MOUSE_UP,this, this.scaleBig);
-                // //添加鼠标离开事件侦听。离开时还原按钮。
-                // this.on(Laya.Event.MOUSE_OUT,this, this.outEvent);
-                // this.on(Laya.Event.MOUSE_MOVE,this, this.leftFormatMovePosition);
-            }
-           scaleBig(e)
-            {        
-                utl.takeSpeed.z = 0;
-                console.log('MOUSE_UP');
-                utl.tachRightFlag = false;
-                // Laya.Tween.to(this,{scaleX:1,scaleY:1},this.scaleTime);
-            }
-            outEvent(){
-              utl.tachRightFlag = false;
-            }
-          
-            scaleSmall(e)
-            {    
-              
-              if(this.tx<e.stageX&&
-                e.stageX<this.tx+this.twidth&&
-                this.ty<e.stageY&&
-                e.stageY<this.ty+this.theight
-                ){
-                utl.tachRightFlag = true;
-              }else{
-                utl.tachRightFlag = false;
-              }
-              console.log('MOUSE_DOWN');
-                //缩小至0.8的缓动效果
-                // Laya.Tween.to(this,{scaleX:0.8,scaleY:0.8},this.scaleTime);
-            }
-            getRoteImg(pobj) {
-              let rotate = 0;
-              if (pobj.x1 == pobj.x2){
-                rotate=0;
-              }
-              if (pobj.x1 > pobj.x2) {
-                let atanrotate = (pobj.y1 - pobj.y2) / (pobj.x1 - pobj.x2);
-                rotate = ~~(Math.atan(atanrotate) / Math.PI * 180) + 90;
-              } else if (pobj.x1 < pobj.x2) {
-                let atanrotate = (pobj.y1 - pobj.y2) / (pobj.x1 - pobj.x2);
-                rotate = ~~(Math.atan(atanrotate) / Math.PI * 180) + 270;
-              }
-              return rotate
-            }
-            leftFormatMovePosition(e) {
-              // console.log(33333)
-              // if(!utl.tachRightFlag){
-              //   return
-              // }
-              // // utl.ani.play("hello");
-              // let pobj = {}
-              // pobj.x1 = e.stageX //点击
-              // pobj.x2 =this.tx + this.twidth/2
-              // pobj.y1 = e.stageY
-              // pobj.y2 = this.ty + this.theight/2
-            
-              // if((e.stageY - this.ty - this.theight/2) / (this.theight/2) >1){
-              //    utl.takeSpeed.z = 1
-              // }else{
-              //   utl.takeSpeed.z = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
-              // }
-              // if((e.stageY - this.ty - this.theight/2) / (this.theight/2) <-1){
-              //    utl.takeSpeed.z = -1
-              // }else{
-              //   utl.takeSpeed.z = (e.stageY - this.ty - this.theight/2) / (this.theight/2) 
-              // }
-            }
-
-    }
-
     /**This class is automatically generated by LayaAirIDE, please do not make any modifications. */
 
     class GameConfig {
@@ -1022,9 +1203,10 @@
     		reg("script/InitUI.js",InitUI);
     		reg("script/init/loaded.js",ImageRunTime);
     		reg("script/init/bg.js",ImageRunTime$1);
+    		reg("script/Ioading.js",InitUI$1);
     		reg("script/GameUI.js",GameUI);
-    		reg("script/hander/LeftHand.js",ImageRunTime$2);
-    		reg("script/hander/RightHand.js",ImageRunTime$3);
+    		reg("script/hander/RightHand.js",ImageRunTime$2);
+    		reg("script/hander/LeftHand.js",ImageRunTime$3);
         }
     }
     GameConfig.width = 640;
@@ -1033,7 +1215,7 @@
     GameConfig.screenMode = "none";
     GameConfig.alignV = "top";
     GameConfig.alignH = "left";
-    GameConfig.startScene = "test/TestScene.scene";
+    GameConfig.startScene = "test/loading.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;

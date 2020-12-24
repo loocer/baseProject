@@ -2,9 +2,10 @@
 import InitUI from "./script/InitUI"
 import loaded from "./script/init/loaded"
 import bg from "./script/init/bg"
+import Ioading from "./script/Ioading"
 import GameUI from "./script/GameUI"
-import LeftHand from "./script/hander/LeftHand"
 import RightHand from "./script/hander/RightHand"
+import LeftHand from "./script/hander/LeftHand"
 
 export default class GameConfig {
     static init() {
@@ -13,9 +14,10 @@ export default class GameConfig {
 		reg("script/InitUI.js",InitUI);
 		reg("script/init/loaded.js",loaded);
 		reg("script/init/bg.js",bg);
+		reg("script/Ioading.js",Ioading);
 		reg("script/GameUI.js",GameUI);
-		reg("script/hander/LeftHand.js",LeftHand);
 		reg("script/hander/RightHand.js",RightHand);
+		reg("script/hander/LeftHand.js",LeftHand);
     }
 }
 GameConfig.width = 640;
@@ -24,7 +26,7 @@ GameConfig.scaleMode ="full";
 GameConfig.screenMode = "none";
 GameConfig.alignV = "top";
 GameConfig.alignH = "left";
-GameConfig.startScene = "test/TestScene.scene";
+GameConfig.startScene = "test/loading.scene";
 GameConfig.sceneRoot = "";
 GameConfig.debug = false;
 GameConfig.stat = false;

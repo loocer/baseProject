@@ -2,7 +2,7 @@
     "x":0,
     "type":"Scene",
     "selectedBox":1,
-    "selecteID":21,
+    "selecteID":28,
     "searchKey":"Scene",
     "referenceLines":null,
     "props":{"width":2000,"sceneColor":"#000000","runtime":"script/GameUI.js","positionVariance_0":100,"maxPartices":100,"height":3600},
@@ -19,7 +19,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,eee,r",
-            "props":{"visible":true,"var":"r","texture":"comp/teacj.png","runtime":"script/hander/LeftHand.js","name":"eee"},
+            "props":{"y":44,"x":400,"visible":true,"var":"r","texture":"comp/teacj.png","runtime":"script/hander/RightHand.js","name":"eee"},
             "nodeParent":1,
             "label":"eee",
             "isOpen":true,
@@ -28,13 +28,15 @@
             "hasChild":false,
             "compId":22,
             "child":[
-                ]
+                ],
+            "$LOCKED":false,
+            "$HIDDEN":true
         },
         {
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,rew,rewr",
-            "props":{"visible":true,"var":"rewr","texture":"comp/teacj.png","runtime":"script/hander/RightHand.js","name":"rew"},
+            "props":{"y":111,"x":22,"visible":true,"var":"rewr","texture":"comp/teacj.png","runtime":"script/hander/LeftHand.js","name":"rew"},
             "nodeParent":1,
             "label":"rew",
             "isDirectory":false,
@@ -42,49 +44,9 @@
             "hasChild":false,
             "compId":21,
             "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite",
-            "props":{},
-            "nodeParent":1,
-            "label":"Sprite",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":27,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite",
-            "props":{},
-            "nodeParent":1,
-            "label":"Sprite",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":28,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Text",
-            "searchKey":"Text",
-            "props":{"y":211,"x":666,"width":430,"text":"text","height":33,"fontSize":33,"font":"Arial","color":"#db3d3a"},
-            "nodeParent":1,
-            "label":"Text",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":29,
-            "child":[
-                ]
+                ],
+            "$LOCKED":false,
+            "$HIDDEN":true
         }],
     "animations":[
         {
@@ -94,5 +56,6 @@
             "id":1,
             "frameRate":24,
             "action":0
-        }]
+        }],
+    "$HIDDEN":true
 }

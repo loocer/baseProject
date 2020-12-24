@@ -10,7 +10,7 @@
     "compressJsonNoteList": [
         ""
     ],
-    "compressImage": false,
+    "compressImage": true,
     "compressImageFilter": [
         "$basePath/**/*.{png,jpg}"
     ],
@@ -63,14 +63,14 @@
         ""
     ],
     "clearReleaseDir": true,
-    "compile": false,
+    "compile": true,
     "forceCompile": false,
     "onlyIndexJS": true,
-    "useMinJsLibs": false,
+    "useMinJsLibs": true,
     "es6toes5": false,
     "projectType": "js",
-    "pubTime": 1608624855153,
-    "uesEnginePlugin": true,
+    "pubTime": 1608803479533,
+    "uesEnginePlugin": false,
     "wxOptimize": {
         "useOptimizeOpen": false,
         "preloadRes": false,

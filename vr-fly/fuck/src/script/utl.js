@@ -3,7 +3,7 @@ export default  {
 	tachRightFlag:false,//左边点击
 	box:null,
     userId:Date.parse(new  Date())+'',
-    players:new Map(),
+    models:new Map(),
     box4:null,
     speedMove:.4,
     speed:{
@@ -19,5 +19,13 @@ export default  {
     	y:0
     },
     entity:new Map(),
-    operationYype:1//1:虚拟手柄 2:屏幕方向
+    operationYype:1,//1:虚拟手柄 2:屏幕方向
+    loadIndex:0,
+    loadingElse:[
+        ['cotrll','https://xuxin.love/img/fly/controll.png']
+    ],
+    loadingSprite3D:[
+        ['light','https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh'],
+        ['pler','https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh'],
+    ]
 }
