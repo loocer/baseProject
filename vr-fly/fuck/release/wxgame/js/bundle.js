@@ -8,7 +8,7 @@
         userId:Date.parse(new  Date())+'',
         models:new Map(),
         box4:null,
-        speedMove:.4,
+        speedMove:.1,
         speed:{
         	z:0,
         	x:0,
@@ -30,7 +30,16 @@
         loadingSprite3D:[
             ['light','https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh'],
             ['pler','https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh'],
-        ]
+        ],
+        getAngle:(x, y)=> {
+            var l = Math.sqrt(x*x + y*y);
+            var a = Math.acos(x/l);
+            var ret = a * 180 / Math.PI; //弧度转角度，方便调试
+            if (y < 0) {
+                return 360 - ret;
+            }
+            return ret;
+        }
     };
 
     /**
@@ -160,7 +169,6 @@
                     this.box.transform.position = new Laya.Vector3(-this.boxLangth/2+this.boxedLangth*3/2, 0.0, 2);
                     if(this.boxedLangth==1){
                         this.removeSelf();
-                        // Laya.stage.addChild('test/TestScene.scene');
                         Laya.Scene.open('test/TestScene.scene');
                     }
                     resolve();
@@ -179,7 +187,6 @@
                     this.box.transform.position = new Laya.Vector3(-this.boxLangth/2+this.boxedLangth*3/2, 0.0, 2);
                     if(this.boxedLangth==1){
                         this.removeSelf();
-                        // Laya.stage.addChild('test/TestScene.scene');
                         Laya.Scene.open('test/TestScene.scene');
                     }
                     resolve();
@@ -683,7 +690,7 @@
             //     let layaMonkey1 = this.newScene.addChild(sp);
                 
             // }));
-              this.newScene.addChild(utl.models.get('light'));  
+            this.newScene.addChild(utl.models.get('light'));  
           
             // Laya.Sprite3D.load("https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh", Laya.Handler.create(null, (sp)=> {
             //     utl.box = this.newScene.addChild(sp);
@@ -692,12 +699,12 @@
             this.newScene.addChild(utl.box);
 
 
-            utl.box4 = this.newScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, .5,.8)));
-            var material = new Laya.BlinnPhongMaterial();
-            Laya.Texture2D.load("res/wood.jpg", Laya.Handler.create(null, function(tex) {
-                    material.albedoTexture = tex;
-            }));
-            utl.box4.meshRenderer.material = material;
+            // utl.box4 = this.newScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, .5,.8)));
+            // var material = new Laya.BlinnPhongMaterial();
+            // Laya.Texture2D.load("res/wood.jpg", Laya.Handler.create(null, function(tex) {
+            //         material.albedoTexture = tex;
+            // }));
+            // utl.box4.meshRenderer.material = material;
             
            
             this.createBall();
@@ -868,6 +875,8 @@
                 shipcar.transform.rotate(new Laya.Vector3(-y* Math.PI / 180,0,0),true);
 
 
+
+                ship.transform.translate(new Laya.Vector3(0,0,utl.speedMove*3),true);
                 // shipcar.transform.rotation =  (new Laya.Vector3(-90,90,0),true)
                 // shipcar.transform.rotate(new Laya.Vector3(-ry* Math.PI / 180,0,0),true);
 
@@ -894,7 +903,7 @@
                 // ship.transform.rotation =  new Laya.Vector3(-x* Math.PI / 180,temp.rotation.y,temp.rotation.z)
                 // utl.box.transform.rotate(new Laya.Vector3(0,0,y* Math.PI / 180),false);
                 // utl.box.transform.rotate(new Laya.Vector3(y* Math.PI / 180,0,0),true);
-                ship.transform.translate(new Laya.Vector3(0,0,utl.speedMove*3),true);
+                
                 // camera.transform.translate(new Laya.Vector3(0,-ty,tz))
                 this.temprx = x;
                 this.tempry = y;

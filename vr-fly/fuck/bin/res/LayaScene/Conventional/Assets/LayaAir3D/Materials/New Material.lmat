@@ -1,0 +1,34 @@
+{
+	"version":"LAYAMATERIAL:02",
+	"props":{
+		"type":"Laya.ShurikenParticle",
+		"name":"New Material",
+		"textures":[],
+		"vectors":[
+			{
+				"name":"_TintColor",
+				"value":[
+					0.1239186,
+					0.9529412,
+					0,
+					1
+				]
+			}
+		],
+		"defines":[
+			"EnableLighting",
+			"_ALPHABLEND_OFF",
+			"_ALPHABLEND_ON",
+			"_ALPHATEST_OFF",
+			"_EMISSION",
+			"_ISVERTEXCOLOR_OFF"
+		],
+		"cull":2,
+		"blendSrc":770,
+		"blendDst":771,
+		"blend":1,
+		"depthWrite":false,
+		"depthTest":515,
+		"renderQueue":3000
+	}
+}

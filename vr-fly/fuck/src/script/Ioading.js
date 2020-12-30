@@ -85,7 +85,6 @@ export default class InitUI extends Laya.Scene {
                 this.box.transform.position = new Laya.Vector3(-this.boxLangth/2+this.boxedLangth*3/2, 0.0, 2);
                 if(this.boxedLangth==1){
                     this.removeSelf();
-                    // Laya.stage.addChild('test/TestScene.scene');
                     Laya.Scene.open('test/TestScene.scene')
                 }
                 resolve();
@@ -104,7 +103,6 @@ export default class InitUI extends Laya.Scene {
                 this.box.transform.position = new Laya.Vector3(-this.boxLangth/2+this.boxedLangth*3/2, 0.0, 2);
                 if(this.boxedLangth==1){
                     this.removeSelf();
-                    // Laya.stage.addChild('test/TestScene.scene');
                     Laya.Scene.open('test/TestScene.scene')
                 }
                 resolve();

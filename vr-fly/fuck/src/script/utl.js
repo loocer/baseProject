@@ -5,12 +5,14 @@ export default  {
     userId:Date.parse(new  Date())+'',
     models:new Map(),
     box4:null,
-    speedMove:.4,
+    speedMove:0,
     speed:{
     	z:0,
     	x:0,
     	y:0
     },
+    c1:null,
+    c2:null,
     walkingDirection:1,//1：up,2:down,3:left,4:right
     netPlayers:null,
     takeSpeed:{
@@ -27,5 +29,14 @@ export default  {
     loadingSprite3D:[
         ['light','https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh'],
         ['pler','https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh'],
-    ]
+    ],
+    getAngle:(x, y)=> {
+        var l = Math.sqrt(x*x + y*y);
+        var a = Math.acos(x/l);
+        var ret = a * 180 / Math.PI; //弧度转角度，方便调试
+        if (y < 0) {
+            return 360 - ret;
+        }
+        return ret;
+    }
 }
