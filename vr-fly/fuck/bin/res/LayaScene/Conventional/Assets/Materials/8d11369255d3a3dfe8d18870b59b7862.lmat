@@ -2,7 +2,7 @@
 	"version":"LAYAMATERIAL:02",
 	"props":{
 		"type":"Laya.BlinnPhongMaterial",
-		"name":"3d66Model-812550-files-2",
+		"name":"8d11369255d3a3dfe8d18870b59b7862",
 		"renderStates":[
 			{
 				"cull":2,
@@ -22,20 +22,7 @@
 		"shininess":0.078125,
 		"textures":[
 			{
-				"name":"albedoTexture",
-				"path":"../3d66Model-812550-files-2.png",
-				"constructParams":[
-					2048,
-					2048,
-					1,
-					true
-				],
-				"propertyParams":{
-					"filterMode":1,
-					"wrapModeU":0,
-					"wrapModeV":0,
-					"anisoLevel":1
-				}
+				"name":"albedoTexture"
 			}
 		],
 		"vectors":[

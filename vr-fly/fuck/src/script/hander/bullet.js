@@ -6,7 +6,7 @@ export default class Bullet extends Laya.Script3D {
 		this.box = null;
 		this.time = 0
 		this.speed = new Laya.Vector3();
-		Laya.timer.loop(30,this,this.onUpdate);
+		Laya.timer.loop(10,this,this.onUpdate);
 	}
 	onAwake() {
 		this.box = this.owner;
@@ -16,7 +16,7 @@ export default class Bullet extends Laya.Script3D {
 			
 			Laya.Vector3.normalize(bV3,this.speed);
 			// let scale =  (utl.speedMove + 1) / 1
-			Laya.Vector3.scale(this.speed, (utl.speedMove + 1), this.speed);
+			Laya.Vector3.scale(this.speed, (utl.speedMove + .01), this.speed);
 		}
         
 	}
@@ -26,12 +26,11 @@ export default class Bullet extends Laya.Script3D {
 		// let vy = utl.box.transform.position.y - this.box.transform.position.y 
 		// let vz = utl.box.transform.position.z - this.box.transform.position.z
 		// let ry = utl.getAngle(vx,vz)
-		// console.log(ry)
 		// this.box.transform.rotate(new Laya.Vector3(0,-this.tempy* Math.PI / 180,0), true);
 		// this.box.transform.rotate(new Laya.Vector3(0,ry* Math.PI / 180,0), true);
 		// this.tempy = ry
 		 this.box.transform.translate(this.speed,false)
-		 if(this.time==1000 ){
+		 if(this.time==500 ){
 		 	this.box.removeSelf();
 		 }
 	}
@@ -39,17 +38,16 @@ export default class Bullet extends Laya.Script3D {
 
 	onTriggerEnter()
 	{
-	    utl.entity.get('obx').removeSelf();
-	    temp.creab()
-		console.log("onTriggerEnter");
+	    this.box.removeSelf();
+		console.log("bu--onTriggerEnter");
 	}
 	onTriggerStay()
 	{
-		console.log("onTriggerStay");
+		console.log("bu--onTriggerStay");
 	}
 	onTriggerExit()
 	{
-		console.log("onTriggerExit");
+		console.log("bu--onTriggerExit");
 	}
 	onEnable() {
 	} 

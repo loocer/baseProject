@@ -32,12 +32,12 @@ export default class InitUI extends Laya.Scene {
         //为相机添加视角控制组件(脚本)
         scene.addChild(this.camera);
         
-        //添加平行光
-        let directionLight = new Laya.DirectionLight();
-        scene.addChild(directionLight);
-        //设置平行光颜色
-        directionLight.color = new Laya.Vector3(1, 1, 1);
-        directionLight.transform.rotate(new Laya.Vector3( -3.14 / 3, 0, 0));
+        // //添加平行光
+        // let directionLight = new Laya.DirectionLight();
+        // scene.addChild(directionLight);
+        // //设置平行光颜色
+        // directionLight.color = new Laya.Vector3(1, 1, 1);
+        // directionLight.transform.rotate(new Laya.Vector3( -3.14 / 3, 0, 0));
         
 
 

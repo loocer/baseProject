@@ -14,10 +14,10 @@
 				0
 			],
 			"rotation":[
+				-0.1209712,
 				0,
 				0,
-				0,
-				-1
+				-0.9926561
 			],
 			"scale":[
 				1,
@@ -64,7 +64,7 @@
 							"layer":0,
 							"position":[
 								0.02,
-								0,
+								0.01,
 								0
 							],
 							"rotation":[
@@ -84,7 +84,6 @@
 							"castShadow":true,
 							"materials":[
 								{
-									"type":"Laya.BlinnPhongMaterial",
 									"path":"Assets/LayaAir3D/Materials/3d66Model-812550-files-2.lmat"
 								}
 							]
@@ -95,14 +94,14 @@
 								"type":"MeshSprite3D",
 								"instanceID":4,
 								"props":{
-									"name":"c1",
+									"name":"c2",
 									"active":true,
 									"isStatic":false,
 									"layer":0,
 									"position":[
-										6.4,
-										-0.2,
-										-44.2
+										59.9,
+										0.1,
+										-4.3
 									],
 									"rotation":[
 										0,
@@ -156,25 +155,25 @@
 								"type":"MeshSprite3D",
 								"instanceID":5,
 								"props":{
-									"name":"c2",
+									"name":"c1",
 									"active":true,
 									"isStatic":false,
 									"layer":0,
 									"position":[
-										59.9,
+										-11.1,
 										0.1,
-										-44.6
+										-4.3
 									],
 									"rotation":[
 										0,
-										0,
+										5.960464E-08,
 										0,
 										-1
 									],
 									"scale":[
-										10,
-										10,
-										10
+										10.00123,
+										10.00122,
+										10.00123
 									],
 									"meshPath":"Library/unity default resources-Cube.lm",
 									"enableRender":true,
@@ -225,8 +224,8 @@
 							"layer":0,
 							"position":[
 								0,
-								0.528,
-								-1.827
+								0.78,
+								-3.35
 							],
 							"rotation":[
 								0,

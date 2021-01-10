@@ -27,8 +27,14 @@ export default  {
         ['cotrll','https://xuxin.love/img/fly/controll.png']
     ],
     loadingSprite3D:[
-        ['light','https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh'],
-        ['pler','https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh'],
+        // ['light','https://xuxin.love/img/fly/LayaScene/Conventional/Directional Light.lh'],
+        // ['pler','https://xuxin.love/img/fly/LayaScene/Conventional/pler.lh'],
+        // ['cube','https://xuxin.love/img/fly/LayaScene/Conventional/Sphere.lh'],
+        // ['aum','https://xuxin.love/img/fly/LayaScene/Conventional/aum.lh'],
+        ['light','res/LayaScene/Conventional/Directional Light.lh'],
+        ['pler','res/LayaScene/Conventional/pler.lh'],
+        ['cube','res/LayaScene/Conventional/Sphere.lh'],
+        ['aum','res/LayaScene/Conventional/aum.lh'],
     ],
     getAngle:(x, y)=> {
         var l = Math.sqrt(x*x + y*y);

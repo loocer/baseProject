@@ -2,27 +2,27 @@
 	"version":"LAYAHIERARCHY:02",
 	"data":{
 		"type":"MeshSprite3D",
-		"instanceID":8,
+		"instanceID":17,
 		"props":{
 			"name":"Sphere",
 			"active":true,
 			"isStatic":false,
 			"layer":0,
 			"position":[
-				-0.4239,
-				0.0332,
-				0
+				0,
+				0.828,
+				0.954
 			],
 			"rotation":[
+				0.01635137,
 				0,
 				0,
-				0,
-				-1
+				-0.9998663
 			],
 			"scale":[
-				0.05,
-				0.05,
-				0.05
+				1,
+				1,
+				1
 			],
 			"meshPath":"Library/unity default resources-Sphere.lm",
 			"enableRender":true,
@@ -30,7 +30,7 @@
 			"castShadow":true,
 			"materials":[
 				{
-					"path":"Assets/LayaAir3D/Materials/New Material.lmat"
+					"path":"Assets/New Material 2.lmat"
 				}
 			]
 		},
@@ -56,11 +56,11 @@
 		],
 		"child":[
 			{
-				"type":"PointLight",
-				"instanceID":9,
+				"type":"MeshSprite3D",
+				"instanceID":18,
 				"props":{
-					"name":"Point Light",
-					"active":false,
+					"name":"1",
+					"active":true,
 					"isStatic":false,
 					"layer":0,
 					"position":[
@@ -69,33 +69,34 @@
 						0
 					],
 					"rotation":[
-						0,
+						-8.146034E-08,
 						0,
 						0,
 						-1
 					],
 					"scale":[
-						1,
-						1,
-						1
+						0.01,
+						0.01,
+						0.01
 					],
-					"intensity":1,
-					"lightmapBakedType":0,
-					"range":0.4,
-					"color":[
-						0.1239186,
-						0.9529412,
-						0
+					"meshPath":"Assets/torus-Torus002.lm",
+					"enableRender":true,
+					"receiveShadows":true,
+					"castShadow":true,
+					"materials":[
+						{
+							"path":"Assets/New Material 3.lmat"
+						}
 					]
 				},
 				"components":[],
 				"child":[]
 			},
 			{
-				"type":"ShuriKenParticle3D",
-				"instanceID":10,
+				"type":"MeshSprite3D",
+				"instanceID":19,
 				"props":{
-					"name":"Particle System",
+					"name":"2",
 					"active":true,
 					"isStatic":false,
 					"layer":0,
@@ -106,197 +107,24 @@
 					],
 					"rotation":[
 						0,
+						0.7071068,
 						0,
-						0,
-						-1
+						-0.7071068
 					],
 					"scale":[
-						1,
-						1,
-						1
+						0.01,
+						0.01,
+						0.01
 					],
-					"main":{
-						"randomSeed":3.787251E+09,
-						"bases":{
-							"isPerformanceMode":true,
-							"duration":1,
-							"startDelay":1,
-							"startDelayMax":1,
-							"startLifetimeConstant":1,
-							"startLifetimeConstantMax":1,
-							"startSpeedConstant":0.1,
-							"startSpeedConstantMax":0.1,
-							"startSizeConstant":0.1,
-							"startSizeConstantMax":0.1,
-							"gravityModifier":0.03,
-							"simulationSpace":0,
-							"maxParticles":1000
-						},
-						"vector3s":{
-							"startSizeConstantSeparate":[
-								0.1,
-								1,
-								1
-							],
-							"startSizeConstantMaxSeparate":[
-								0.1,
-								1,
-								1
-							]
+					"meshPath":"Assets/torus-Torus002.lm",
+					"enableRender":true,
+					"receiveShadows":true,
+					"castShadow":true,
+					"materials":[
+						{
+							"path":"Assets/New Material.lmat"
 						}
-					},
-					"emission":{
-						"bases":{
-							"enable":true,
-							"emissionRate":500
-						}
-					},
-					"shape":{
-						"shapeType":2,
-						"bases":{
-							"enable":true,
-							"radius":0.01,
-							"angle":0.01745329,
-							"emitType":0
-						}
-					},
-					"colorOverLifetime":{
-						"bases":{
-							"enable":true
-						},
-						"color":{
-							"type":1,
-							"gradient":{
-								"alphas":[
-									{
-										"key":0,
-										"value":1
-									},
-									{
-										"key":0.2524453,
-										"value":1
-									},
-									{
-										"key":1,
-										"value":1
-									}
-								],
-								"rgbs":[
-									{
-										"key":0,
-										"value":[
-											0.8867924,
-											0.8811166,
-											0.5145069
-										]
-									},
-									{
-										"key":1,
-										"value":[
-											1,
-											1,
-											1
-										]
-									}
-								]
-							},
-							"gradientMax":{
-								"alphas":[
-									{
-										"key":0,
-										"value":1
-									},
-									{
-										"key":0.2524453,
-										"value":1
-									},
-									{
-										"key":1,
-										"value":1
-									}
-								],
-								"rgbs":[
-									{
-										"key":0,
-										"value":[
-											0.8867924,
-											0.8811166,
-											0.5145069
-										]
-									},
-									{
-										"key":1,
-										"value":[
-											1,
-											1,
-											1
-										]
-									}
-								]
-							}
-						}
-					},
-					"sizeOverLifetime":{
-						"bases":{
-							"enable":true
-						},
-						"size":{
-							"type":0,
-							"gradient":{
-								"sizes":[
-									{
-										"key":0,
-										"value":0.2567596
-									},
-									{
-										"key":1,
-										"value":0
-									}
-								]
-							},
-							"gradientX":{
-								"sizes":[
-									{
-										"key":0,
-										"value":0.2567596
-									},
-									{
-										"key":1,
-										"value":0
-									}
-								]
-							},
-							"gradientMax":{
-								"sizes":[
-									{
-										"key":0,
-										"value":0.2567596
-									},
-									{
-										"key":1,
-										"value":0
-									}
-								]
-							},
-							"gradientXMax":{
-								"sizes":[
-									{
-										"key":0,
-										"value":0.2567596
-									},
-									{
-										"key":1,
-										"value":0
-									}
-								]
-							}
-						}
-					},
-					"renderer":{
-						"resources":{
-							"material":"Resources/unity_builtin_extra.lmat"
-						}
-					}
+					]
 				},
 				"components":[],
 				"child":[]

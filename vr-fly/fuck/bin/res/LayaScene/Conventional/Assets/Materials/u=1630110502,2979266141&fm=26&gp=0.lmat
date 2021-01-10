@@ -2,7 +2,7 @@
 	"version":"LAYAMATERIAL:02",
 	"props":{
 		"type":"Laya.BlinnPhongMaterial",
-		"name":"3d66Model-812550-files-2",
+		"name":"u=1630110502,2979266141&fm=26&gp=0",
 		"renderStates":[
 			{
 				"cull":2,
@@ -23,11 +23,11 @@
 		"textures":[
 			{
 				"name":"albedoTexture",
-				"path":"../3d66Model-812550-files-2.png",
+				"path":"../u=1630110502,2979266141&fm=26&gp=0.jpg",
 				"constructParams":[
-					2048,
-					2048,
-					1,
+					512,
+					256,
+					0,
 					true
 				],
 				"propertyParams":{

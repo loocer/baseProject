@@ -27,10 +27,7 @@ export default class newTwo{
       
        scaleSmall(x,y)
         {    
-          if(this.tx<x&&
-            x<this.tx+this.twidth&&
-            this.ty<y&&
-            y<this.ty+this.theight
+          if(x<this.width
             ){
             return true
           }else{
